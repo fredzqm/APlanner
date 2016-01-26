@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "APlanner"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-APlanner-621bb354-e91a-4d4c-a95c-37936b9c475b;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}
