@@ -25,6 +25,14 @@ using AScore.Services;
 
 namespace AScore
 {
+
+
+    public class MyOptions
+    {
+        public string color { get; set; }
+        public string welcomestring { get; set; }
+    }
+
     public class Startup
     {
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
@@ -75,6 +83,8 @@ namespace AScore
                 options.ClientId = Configuration["Authentication:MicrosoftAccount:ClientId"];
                 options.ClientSecret = Configuration["Authentication:MicrosoftAccount:ClientSecret"];
             });
+
+            services.Configure<MyOptions>(Configuration);
 
             // Add MVC services to the services container.
             services.AddMvc();
