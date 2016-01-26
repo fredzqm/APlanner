@@ -9,7 +9,7 @@ using APlanner.Models;
 
 namespace APlanner.Migrations
 {
-    [ContextType(typeof(ApplicationDbContext))]
+    [ContextType(typeof(APlannerDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         public override void BuildModel(ModelBuilder builder)
@@ -114,7 +114,7 @@ namespace APlanner.Migrations
                     b.Annotation("Relational:TableName", "AspNetUserRoles");
                 });
 
-            builder.Entity("APlanner.Models.ApplicationUser", b =>
+            builder.Entity("APlanner.Models.APlannerUser", b =>
                 {
                     b.Property<string>("Id")
                         .GenerateValueOnAdd()
@@ -177,14 +177,14 @@ namespace APlanner.Migrations
 
             builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<string>", b =>
                 {
-                    b.Reference("APlanner.Models.ApplicationUser")
+                    b.Reference("APlanner.Models.APlannerUser")
                         .InverseCollection()
                         .ForeignKey("UserId");
                 });
 
             builder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<string>", b =>
                 {
-                    b.Reference("APlanner.Models.ApplicationUser")
+                    b.Reference("APlanner.Models.APlannerUser")
                         .InverseCollection()
                         .ForeignKey("UserId");
                 });
@@ -195,7 +195,7 @@ namespace APlanner.Migrations
                         .InverseCollection()
                         .ForeignKey("RoleId");
 
-                    b.Reference("APlanner.Models.ApplicationUser")
+                    b.Reference("APlanner.Models.APlannerUser")
                         .InverseCollection()
                         .ForeignKey("UserId");
                 });

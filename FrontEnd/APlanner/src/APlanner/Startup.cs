@@ -22,11 +22,13 @@ using Microsoft.Framework.Logging.Console;
 using Microsoft.Framework.Runtime;
 using APlanner.Models;
 using APlanner.Services;
+using System.Data.SqlClient;
 
 namespace APlanner
 {
     public class Startup
     {
+        
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             // Setup configuration sources.
@@ -53,12 +55,13 @@ namespace APlanner
             // Add Entity Framework services to the services container.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
+                .AddDbContext<APlannerDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
+            
+            
             // Add Identity services to the services container.
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<APlannerUser, IdentityRole>()
+                .AddEntityFrameworkStores<APlannerDbContext>()
                 .AddDefaultTokenProviders();
 
             // Configure the options for the authentication middleware.

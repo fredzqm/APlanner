@@ -10,6 +10,7 @@ namespace APlanner.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
 

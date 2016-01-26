@@ -10,13 +10,19 @@ using Microsoft.Framework.OptionsModel;
 
 namespace APlanner.Models
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
+    // Add profile data for application users by adding properties to the APlannerUser class
+    public class APlannerUser : IdentityUser
     {
+
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class APlannerDbContext : IdentityDbContext<APlannerUser>
     {
+
+        public DbSet<People> people { get; set; }
+        public DbSet<SPlan> plans { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
