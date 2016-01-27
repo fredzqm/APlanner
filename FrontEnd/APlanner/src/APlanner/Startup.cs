@@ -22,13 +22,11 @@ using Microsoft.Framework.Logging.Console;
 using Microsoft.Framework.Runtime;
 using APlanner.Models;
 using APlanner.Services;
-using System.Data.SqlClient;
 
 namespace APlanner
 {
     public class Startup
     {
-        
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             // Setup configuration sources.
@@ -55,13 +53,12 @@ namespace APlanner
             // Add Entity Framework services to the services container.
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<APlannerDbContext>(options =>
+                .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-            
-            
+
             // Add Identity services to the services container.
-            services.AddIdentity<APlannerUser, IdentityRole>()
-                .AddEntityFrameworkStores<APlannerDbContext>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             // Configure the options for the authentication middleware.
@@ -131,7 +128,7 @@ namespace APlanner
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Schedule}/{action=About}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
                 // Uncomment the following line to add a route for porting Web API 2 controllers.
                 // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");

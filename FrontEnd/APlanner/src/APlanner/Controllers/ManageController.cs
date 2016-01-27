@@ -16,14 +16,14 @@ namespace APlanner.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<APlannerUser> _userManager;
-        private readonly SignInManager<APlannerUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
 
         public ManageController(
-            UserManager<APlannerUser> userManager,
-            SignInManager<APlannerUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender)
         {
@@ -352,7 +352,7 @@ namespace APlanner.Controllers
             Error
         }
 
-        private async Task<APlannerUser> GetCurrentUserAsync()
+        private async Task<ApplicationUser> GetCurrentUserAsync()
         {
             return await _userManager.FindByIdAsync(Context.User.GetUserId());
         }
