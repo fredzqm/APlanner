@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json;
 
 namespace APlanner.Controllers
 {
@@ -21,9 +22,11 @@ namespace APlanner.Controllers
             return View();
         }
 
-        public IActionResult Source()
+        public object Source()
         {
-            return View();
+            string allText = System.IO.File.ReadAllText( @"C:/Source.json");
+            object jsonObject = JsonConvert.DeserializeObject(allText);
+            return jsonObject;
         }
 
         public IActionResult Contact()
@@ -38,7 +41,5 @@ namespace APlanner.Controllers
             return View("~/Views/Shared/Error.cshtml");
         }
 
-
-        
     }
 }
