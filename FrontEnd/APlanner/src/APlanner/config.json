@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "APlanner"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=titan.csse.rose-hulman.edu;Database=APlanner;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}
