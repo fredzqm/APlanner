@@ -23,8 +23,13 @@ namespace APlanner
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/calendar").Include(
+                      "~/Scripts/underscore-min.js",
+                      "~/Scripts/calendar.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/calendar.min.css",
                       "~/Content/site.css"));
         }
     }
