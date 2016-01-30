@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="APlannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Contain">
+    <Key>
+      <PropertyRef Name="CourseID" />
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="PID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="CName" Type="varchar" MaxLength="12" />
+    <Property Name="Descrip" Type="text" />
+    <Property Name="Credict" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Enroll">
+    <Key>
+      <PropertyRef Name="SectID" />
+      <PropertyRef Name="SUserID" />
+    </Key>
+    <Property Name="SectID" Type="int" Nullable="false" />
+    <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="T" Type="datetime" />
+    <Property Name="S" Type="varchar" MaxLength="8" />
+    <Property Name="Rating" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="Friend">
+    <Key>
+      <PropertyRef Name="Requester" />
+      <PropertyRef Name="Accepter" />
+    </Key>
+    <Property Name="Requester" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Accepter" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="St" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Has">
+    <Key>
+      <PropertyRef Name="SectID" />
+      <PropertyRef Name="ScheID" />
+    </Key>
+    <Property Name="SectID" Type="int" Nullable="false" />
+    <Property Name="ScheID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mess">
+    <Key>
+      <PropertyRef Name="MessID" />
+      <PropertyRef Name="Sender" />
+      <PropertyRef Name="Receiver" />
+    </Key>
+    <Property Name="MessID" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Sender" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Receiver" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Content" Type="text" />
+    <Property Name="T" Type="datetime" />
+  </EntityType>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="30" />
+    <Property Name="FName" Type="varchar" MaxLength="30" />
+    <Property Name="LName" Type="varchar" MaxLength="30" />
+    <Property Name="SOP" Type="char" MaxLength="1" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Prerequisite">
+    <Key>
+      <PropertyRef Name="CourseIDL" />
+      <PropertyRef Name="CourseIDH" />
+    </Key>
+    <Property Name="CourseIDL" Type="int" Nullable="false" />
+    <Property Name="CourseIDH" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Professor">
+    <Key>
+      <PropertyRef Name="PUserID" />
+    </Key>
+    <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Department" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheID" />
+    </Key>
+    <Property Name="ScheID" Type="int" Nullable="false" />
+    <Property Name="PID" Type="int" />
+    <Property Name="Probability" Type="int" />
+    <Property Name="Pri" Type="int" />
+    <Property Name="PublicOrPrivate" Type="varchar" MaxLength="7" />
+  </EntityType>
+  <EntityType Name="Section">
+    <Key>
+      <PropertyRef Name="SectID" />
+    </Key>
+    <Property Name="SectID" Type="int" Nullable="false" />
+    <Property Name="TermID" Type="int" />
+    <Property Name="CourseID" Type="int" />
+    <Property Name="SectNum" Type="tinyint" />
+    <Property Name="PUserID" Type="varchar" MaxLength="9" />
+    <Property Name="Capacity" Type="int" />
+  </EntityType>
+  <EntityType Name="SPlan">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="int" Nullable="false" />
+    <Property Name="SUserID" Type="varchar" MaxLength="9" />
+    <Property Name="TermID" Type="int" />
+    <Property Name="Probability" Type="int" />
+  </EntityType>
+  <EntityType Name="STime">
+    <Key>
+      <PropertyRef Name="SectID" />
+      <PropertyRef Name="Classroom" />
+      <PropertyRef Name="Period" />
+      <PropertyRef Name="TermID" />
+    </Key>
+    <Property Name="SectID" Type="int" Nullable="false" />
+    <Property Name="Classroom" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="Period" Type="int" Nullable="false" />
+    <Property Name="TermID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="SUserID" />
+    </Key>
+    <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="Major" Type="varchar" MaxLength="12" />
+    <Property Name="YR" Type="int" />
+  </EntityType>
+  <EntityType Name="Term">
+    <Key>
+      <PropertyRef Name="TermID" />
+    </Key>
+    <Property Name="TermID" Type="int" Nullable="false" />
+    <Property Name="Start_Date" Type="date" Nullable="false" />
+    <Property Name="End_Date" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Contain__CourseI__276EDEB3">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Contain" Type="Self.Contain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Contain">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contain__PID__286302EC">
+    <End Role="SPlan" Type="Self.SPlan" Multiplicity="1" />
+    <End Role="Contain" Type="Self.Contain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SPlan">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="Contain">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Enroll__SectID__3B75D760">
+    <End Role="Section" Type="Self.Section" Multiplicity="1" />
+    <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="SectID" />
+      </Principal>
+      <Dependent Role="Enroll">
+        <PropertyRef Name="SectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Enroll__SUserID__3A81B327">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="SUserID" />
+      </Principal>
+      <Dependent Role="Enroll">
+        <PropertyRef Name="SUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__Accepter__1367E606">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="Accepter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Friend__Requeste__1273C1CD">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Friend">
+        <PropertyRef Name="Requester" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Has__ScheID__37A5467C">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+    <End Role="Has" Type="Self.Has" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheID" />
+      </Principal>
+      <Dependent Role="Has">
+        <PropertyRef Name="ScheID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Has__SectID__36B12243">
+    <End Role="Section" Type="Self.Section" Multiplicity="1" />
+    <End Role="Has" Type="Self.Has" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="SectID" />
+      </Principal>
+      <Dependent Role="Has">
+        <PropertyRef Name="SectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Mess__Receiver__173876EA">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Mess" Type="Self.Mess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Mess">
+        <PropertyRef Name="Receiver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Mess__Sender__164452B1">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Mess" Type="Self.Mess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Mess">
+        <PropertyRef Name="Sender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prerequis__Cours__2B3F6F97">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Prerequisite">
+        <PropertyRef Name="CourseIDL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prerequis__Cours__2C3393D0">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Prerequisite">
+        <PropertyRef Name="CourseIDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Professor__PUser__1A14E395">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Professor">
+        <PropertyRef Name="PUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Schedule__PID__2F10007B">
+    <End Role="SPlan" Type="Self.SPlan" Multiplicity="0..1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SPlan">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Section__CourseI__32E0915F">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="Section" Type="Self.Section" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Section">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Section__PUserID__33D4B598">
+    <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+    <End Role="Section" Type="Self.Section" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professor">
+        <PropertyRef Name="PUserID" />
+      </Principal>
+      <Dependent Role="Section">
+        <PropertyRef Name="PUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Section__TermID__31EC6D26">
+    <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
+    <End Role="Section" Type="Self.Section" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Term">
+        <PropertyRef Name="TermID" />
+      </Principal>
+      <Dependent Role="Section">
+        <PropertyRef Name="TermID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPlan__SUserID__21B6055D">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="SUserID" />
+      </Principal>
+      <Dependent Role="SPlan">
+        <PropertyRef Name="SUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SPlan__TermID__22AA2996">
+    <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
+    <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Term">
+        <PropertyRef Name="TermID" />
+      </Principal>
+      <Dependent Role="SPlan">
+        <PropertyRef Name="TermID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__STime__SectID__3F466844">
+    <End Role="Section" Type="Self.Section" Multiplicity="1" />
+    <End Role="STime" Type="Self.STime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="SectID" />
+      </Principal>
+      <Dependent Role="STime">
+        <PropertyRef Name="SectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__STime__TermID__3E52440B">
+    <End Role="Term" Type="Self.Term" Multiplicity="1" />
+    <End Role="STime" Type="Self.STime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Term">
+        <PropertyRef Name="TermID" />
+      </Principal>
+      <Dependent Role="STime">
+        <PropertyRef Name="TermID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__SUserID__1CF15040">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="SUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Course_View" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="c" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="Course" Type="tinyint" />
+          <Property Name="Instructor" Type="varchar" MaxLength="61" />
+          <Property Name="Descrip" Type="text" />
+          <Property Name="Credict" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="Person_View" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="c" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="UserName" Type="varchar" MaxLength="30" />
+          <Property Name="Name" Type="varchar" MaxLength="61" />
+          <Property Name="SOP" Type="char" MaxLength="1" />
+          <Property Name="Descrip" Type="text" />
+          <Property Name="Credict" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="Schedule_View" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="c" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="UserName" Type="varchar" MaxLength="30" />
+          <Property Name="Name" Type="varchar" MaxLength="61" />
+          <Property Name="Probability" Type="int" />
+          <Property Name="Pri" Type="int" />
+          <Property Name="PublicOrPrivate" Type="varchar" MaxLength="7" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <EntityContainer Name="APlannerModelStoreContainer">
+    <EntitySet Name="Contain" EntityType="Self.Contain" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Enroll" EntityType="Self.Enroll" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Has" EntityType="Self.Has" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mess" EntityType="Self.Mess" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prerequisite" EntityType="Self.Prerequisite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPlan" EntityType="Self.SPlan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STime" EntityType="Self.STime" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Term" EntityType="Self.Term" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Contain__CourseI__276EDEB3" Association="Self.FK__Contain__CourseI__276EDEB3">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Contain" EntitySet="Contain" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contain__PID__286302EC" Association="Self.FK__Contain__PID__286302EC">
+      <End Role="SPlan" EntitySet="SPlan" />
+      <End Role="Contain" EntitySet="Contain" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Enroll__SectID__3B75D760" Association="Self.FK__Enroll__SectID__3B75D760">
+      <End Role="Section" EntitySet="Section" />
+      <End Role="Enroll" EntitySet="Enroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Enroll__SUserID__3A81B327" Association="Self.FK__Enroll__SUserID__3A81B327">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Enroll" EntitySet="Enroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__Accepter__1367E606" Association="Self.FK__Friend__Accepter__1367E606">
+      <End Role="People" EntitySet="People" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Friend__Requeste__1273C1CD" Association="Self.FK__Friend__Requeste__1273C1CD">
+      <End Role="People" EntitySet="People" />
+      <End Role="Friend" EntitySet="Friend" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Has__ScheID__37A5467C" Association="Self.FK__Has__ScheID__37A5467C">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="Has" EntitySet="Has" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Has__SectID__36B12243" Association="Self.FK__Has__SectID__36B12243">
+      <End Role="Section" EntitySet="Section" />
+      <End Role="Has" EntitySet="Has" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Mess__Receiver__173876EA" Association="Self.FK__Mess__Receiver__173876EA">
+      <End Role="People" EntitySet="People" />
+      <End Role="Mess" EntitySet="Mess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Mess__Sender__164452B1" Association="Self.FK__Mess__Sender__164452B1">
+      <End Role="People" EntitySet="People" />
+      <End Role="Mess" EntitySet="Mess" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prerequis__Cours__2B3F6F97" Association="Self.FK__Prerequis__Cours__2B3F6F97">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Prerequisite" EntitySet="Prerequisite" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prerequis__Cours__2C3393D0" Association="Self.FK__Prerequis__Cours__2C3393D0">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Prerequisite" EntitySet="Prerequisite" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Professor__PUser__1A14E395" Association="Self.FK__Professor__PUser__1A14E395">
+      <End Role="People" EntitySet="People" />
+      <End Role="Professor" EntitySet="Professor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Schedule__PID__2F10007B" Association="Self.FK__Schedule__PID__2F10007B">
+      <End Role="SPlan" EntitySet="SPlan" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Section__CourseI__32E0915F" Association="Self.FK__Section__CourseI__32E0915F">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Section" EntitySet="Section" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Section__PUserID__33D4B598" Association="Self.FK__Section__PUserID__33D4B598">
+      <End Role="Professor" EntitySet="Professor" />
+      <End Role="Section" EntitySet="Section" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Section__TermID__31EC6D26" Association="Self.FK__Section__TermID__31EC6D26">
+      <End Role="Term" EntitySet="Term" />
+      <End Role="Section" EntitySet="Section" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPlan__SUserID__21B6055D" Association="Self.FK__SPlan__SUserID__21B6055D">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="SPlan" EntitySet="SPlan" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SPlan__TermID__22AA2996" Association="Self.FK__SPlan__TermID__22AA2996">
+      <End Role="Term" EntitySet="Term" />
+      <End Role="SPlan" EntitySet="SPlan" />
+    </AssociationSet>
+    <AssociationSet Name="FK__STime__SectID__3F466844" Association="Self.FK__STime__SectID__3F466844">
+      <End Role="Section" EntitySet="Section" />
+      <End Role="STime" EntitySet="STime" />
+    </AssociationSet>
+    <AssociationSet Name="FK__STime__TermID__3E52440B" Association="Self.FK__STime__TermID__3E52440B">
+      <End Role="Term" EntitySet="Term" />
+      <End Role="STime" EntitySet="STime" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__SUserID__1CF15040" Association="Self.FK__Student__SUserID__1CF15040">
+      <End Role="People" EntitySet="People" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="APlannerModelStoreContainer" CdmEntityContainer="APlannerEntities">
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="APlannerModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+          <ScalarProperty Name="Credict" ColumnName="Credict" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enrolls">
+      <EntityTypeMapping TypeName="APlannerModel.Enroll">
+        <MappingFragment StoreEntitySet="Enroll">
+          <ScalarProperty Name="SectID" ColumnName="SectID" />
+          <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+          <ScalarProperty Name="T" ColumnName="T" />
+          <ScalarProperty Name="S" ColumnName="S" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="APlannerModel.Friend">
+        <MappingFragment StoreEntitySet="Friend">
+          <ScalarProperty Name="Requester" ColumnName="Requester" />
+          <ScalarProperty Name="Accepter" ColumnName="Accepter" />
+          <ScalarProperty Name="St" ColumnName="St" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messes">
+      <EntityTypeMapping TypeName="APlannerModel.Mess">
+        <MappingFragment StoreEntitySet="Mess">
+          <ScalarProperty Name="MessID" ColumnName="MessID" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="T" ColumnName="T" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="APlannerModel.Person">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FName" ColumnName="FName" />
+          <ScalarProperty Name="LName" ColumnName="LName" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professors">
+      <EntityTypeMapping TypeName="APlannerModel.Professor">
+        <MappingFragment StoreEntitySet="Professor">
+          <ScalarProperty Name="PUserID" ColumnName="PUserID" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="APlannerModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="ScheID" ColumnName="ScheID" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="Probability" ColumnName="Probability" />
+          <ScalarProperty Name="Pri" ColumnName="Pri" />
+          <ScalarProperty Name="PublicOrPrivate" ColumnName="PublicOrPrivate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sections">
+      <EntityTypeMapping TypeName="APlannerModel.Section">
+        <MappingFragment StoreEntitySet="Section">
+          <ScalarProperty Name="SectID" ColumnName="SectID" />
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="SectNum" ColumnName="SectNum" />
+          <ScalarProperty Name="PUserID" ColumnName="PUserID" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SPlans">
+      <EntityTypeMapping TypeName="APlannerModel.SPlan">
+        <MappingFragment StoreEntitySet="SPlan">
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+          <ScalarProperty Name="Probability" ColumnName="Probability" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STimes">
+      <EntityTypeMapping TypeName="APlannerModel.STime">
+        <MappingFragment StoreEntitySet="STime">
+          <ScalarProperty Name="SectID" ColumnName="SectID" />
+          <ScalarProperty Name="Classroom" ColumnName="Classroom" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="APlannerModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+          <ScalarProperty Name="Major" ColumnName="Major" />
+          <ScalarProperty Name="YR" ColumnName="YR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Terms">
+      <EntityTypeMapping TypeName="APlannerModel.Term">
+        <MappingFragment StoreEntitySet="Term">
+          <ScalarProperty Name="TermID" ColumnName="TermID" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Contain" TypeName="APlannerModel.Contain" StoreEntitySet="Contain">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+      </EndProperty>
+      <EndProperty Name="SPlan">
+        <ScalarProperty Name="PID" ColumnName="PID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Has" TypeName="APlannerModel.Has" StoreEntitySet="Has">
+      <EndProperty Name="Schedule">
+        <ScalarProperty Name="ScheID" ColumnName="ScheID" />
+      </EndProperty>
+      <EndProperty Name="Section">
+        <ScalarProperty Name="SectID" ColumnName="SectID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Prerequisite" TypeName="APlannerModel.Prerequisite" StoreEntitySet="Prerequisite">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="CourseID" ColumnName="CourseIDL" />
+      </EndProperty>
+      <EndProperty Name="Course1">
+        <ScalarProperty Name="CourseID" ColumnName="CourseIDH" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionName="APlannerModel.Store.Course_View" FunctionImportName="Course_View">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APlannerModel.Course_View_Result">
+          <ScalarProperty Name="Course" ColumnName="Course" />
+          <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+          <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+          <ScalarProperty Name="Credict" ColumnName="Credict" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="APlannerModel.Store.Person_View" FunctionImportName="Person_View">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APlannerModel.Person_View_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+          <ScalarProperty Name="Credict" ColumnName="Credict" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="APlannerModel.Store.Schedule_View" FunctionImportName="Schedule_View">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APlannerModel.Schedule_View_Result">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Probability" ColumnName="Probability" />
+          <ScalarProperty Name="Pri" ColumnName="Pri" />
+          <ScalarProperty Name="PublicOrPrivate" ColumnName="PublicOrPrivate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
