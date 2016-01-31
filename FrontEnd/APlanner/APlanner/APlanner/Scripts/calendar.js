@@ -947,7 +947,8 @@ if(!String.prototype.formatNum) {
 			return this.options.tmpl_path(name)
 		}
 		else {
-			return this.options.tmpl_path + name + '.html';
+		    return this.options.tmpl_path + name;
+                //+ '.html';
 		}
 	};
 
