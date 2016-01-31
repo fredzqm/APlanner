@@ -6,7 +6,7 @@ Values
 ('801200001', 'whitec', 'Crystal', 'White','S', 'skenskesdf3203'),
 ('801200002', 'katrinap', 'Perry', 'Katrina', 'S','pskeidjnsrkk203'),
 ('801200003', 'greenk', 'Kate', 'Green','S', 'skenskesdf3203'),
-('801200004', 'zhangf2', 'Fred', 'Zhang', 'S','pskeidjnsrkk203'),
+('801200004', 'zhangq2', 'Fred', 'Zhang', 'S','pskeidjnsrkk203'),
 ('801200005', 'karryc', 'Crystal', 'Karry','P', 'skenskesdf3203');
 
 Insert into Student

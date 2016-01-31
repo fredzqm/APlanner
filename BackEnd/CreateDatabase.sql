@@ -77,6 +77,7 @@ Create Table SPlan (
 	PID int primary key IDENTITY (1,1),
 	SUserID varchar(9),
 	TermID int,
+	Priority tinyint Unique,
 	Probability int,
 	
 	Foreign key(SUserID) references Student(SUserID),
@@ -89,7 +90,7 @@ Create Table Course (
 	CourseDP varchar(5),
 	CourseNum smallint,
 	Descrip text,
-	Credict tinyint not null,
+	Credit tinyint not null,
 
 	Primary key(CourseID),
 	Foreign key(CourseDP) references Department(DepartID)
@@ -98,7 +99,6 @@ Create Table Course (
 
 Create Table Contain (
 	CourseID smallint,
-	CourseDP varchar(5),
 	PID int,
 	
 	Primary key(CourseID, PID),
@@ -120,7 +120,7 @@ Create Table Schedule (
 	ScheID int IDENTITY (1,1),
 	PID int,
 	Probability int,
-	Pri int,
+	Priority tinyint Unique,
 	PublicOrPrivate varchar(7),
 	
 	Primary key(ScheID),
@@ -134,7 +134,7 @@ Create Table Section (
 	CourseID smallint,
 	SectNum tinyint,
 	PUserID varchar(9),
-	EnrollNum int,
+	EnrollNum tinyint,
 	Capacity int,
 
 	Primary key(SectID),
