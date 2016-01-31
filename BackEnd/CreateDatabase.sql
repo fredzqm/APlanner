@@ -2,7 +2,7 @@ USE master
 GO
 
 IF DB_ID ('APlanner') IS NOT NULL
-Drop database [APlanner];
+	Drop database [APlanner];
 GO
 
 CREATE DATABASE APlanner;
@@ -13,6 +13,7 @@ GO
 
 Create Table People (
 	UserID varchar(9) primary key,
+	UserName varchar(30),
 	FName varchar(30),
 	LName varchar(30),
 	SOP char(1),
@@ -79,8 +80,8 @@ Create Table SPlan (
 
 
 Create Table Course (
-	CourseID int primary key,
-	CName varchar(12) not null,
+	CourseID int  primary key not null,
+	CName varchar(12),
 	Descrip text,
 	Credict int not null,
 );
@@ -121,7 +122,7 @@ Create Table Section (
 	SectID int,
 	TermID int,
 	CourseID int,
-	SectNum int,
+	SectNum tinyint,
 	PUserID varchar(9),
 	Capacity int,
 
@@ -135,7 +136,7 @@ Create Table Has (
 	SectID int,
 	ScheID int,
 
-	Primary key(ScheID,SectID),
+	Primary key(ScheID, SectID),
 	Foreign key(SectID) references Section(SectID),
 	Foreign key(ScheID) references Schedule(ScheID)
 );
