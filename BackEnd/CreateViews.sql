@@ -34,19 +34,20 @@ Go
 IF OBJECT_ID('PlanView', 'V') IS NOT NULL
     DROP VIEW PlanView;
 GO
+
 Create View PlanView As
-	Select s.SUserID, s.StudName, p.TermID, p.Probability, SUM(c.Credit) As [Credits]
+	Select p.PID, s.SUserID, s.StudName, p.TermID, p.Probability, SUM(c.Credit) As [Credits]
 	From SPlan p, StudentView s, Contain l, Course c
 	where  p.SUserID = s.SUserID AND p.PID = l.PID 
 		AND l.CourseID = c.CourseID
-	Group By p.PID
-	Sort By p.Priority ASC
+	Group By p.PID, s.SUserID, s.StudName, p.TermID, p.Probability
+Go
 
 IF OBJECT_ID('ScheduleView', 'V') IS NOT NULL
     DROP VIEW ScheduleView;
 GO
 Create View SchedulePublicView As
-	Select p.SUserID, p.StudName, p.TermID, p.Probability * s.Probability , p.Credits
+	Select p.SUserID, p.StudName, p.TermID, p.Probability * s.Probability As [Probability], p.Credits
 	From Schedule s, PlanView p
-	where  s.PID = p.PID AND p.PublicOrPrivate == 1;
-	Sort By p.Priority ASC , s.Priority ASC
+	where  s.PID = p.PID AND s.PublicOrPrivate = 1;
+Go
