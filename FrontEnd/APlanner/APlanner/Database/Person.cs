@@ -9,11 +9,23 @@
 
 namespace APlanner.Database
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Person
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    public partial class Person : IdentityUser
     {
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Person> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
@@ -22,14 +34,14 @@ namespace APlanner.Database
             this.Messes = new HashSet<Mess>();
             this.Messes1 = new HashSet<Mess>();
         }
-    
+
         public string UserID { get; set; }
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
         public string SOP { get; set; }
         public string Password { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friend> Friends { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

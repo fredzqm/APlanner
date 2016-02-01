@@ -14,19 +14,25 @@ namespace APlanner.Database
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
-    public partial class APlannerEntities : DbContext
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    public partial class APlannerEntities : IdentityDbContext<Person>
     {
         public APlannerEntities()
             : base("name=APlannerEntities")
         {
         }
-    
+
+        public static APlannerEntities Create()
+        {
+            return new APlannerEntities();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Enroll> Enrolls { get; set; }
@@ -45,13 +51,13 @@ namespace APlanner.Database
         public virtual DbSet<SchedulePublicView> SchedulePublicViews { get; set; }
         public virtual DbSet<SectionView> SectionViews { get; set; }
         public virtual DbSet<StudentView> StudentViews { get; set; }
-    
+
         public virtual int ProvideOwnerPermit(string user)
         {
             var userParameter = user != null ?
                 new ObjectParameter("user", user) :
                 new ObjectParameter("user", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProvideOwnerPermit", userParameter);
         }
     }
