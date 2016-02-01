@@ -1,6 +1,9 @@
 use APlanner
 
-Insert into People
+USE [APlanner]
+GO
+
+Insert into People ([UserID], [UserName], [FName], [LName] , [SOP] , [Password])
 Values 
 ('801200000', 'dingy2', 'Mercury', 'Ding', 'S','pskeidjnsrkk203'),
 ('801200001', 'whitec', 'Crystal', 'White','S', 'skenskesdf3203'),
