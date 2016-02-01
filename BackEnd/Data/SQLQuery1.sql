@@ -23,9 +23,9 @@ Values
 
 Insert into Course
 Values 
-(123, 'CSSE304','PLC', 4),
-(2095, 'CHEM111','General Chemistry', 4),
-(3195, 'CSSE232','Computer Architecture', 4),
+(304, 'CSSE','PLC', 4),
+(111, 'CHEM','General Chemistry', 4),
+(232, 'CSSE232','Computer Architecture', 4),
 (3292, 'CSSE333','Database', 4),
 (3333, 'MA112','CalculusII', 5),
 (3335, 'MA111','CalculusI', 5);

@@ -22,6 +22,22 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            DatabaseElements <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                            <li>@Html.ActionLink("Course", "Index", "Course")</li>
+                            <li>@Html.ActionLink("Section", "Index", "Section")</li>
+                            <li>@Html.ActionLink("Plan", "Index", "Plan")</li>
+                            <li>@Html.ActionLink("Schedule", "Index", "Schedule")</li>
+                            <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Student", "Index", "Student")</li>
+                            <li>@Html.ActionLink("Professor", "Index", "Professor")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
