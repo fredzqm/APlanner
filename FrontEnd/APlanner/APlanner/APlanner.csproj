@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EnrollController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
@@ -372,6 +373,11 @@
     <Content Include="Views\Plan\Details.cshtml" />
     <Content Include="Views\Plan\Edit.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
+    <Content Include="Views\Enroll\Create.cshtml" />
+    <Content Include="Views\Enroll\Delete.cshtml" />
+    <Content Include="Views\Enroll\Details.cshtml" />
+    <Content Include="Views\Enroll\Edit.cshtml" />
+    <Content Include="Views\Enroll\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
