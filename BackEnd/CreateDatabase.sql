@@ -156,7 +156,7 @@ Create Table Enroll (
 	SectID int,
 	SUserID varchar(9),
 	T datetime,
-	S varchar(8),
+	St ENUM('enroll', 'waitlist'),
 	Rating tinyint,
 
 	Primary key(SectID, SUserID),
