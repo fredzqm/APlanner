@@ -77,6 +77,7 @@ Create Table SPlan (
 	PID int primary key IDENTITY (1,1),
 	SUserID varchar(9),
 	TermID int,
+	Priority tinyint Unique,
 	Probability int,
 	
 	Foreign key(SUserID) references Student(SUserID),
@@ -89,7 +90,7 @@ Create Table Course (
 	CourseDP varchar(5),
 	CourseNum smallint,
 	Descrip text,
-	Credict tinyint not null,
+	Credit tinyint not null,
 
 	Primary key(CourseID),
 	Foreign key(CourseDP) references Department(DepartID)
@@ -98,7 +99,6 @@ Create Table Course (
 
 Create Table Contain (
 	CourseID smallint,
-	CourseDP varchar(5),
 	PID int,
 	
 	Primary key(CourseID, PID),
@@ -120,7 +120,7 @@ Create Table Schedule (
 	ScheID int IDENTITY (1,1),
 	PID int,
 	Probability int,
-	Pri int,
+	Priority tinyint Unique,
 	PublicOrPrivate varchar(7),
 	
 	Primary key(ScheID),
@@ -134,7 +134,7 @@ Create Table Section (
 	CourseID smallint,
 	SectNum tinyint,
 	PUserID varchar(9),
-	EnrollNum int,
+	EnrollNum tinyint,
 	Capacity int,
 
 	Primary key(SectID),
@@ -174,266 +174,98 @@ Create Table STime (
 	Foreign key(TermID) references Term(TermID),
 	Foreign key(SectID) references Section(SectID)
 );
+Go
 
---- set authority
+--- create a stored procedure for setting permissions
+Create proc ProvideOwnerPermit
+	@user varchar(20)
+As
+begin
+	--- set authority
+	EXECUTE( 'CREATE USER ['+@user+'] FOR LOGIN ['+@user+'] WITH DEFAULT_SCHEMA=[dbo] ' );
+	EXECUTE( 'ALTER AUTHORIZATION ON SCHEMA::[db_owner] TO ['+@user+'] ' );
+	EXECUTE( 'ALTER ROLE [db_owner] ADD MEMBER ['+@user+'] ' );
+
+	--- set permissions
+	EXECUTE( 'GRANT ALTER TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY APPLICATION ROLE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY ASSEMBLY TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY ASYMMETRIC KEY TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY CERTIFICATE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY CONTRACT TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY DATABASE AUDIT TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY DATABASE DDL TRIGGER TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY DATABASE EVENT NOTIFICATION TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY DATASPACE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY FULLTEXT CATALOG TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY MESSAGE TYPE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY REMOTE SERVICE BINDING TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY ROLE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY ROUTE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY SCHEMA TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY SERVICE TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY SYMMETRIC KEY TO ['+@user+']' );
+	EXECUTE( 'GRANT ALTER ANY USER TO ['+@user+']' );
+	EXECUTE( 'GRANT AUTHENTICATE TO ['+@user+']' );
+	EXECUTE( 'GRANT BACKUP DATABASE TO ['+@user+']' );
+	EXECUTE( 'GRANT BACKUP LOG TO ['+@user+']' );
+	EXECUTE( 'GRANT CHECKPOINT TO ['+@user+']' );
+	EXECUTE( 'GRANT CONNECT TO ['+@user+']' );
+	EXECUTE( 'GRANT CONNECT REPLICATION TO ['+@user+']' );
+	EXECUTE( 'GRANT CONTROL TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE AGGREGATE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE ASSEMBLY TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE ASYMMETRIC KEY TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE CERTIFICATE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE CONTRACT TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE DATABASE DDL EVENT NOTIFICATION TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE DEFAULT TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE FULLTEXT CATALOG TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE FUNCTION TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE MESSAGE TYPE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE PROCEDURE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE QUEUE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE REMOTE SERVICE BINDING TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE ROLE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE ROUTE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE RULE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE SCHEMA TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE SERVICE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE SYMMETRIC KEY TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE SYNONYM TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE TABLE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE TYPE TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE VIEW TO ['+@user+']' );
+	EXECUTE( 'GRANT CREATE XML SCHEMA COLLECTION TO ['+@user+']' );
+	EXECUTE( 'GRANT DELETE TO ['+@user+']' );
+	EXECUTE( 'GRANT EXECUTE TO ['+@user+']' );
+	EXECUTE( 'GRANT INSERT TO ['+@user+']' );
+	EXECUTE( 'GRANT REFERENCES TO ['+@user+']' );
+	EXECUTE( 'GRANT SELECT TO ['+@user+']' );
+	EXECUTE( 'GRANT SHOWPLAN TO ['+@user+']' );
+	EXECUTE( 'GRANT SUBSCRIBE QUERY NOTIFICATIONS TO ['+@user+']' );
+	EXECUTE( 'GRANT TAKE OWNERSHIP TO ['+@user+']' );
+	EXECUTE( 'GRANT UPDATE TO ['+@user+']' );
+	EXECUTE( 'GRANT VIEW DATABASE STATE TO ['+@user+']' );
+	EXECUTE( 'GRANT VIEW DEFINITION TO ['+@user+']' );
+end
+Go
+
 
 USE [APlanner]
 GO
-CREATE USER [zhangq2] FOR LOGIN [zhangq2] WITH DEFAULT_SCHEMA=[dbo]
-GO
-USE [APlanner]
-GO
-ALTER AUTHORIZATION ON SCHEMA::[db_owner] TO [zhangq2]
-GO
-USE [APlanner]
-GO
-ALTER ROLE [db_owner] ADD MEMBER [zhangq2]
+ALTER AUTHORIZATION ON SCHEMA::[db_owner] TO [dbo]
 GO
 
---- set permissions
 
-use [APlanner]
-GO
-GRANT ALTER TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY APPLICATION ROLE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY ASSEMBLY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY ASYMMETRIC KEY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY CERTIFICATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY CONTRACT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY DATABASE AUDIT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY DATABASE DDL TRIGGER TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY DATABASE EVENT NOTIFICATION TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY DATASPACE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY FULLTEXT CATALOG TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY MESSAGE TYPE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY REMOTE SERVICE BINDING TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY ROLE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY ROUTE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY SCHEMA TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY SERVICE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY SYMMETRIC KEY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT ALTER ANY USER TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT AUTHENTICATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT BACKUP DATABASE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT BACKUP LOG TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CHECKPOINT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CONNECT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CONNECT REPLICATION TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CONTROL TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE AGGREGATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE ASSEMBLY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE ASYMMETRIC KEY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE CERTIFICATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE CONTRACT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE DATABASE DDL EVENT NOTIFICATION TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE DEFAULT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE FULLTEXT CATALOG TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE FUNCTION TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE MESSAGE TYPE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE PROCEDURE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE QUEUE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE REMOTE SERVICE BINDING TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE ROLE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE ROUTE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE RULE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE SCHEMA TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE SERVICE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE SYMMETRIC KEY TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE SYNONYM TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE TABLE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE TYPE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE VIEW TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT CREATE XML SCHEMA COLLECTION TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT DELETE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT EXECUTE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT INSERT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT REFERENCES TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT SELECT TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT SHOWPLAN TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT SUBSCRIBE QUERY NOTIFICATIONS TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT TAKE OWNERSHIP TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT UPDATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT VIEW DATABASE STATE TO [zhangq2]
-GO
-use [APlanner]
-GO
-GRANT VIEW DEFINITION TO [zhangq2]
-GO
+if not Exists ( select * from sys.databases where name = 'APlanner' and suser_sname(owner_sid) = 'zhangq2')
+begin
+	Exec ProvideOwnerPermit 'zhangq2';	---- this table is created by dingy2, add zhangq2 as woner
+end
+Go
 
+if not Exists ( select * from sys.databases where name = 'APlanner' and suser_sname(owner_sid) = 'dingy2')
+begin
+	Exec ProvideOwnerPermit 'dingy2';	---- this table is created by dingy2, add zhangq2 as woner
+end
+Go
