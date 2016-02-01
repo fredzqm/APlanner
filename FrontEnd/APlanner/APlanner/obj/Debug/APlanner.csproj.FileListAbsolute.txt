@@ -133,6 +133,6 @@ C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\
 C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.csprojResolveAssemblyReference.cache
 C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.dll
 C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.pdb
+C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.csprojResolveAssemblyReference.cache

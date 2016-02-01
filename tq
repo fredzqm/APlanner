@@ -1,0 +1,117 @@
+[1mdiff --git a/BackEnd/CreateProcedure.sql b/BackEnd/CreateProcedure.sql[m
+[1mindex b94aaf4..917b1b9 100644[m
+[1m--- a/BackEnd/CreateProcedure.sql[m
+[1m+++ b/BackEnd/CreateProcedure.sql[m
+[36m@@ -1,53 +1,5 @@[m
+[31m-Use [APlanner][m
+[32m+[m[32mUse [APlanner];[m
+ Go[m
+ [m
+[31m-IF OBJECT_ID('ProfessorView', 'V') IS NOT NULL[m
+[31m-    DROP VIEW ProfessorView;[m
+[31m-GO[m
+[31m-Create View ProfessorView  As[m
+[31m-	Select p.PUserID, u.FName+' '+ u.LName As [ProfName] , [m
+[31m-		 p.DepartID As [DepartMent][m
+[31m-	From People u, Professor p[m
+[31m-	where u.UserID = p.PUserID;[m
+[31m-Go[m
+ [m
+[31m-IF OBJECT_ID('StudentView', 'V') IS NOT NULL[m
+[31m-    DROP VIEW StudentView;[m
+[31m-GO[m
+[31m-Create View StudentView  AS[m
+[31m-	Select s.SUserID, u.FName+' '+ u.LName As [StudName] , [m
+[31m-		s.Major , s.YR As Year[m
+[31m-	From People u , Student s[m
+[31m-	where u.UserID = s.SUserID;[m
+[31m-Go[m
+ [m
+[31m-IF OBJECT_ID('SectionView', 'V') IS NOT NULL[m
+[31m-    DROP VIEW SectionView;[m
+[31m-GO[m
+[31m-Create View SectionView  As[m
+[31m-	Select s.SectID, s.CourseID+'-'+s.SectNum AS [Section], s.TermID, [m
+[31m-		p.ProfName, c.Credit, s.EnrollNum[m
+[31m-	From Course c, Section s, ProfessorView p[m
+[31m-	where s.CourseID = c.CourseID AND s.PUserID = p.PUserID;[m
+[31m-Go[m
+[31m-[m
+[31m-IF OBJECT_ID('PlanView', 'V') IS NOT NULL[m
+[31m-    DROP VIEW PlanView;[m
+[31m-GO[m
+[31m-[m
+[31m-Create View PlanView As[m
+[31m-	Select p.PID, s.SUserID, s.StudName, p.TermID, p.Probability, SUM(c.Credit) As [Credits][m
+[31m-	From SPlan p, StudentView s, Contain l, Course c[m
+[31m-	where  p.SUserID = s.SUserID AND p.PID = l.PID [m
+[31m-		AND l.CourseID = c.CourseID[m
+[31m-	Group By p.PID, s.SUserID, s.StudName, p.TermID, p.Probability[m
+[31m-Go[m
+[31m-[m
+[31m-IF OBJECT_ID('ScheduleView', 'V') IS NOT NULL[m
+[31m-    DROP VIEW ScheduleView;[m
+[31m-GO[m
+[31m-Create View SchedulePublicView As[m
+[31m-	Select p.SUserID, p.StudName, p.TermID, p.Probability * s.Probability As [Probability], p.Credits[m
+[31m-	From Schedule s, PlanView p[m
+[31m-	where  s.PID = p.PID AND s.PublicOrPrivate = 1;[m
+[31m-Go[m
+\ No newline at end of file[m
+[1mdiff --git a/FrontEnd/APlanner/.vs/APlanner/v14/.suo b/FrontEnd/APlanner/.vs/APlanner/v14/.suo[m
+[1mindex 57f3108..ef74645 100644[m
+Binary files a/FrontEnd/APlanner/.vs/APlanner/v14/.suo and b/FrontEnd/APlanner/.vs/APlanner/v14/.suo differ
+[1mdiff --git a/FrontEnd/APlanner/APlanner/APlanner.csproj b/FrontEnd/APlanner/APlanner/APlanner.csproj[m
+[1mindex 2c06f5d..7d09266 100644[m
+[1m--- a/FrontEnd/APlanner/APlanner/APlanner.csproj[m
+[1m+++ b/FrontEnd/APlanner/APlanner/APlanner.csproj[m
+[36m@@ -172,6 +172,7 @@[m
+     <Compile Include="Controllers\AccountController.cs" />[m
+     <Compile Include="Controllers\CourseController.cs" />[m
+     <Compile Include="Controllers\DepartmentController.cs" />[m
+[32m+[m[32m    <Compile Include="Controllers\EnrollController.cs" />[m
+     <Compile Include="Controllers\HomeController.cs" />[m
+     <Compile Include="Controllers\ManageController.cs" />[m
+     <Compile Include="Controllers\PlanController.cs" />[m
+[36m@@ -372,6 +373,11 @@[m
+     <Content Include="Views\Plan\Details.cshtml" />[m
+     <Content Include="Views\Plan\Edit.cshtml" />[m
+     <Content Include="Views\Plan\Index.cshtml" />[m
+[32m+[m[32m    <Content Include="Views\Enroll\Create.cshtml" />[m
+[32m+[m[32m    <Content Include="Views\Enroll\Delete.cshtml" />[m
+[32m+[m[32m    <Content Include="Views\Enroll\Details.cshtml" />[m
+[32m+[m[32m    <Content Include="Views\Enroll\Edit.cshtml" />[m
+[32m+[m[32m    <Content Include="Views\Enroll\Index.cshtml" />[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+     <Folder Include="App_Data\" />[m
+[1mdiff --git a/FrontEnd/APlanner/APlanner/Controllers/AccountController.cs b/FrontEnd/APlanner/APlanner/Controllers/AccountController.cs[m
+[1mindex 28b099b..bf5cc53 100644[m
+[1m--- a/FrontEnd/APlanner/APlanner/Controllers/AccountController.cs[m
+[1m+++ b/FrontEnd/APlanner/APlanner/Controllers/AccountController.cs[m
+[36m@@ -20,6 +20,7 @@[m [mpublic class AccountController : Controller[m
+ [m
+         public AccountController()[m
+         {[m
+[32m+[m
+         }[m
+ [m
+         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )[m
+[1mdiff --git a/FrontEnd/APlanner/APlanner/bin/APlanner.dll b/FrontEnd/APlanner/APlanner/bin/APlanner.dll[m
+[1mindex 8991916..e740b82 100644[m
+Binary files a/FrontEnd/APlanner/APlanner/bin/APlanner.dll and b/FrontEnd/APlanner/APlanner/bin/APlanner.dll differ
+[1mdiff --git a/FrontEnd/APlanner/APlanner/bin/APlanner.pdb b/FrontEnd/APlanner/APlanner/bin/APlanner.pdb[m
+[1mindex e8d3a37..88abd6a 100644[m
+Binary files a/FrontEnd/APlanner/APlanner/bin/APlanner.pdb and b/FrontEnd/APlanner/APlanner/bin/APlanner.pdb differ
+[1mdiff --git a/FrontEnd/APlanner/APlanner/obj/Debug/APlanner.csproj.FileListAbsolute.txt b/FrontEnd/APlanner/APlanner/obj/Debug/APlanner.csproj.FileListAbsolute.txt[m
+[1mindex f42134a..9e5bab3 100644[m
+[1m--- a/FrontEnd/APlanner/APlanner/obj/Debug/APlanner.csproj.FileListAbsolute.txt[m
+[1m+++ b/FrontEnd/APlanner/APlanner/obj/Debug/APlanner.csproj.FileListAbsolute.txt[m
+[36m@@ -135,3 +135,4 @@[m [mC:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\[m
+ C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml[m
+ C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.dll[m
+ C:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.pdb[m
+[32m+[m[32mC:\Users\zhang\Documents\GitHub\databaseGit\database\FrontEnd\APlanner\APlanner\obj\Debug\APlanner.csprojResolveAssemblyReference.cache[m
+[1mdiff --git a/FrontEnd/APlanner/APlanner/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache b/FrontEnd/APlanner/APlanner/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache[m
+[1mindex f30f0b7..09377e6 100644[m
+Binary files a/FrontEnd/APlanner/APlanner/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache and b/FrontEnd/APlanner/APlanner/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache differ

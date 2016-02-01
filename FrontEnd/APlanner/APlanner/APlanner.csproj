@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EnrollController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlanController.cs" />
@@ -286,6 +287,7 @@
     <Content Include="Database\DbModel.edmx.diagram">
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\APlanner.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\calendar.min.js" />
@@ -371,6 +373,11 @@
     <Content Include="Views\Plan\Details.cshtml" />
     <Content Include="Views\Plan\Edit.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
+    <Content Include="Views\Enroll\Create.cshtml" />
+    <Content Include="Views\Enroll\Delete.cshtml" />
+    <Content Include="Views\Enroll\Details.cshtml" />
+    <Content Include="Views\Enroll\Edit.cshtml" />
+    <Content Include="Views\Enroll\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
