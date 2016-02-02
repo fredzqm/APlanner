@@ -18,18 +18,42 @@ Create Table People (
 	LName varchar(30),
 	SOP char(1),
 	Password varchar(20)
-);
-
+)
+Go 
 
 Create Table Friend (
 	Requester varchar(9),
 	Accepter varchar(9),
-	St varchar(10),
 
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID),
 	Foreign key(Accepter) references People(UserID)
+)
+Go
+
+Create Function friendAlready(@req varchar(9), @acc varchar(9))
+returns bit
+As
+begin
+	if( exists (select * from Friend f where (@req = Requester and @acc = Accepter)
+						or (@acc = Requester and @req = Accepter) ) )
+		return 1;
+	return 0;
+end
+Go
+
+Create Table FriendRequest (
+	Requester varchar(9),
+	Accepter varchar(9),
+
+	Primary key(Requester, Accepter),
+	Foreign key(Requester) references People(UserID),
+	Foreign key(Accepter) references People(UserID),
+	constraint ResquestToNonFriend Check (
+		dbo.friendAlready(Requester, Accepter) = 0
+	)
 );
+Go
 
 Create Table Mess (
 	MessID varchar(5),
@@ -42,11 +66,13 @@ Create Table Mess (
 	Foreign key(Sender) references People(UserID),
 	Foreign key(Receiver) references People(UserID)
 );
+Go
 
 Create Table Department(
 	DepartID varchar(5) primary key,
 	DepartNAME varchar(50)
 );
+Go
 
 Create Table Professor (
 	PUserID varchar(9) primary key,
@@ -54,8 +80,8 @@ Create Table Professor (
 
 	Foreign key(PUserID) references People(UserID),
 	Foreign key(DepartID) references Department(DepartID)
-);
-
+)
+Go
 
 Create Table Student (
 	SUserID varchar(9) primary key,
@@ -63,15 +89,15 @@ Create Table Student (
 	YR int,
 	
 	Foreign key(SUserID) references People(UserID)
-);
-
+)
+Go
 
 Create Table Term (
 	TermID int primary key,
 	Start_Date date not null,
 	End_Date date not null
-);
-
+)
+Go
 
 Create Table SPlan (
 	PID int primary key IDENTITY (1,1),
@@ -82,8 +108,8 @@ Create Table SPlan (
 	
 	Foreign key(SUserID) references Student(SUserID),
 	Foreign key(TermID) references Term(TermID)
-);
-
+)
+Go
 
 Create Table Course (
 	CourseID smallint,
@@ -94,8 +120,8 @@ Create Table Course (
 
 	Primary key(CourseID),
 	Foreign key(CourseDP) references Department(DepartID)
-);
-
+)
+Go
 
 Create Table Contain (
 	CourseID smallint,
@@ -104,7 +130,8 @@ Create Table Contain (
 	Primary key(CourseID, PID),
 	Foreign key(CourseID) references Course(CourseID),
 	Foreign key(PID) references SPlan(PID)
-);
+)
+Go
 
 Create Table Prerequisite (
 	CourseIDL smallint,
@@ -113,8 +140,8 @@ Create Table Prerequisite (
 	Primary key(CourseIDL, CourseIDH),
 	Foreign key(CourseIDL) references Course(CourseID),
 	Foreign key(CourseIDH) references Course(CourseID)
-);
-
+)
+Go
 
 Create Table Schedule (
 	ScheID int IDENTITY (1,1),
@@ -125,8 +152,8 @@ Create Table Schedule (
 	
 	Primary key(ScheID),
 	Foreign key(PID) references SPlan(PID)
-);
-
+)
+Go
 
 Create Table Section (
 	SectID int,
@@ -141,7 +168,8 @@ Create Table Section (
 	Foreign key(TermID) references Term(TermID),
 	Foreign key(CourseID) references Course(CourseID),
 	Foreign key(PUserID) references Professor(PUserID),
-);
+)
+Go
 
 Create Table Has (
 	SectID int,
@@ -150,19 +178,43 @@ Create Table Has (
 	Primary key(ScheID, SectID),
 	Foreign key(SectID) references Section(SectID),
 	Foreign key(ScheID) references Schedule(ScheID)
-);
+)
+Go
 
 Create Table Enroll (
 	SectID int,
 	SUserID varchar(9),
 	T datetime,
-	St ENUM('enroll', 'waitlist'),
 	Rating tinyint,
 
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID),
 	Foreign key(SectID) references Section(SectID)
-);
+)
+Go
+
+Create Function enrollAlready(@sect int, @user varchar(9))
+returns bit
+As
+begin
+	if exists (select * from Enroll where (@sect = SectID and @user = SUserID) ) 
+		return 1;
+	return 0;
+end
+Go
+
+Create Table WaitList (
+	SectID int,
+	SUserID varchar(9),
+	T datetime,
+	Rating tinyint,
+
+	Primary key(SectID, SUserID),
+	Foreign key(SUserID) references Student(SUserID),
+	Foreign key(SectID) references Section(SectID),
+	constraint waitListNotEnrolledStudent Check (dbo.enrollAlready(SectID, SUserID) = 0)
+)
+Go
 
 Create Table STime (
 	SectID int,
@@ -176,7 +228,7 @@ Create Table STime (
 );
 Go
 
---- create a stored procedure for setting permissions
+--- Go  a stored procedure for setting permissions
 Create proc ProvideOwnerPermit
 	@user varchar(20)
 As
