@@ -212,8 +212,9 @@ Create Table WaitList (
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID),
 	Foreign key(SectID) references Section(SectID),
-	constraint waitListNotEnrolledStudent Check (dbo.enrollAlready(SectID, SUserID) = 0)
+	constraint waitListNotEnrolledStudent Check (dbo. enrollAlready(SectID, SUserID) = 0)
 )
+
 Go
 
 Create Table STime (
