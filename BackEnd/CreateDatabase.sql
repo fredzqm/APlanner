@@ -13,23 +13,26 @@ GO
 
 Create Table People (
 	UserID varchar(9),
-	FName varchar(30),
-	LName varchar(30),
+	FName varchar(30) not null,
+	LName varchar(30) not null,
 	SOP char(1),
-	Password char(20),
+	Password char(20) not null,
 
 	Primary key(UserID),
-	Constraint PeopleType Check ( SOP = 'S' | SOP = 'P')
-}
+	Constraint PeopleType Check ( SOP = 'S' or SOP = 'P' )
+)
 Go 
 
 Create Table Friend (
-	Requester varchar(9),
-	Accepter varchar(9),
+	Requester varchar(9) not null,
+	Accepter varchar(9) not null,
 
 	Primary key(Requester, Accepter),
-	Foreign key(Requester) references People(UserID),
-	Foreign key(Accepter) references People(UserID)
+	Foreign key(Requester) references People(UserID)
+		on update cascade on delete cascade,
+	Foreign key(Accepter) references People(UserID),
+	Constraint Friend_Different check (Requester <> Accepter),
+	Constraint Friend_Exist Check ( Requester <> null or  Accepter <> null )
 )
 Go
 
@@ -45,8 +48,8 @@ end
 Go
 
 Create Table FriendRequest (
-	Requester varchar(9),
-	Accepter varchar(9),
+	Requester varchar(9) not null,
+	Accepter varchar(9) not null,
 
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID),
@@ -61,18 +64,20 @@ Create Table Mess (
 	MessID varchar(5),
 	Sender varchar(9),
 	Receiver varchar(9),
-	Content text,
+	Content text not null,
 	T datetime,
 
 	Primary key(MessID, Sender, Receiver),
-	Foreign key(Sender) references People(UserID),
-	Foreign key(Receiver) references People(UserID)
+	Foreign key(Sender) references People(UserID)
+		on update cascade,
+	Foreign key(Receiver) references People(UserID),
+	Constraint MessOwner Check ( Sender <> null or  Receiver <> null )
 );
 Go
 
 Create Table Department(
 	DepartID varchar(5) primary key,
-	DepartNAME varchar(50)
+	DepartNAME varchar(50) not null
 );
 Go
 
@@ -80,17 +85,20 @@ Create Table Professor (
 	PUserID varchar(9) primary key,
 	DepartID varchar(5),
 
-	Foreign key(PUserID) references People(UserID),
+	Foreign key(PUserID) references People(UserID)
+		on update cascade on delete cascade,
 	Foreign key(DepartID) references Department(DepartID)
+		on update cascade on delete set null
 )
 Go
 
 Create Table Student (
 	SUserID varchar(9) primary key,
-	Major varchar(12),
+	Major varchar(12) DEFAULT 'Undeclared',
 	YR int,
 	
 	Foreign key(SUserID) references People(UserID)
+		on update cascade on delete cascade
 )
 Go
 
@@ -103,95 +111,105 @@ Go
 
 Create Table SPlan (
 	PID int primary key IDENTITY (1,1),
-	SUserID varchar(9),
-	TermID int,
-	Priority tinyint Unique,
-	Probability int,
+	SUserID varchar(9) not null,
+	TermID int  not null,
+	Priority tinyint,
+	Probability float,
 	
-	Foreign key(SUserID) references Student(SUserID),
+	Foreign key(SUserID) references Student(SUserID)
+		on update cascade on delete cascade,
 	Foreign key(TermID) references Term(TermID)
+		on update cascade on delete cascade
 )
 Go
 
 Create Table Course (
 	CourseID smallint,
-	CourseDP varchar(5),
+	CourseDP varchar(5) not null,
 	CourseNum smallint,
-	Descrip text,
-	Credit tinyint not null,
+	Descrip text default '',
+	Credit tinyint,
 
 	Primary key(CourseID),
 	Foreign key(CourseDP) references Department(DepartID)
+		on update cascade on delete cascade
 )
 Go
 
 Create Table Contain (
-	CourseID smallint,
-	PID int,
+	CourseID smallint not null,
+	PID int not null,
 	
 	Primary key(CourseID, PID),
-	Foreign key(CourseID) references Course(CourseID),
+	Foreign key(CourseID) references Course(CourseID)
+		on update cascade on delete cascade,
 	Foreign key(PID) references SPlan(PID)
+		on update cascade on delete cascade
 )
 Go
 
 Create Table Prerequisite (
-	CourseIDL smallint,
-	CourseIDH smallint,
+	CourseIDL smallint not null,
+	CourseIDH smallint not null,
 
 	Primary key(CourseIDL, CourseIDH),
 	Foreign key(CourseIDL) references Course(CourseID),
 	Foreign key(CourseIDH) references Course(CourseID)
+		on update cascade on delete cascade,
 )
 Go
 
 Create Table Schedule (
 	ScheID int IDENTITY (1,1),
 	PID int,
-	Probability int,
-	Priority tinyint Unique,
-	PublicOrPrivate varchar(7),
+	Probability float,
+	Priority tinyint,
+	PublicOrPrivate bit not null,
 	
 	Primary key(ScheID),
 	Foreign key(PID) references SPlan(PID)
+		on update cascade on delete set null
 )
 Go
 
 Create Table Section (
-	SectID int,
-	TermID int,
-	CourseID smallint,
-	SectNum tinyint,
+	SectID int IDENTITY (1,1),
+	TermID int not null,
+	CourseID smallint not null,
+	SectNum tinyint not null,
 	PUserID varchar(9),
 	EnrollNum tinyint,
 	Capacity int,
 
 	Primary key(SectID),
-	Foreign key(TermID) references Term(TermID),
+	Foreign key(TermID) references Term(TermID)
+		on update cascade on delete cascade,
 	Foreign key(CourseID) references Course(CourseID),
 	Foreign key(PUserID) references Professor(PUserID),
 )
 Go
 
 Create Table Has (
-	SectID int,
-	ScheID int,
+	SectID int not null,
+	ScheID int not null,
 
 	Primary key(ScheID, SectID),
 	Foreign key(SectID) references Section(SectID),
 	Foreign key(ScheID) references Schedule(ScheID)
+		on update cascade on delete cascade
 )
 Go
 
 Create Table Enroll (
-	SectID int,
-	SUserID varchar(9),
-	T datetime,
+	SectID int not null,
+	SUserID varchar(9) not null,
+	T datetime not null,
 	Rating tinyint,
 
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID),
 	Foreign key(SectID) references Section(SectID)
+		on update cascade on delete cascade
 )
 Go
 
@@ -206,28 +224,31 @@ end
 Go
 
 Create Table WaitList (
-	SectID int,
-	SUserID varchar(9),
-	T datetime,
-	Rating tinyint,
+	SectID int not null,
+	SUserID varchar(9) not null,
+	T datetime not null,
+	Rating tinyint not null,
 
 	Primary key(SectID, SUserID),
-	Foreign key(SUserID) references Student(SUserID),
-	Foreign key(SectID) references Section(SectID),
+	Foreign key(SUserID) references Student(SUserID)
+		on update cascade on delete cascade,
+	Foreign key(SectID) references Section(SectID)
+		on update cascade on delete cascade,
 	constraint waitListNotEnrolledStudent Check (dbo. enrollAlready(SectID, SUserID) = 0)
 )
 
 Go
 
 Create Table STime (
-	SectID int,
-	Classroom varchar(7),
-	Period tinyint,
-	TermID int,
+	SectID int not null,
+	Classroom varchar(7) default 'TBA',
+	Period tinyint not null,
+	TermID int not null,
 
 	Primary key(Period, Classroom, TermID, SectID),
 	Foreign key(TermID) references Term(TermID),
 	Foreign key(SectID) references Section(SectID)
+		on update cascade on delete cascade
 );
 Go
 

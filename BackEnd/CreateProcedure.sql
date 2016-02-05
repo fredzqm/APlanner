@@ -12,8 +12,11 @@ Create Procedure Register
     @Password char(20)
 AS
 begin
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
 	INSERT INTO [People] ([UserID] ,[FName] ,[LName] ,[SOP] ,[Password])
 		 VALUES (@UserID,  @FName,  @LName, @SorP, HASHBYTES('SHA1', @Password));
+    return 0;
 end
 Go
 
@@ -45,11 +48,13 @@ begin
 	Declare @login bit;
 	Exec UserLogin @UserID , @login output;
 	if @login == 0
-		return 0;
+		return 1;  -- fail to login
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
 	UPDATE People
 		SET Password = HASHBYTES('SHA1', @NewPassword) 
 		where UserID = @UserID;
-	return 1;
+	return 0; // success
 end
 Go
 

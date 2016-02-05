@@ -1,28 +1,28 @@
 use APlanner
 GO
 
-Insert into People ([UserID], [UserName], [FName], [LName] , [SOP] , [Password])
+Insert into People ([UserID], [FName], [LName] , [SOP] , [Password])
 Values 
-('801200000', 'dingy2', 'Mercury', 'Ding', 'S','pskeidjnsrkk203'),
-('801200001', 'whitec', 'Crystal', 'White','S', 'skenskesdf3203'),
-('801200002', 'katrinap', 'Perry', 'Katrina', 'S','pskeidjnsrkk203'),
-('801200003', 'greenk', 'Kate', 'Green','S', 'skenskesdf3203'),
-('801200004', 'zhangq2', 'Fred', 'Zhang', 'S','pskeidjnsrkk203'),
-('801200005', 'karryc', 'Crystal', 'Karry','P', 'skenskesdf3203');
+('dingy2', 'Mercury', 'Ding', 'S','pskeidjnsrkk203'),
+('whitec', 'Crystal', 'White','S', 'skenskesdf3203'),
+('katrinap', 'Perry', 'Katrina', 'S','pskeidjnsrkk203'),
+('greenk', 'Kate', 'Green','S', 'skenskesdf3203'),
+('zhangq2', 'Fred', 'Zhang', 'S','pskeidjnsrkk203'),
+('karryc', 'Crystal', 'Karry','P', 'skenskesdf3203');
 
 Insert into Student ([SUserID], [Major] ,[YR])
 Values 
-('801200000', 'CS',2),
-('801200001', 'BE',2),
-('801200002', 'CHEM',2),
-('801200003', 'SE',2),
-('801200004', 'CPE',2);
+('dingy2', 'CS',2),
+('whitec', 'BE',2),
+('katrinap', 'CHEM',2),
+('zhangq2', 'SE',2),
+('karryc', 'CPE',2);
 
 Insert into Professor ([PUserID], [DepartID])
 Values 
-('801200005', 'CS');
+('greenk', 'CS');
 
-Insert into Course ([CourseID] ,[CourseDP] ,[CourseNum] ,[Descrip] ,[Credit])
+Insert into Course ([CourseID] ,[CourseDP] ,[CourseNum] ,[Credit])
 Values 
 (304, 'CSSE','PLC', 4),
 (111, 'CHEM','General Chemistry', 4),
