@@ -58,3 +58,80 @@ begin
 end
 Go
 
+IF OBJECT_ID('EnrollStudent', 'P') IS NOT NULL
+    DROP Proc EnrollStudent;
+GO
+Create Procedure EnrollStudent
+	@UserID varchar(10),
+	@SectID tinyint,
+	@T datetime,
+	@Rating tinyint
+
+AS
+	begin
+		declare @SectionID int;
+		insert into Enroll values(@SectID,@UserID,@T,@Rating);
+	end
+go
+
+IF OBJECT_ID('DeleteStudent', 'P') IS NOT NULL
+    DROP Proc DeleteStudent;
+GO
+Create Procedure DeleteStudent
+	@UserID varchar(10),
+	@SectID tinyint
+AS
+	begin
+		declare @SectionID int;
+		Delete From Enroll where @SectID=SectID and @UserID=Enroll
+	end
+go
+
+
+IF OBJECT_ID('InsertMessage', 'P') IS NOT NULL
+    DROP Proc InsertMessage;
+GO
+Create Procedure InsertMessage
+	@UserName1 varchar(10),
+	@UserName2 varchar(10),
+	@Text text
+AS
+	begin
+		insert(@UserName1,@UserName2,@Text);
+	end
+go
+
+
+IF OBJECT_ID('EnrollWaitlist', 'P') IS NOT NULL
+    DROP Proc EnrollWaitlist;
+GO
+Create Procedure EnrollWaitlist
+	@SectID int,
+	@UserN varchar(9),
+	@T datetime,
+	@Rating tinyint
+AS
+	begin
+		declare @UserID varchar(9);
+		set @UserID=(select SUserID From Student where UserName=@UserN)
+		insert into Waitlist values(@SectID,@UserID,@T,@Rateing);
+	end
+go
+
+IF OBJECT_ID('DeleteWaitlist', 'P') IS NOT NULL
+    DROP Proc DeleteWaitlist;
+GO
+
+Create Procedure DeleteWaitlist
+	@SectID int,
+	@UserN varchar(9),
+	@T datetime,
+	@Rating tinyint
+AS
+	begin
+		declare @UserID varchar(9);
+		set @UserID=(select SUserID From Student where UserName=@UserN)
+		delete From Waitlist where(@SectID=SectID and @UserID=@UserN);
+	end
+go
+

@@ -13,6 +13,7 @@ GO
 
 Create Table People (
 	UserID varchar(9),
+	UserName varchar(12),
 	FName varchar(30) not null,
 	LName varchar(30) not null,
 	SOP char(1),
@@ -61,7 +62,7 @@ Create Table FriendRequest (
 Go
 
 Create Table Mess (
-	MessID varchar(5),
+	MessID int IDENTITY (1,1),
 	Sender varchar(9),
 	Receiver varchar(9),
 	Content text not null,
