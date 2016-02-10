@@ -5,71 +5,48 @@
 
 <h2>Index</h2>
 
-
 <div class="container content_box">
-    <div class="page-header">
-        <h3 class="col-sm-4 col-md-5 col-lg-6"></h3>
-        <div class="">
-            <div class="btn-group">
-                <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
-                <button class="btn" data-calendar-nav="today">Today</button>
-                <button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+    
+    <div class="col-md-12">
+        <div id="calendar" class="cal-context" style="width: 100%;">
+            <div class="cal-row-fluid cal-row-head">
+
+                <div class="cal-cell1">Monday</div>
+
+                <div class="cal-cell1">Tuesday</div>
+
+                <div class="cal-cell1">Wednesday</div>
+
+                <div class="cal-cell1">Thursday</div>
+
+                <div class="cal-cell1">Friday</div>
+
             </div>
-            <div class="btn-group">
-                <button class="btn btn-warning" data-calendar-view="year">Year</button>
-                <button class="btn btn-warning active" data-calendar-view="month">Month</button>
-                <button class="btn btn-warning" data-calendar-view="week">Week</button>
-                <button class="btn btn-warning" data-calendar-view="day">Day</button>
-            </div>
-        </div>
-    </div>
-    <br>
+            <div class="cal-month-box">
 
-    <div class="col-md-9"><div id="calendar"></div></div>
-    <div id="calendar" class="cal-context" style="width: 100%;">
-        <div class="cal-row-fluid cal-row-head">
-
-            <div class="cal-cell1">Monday</div>
-
-            <div class="cal-cell1">Tuesday</div>
-
-            <div class="cal-cell1">Wednesday</div>
-
-            <div class="cal-cell1">Thursday</div>
-
-            <div class="cal-cell1">Friday</div>
-
-        </div>
-        <div class="cal-month-box">
-
-            @for (int period = 1; period <= 10; period++)
+                @for (int period = 1; period <= 10; period++)
             {
                 <div class="cal-row-fluid cal-before-eventlist">
 
                     @for (int day = 1; day <= 5; day++)
                     {
-                        <div class="cal-cell1 cal-cell" data-cal-row="-day1">
-                            <div class="cal-month-day cal-day-outmonth cal-day-weekend cal-month-first-row">
+                        <div class="cal-cell1 cal-cell" data-cal-row="-day2">
+                            <div class="cal-month-day cal-day-inmonth">
                                 <span class="pull-right" day=@day period=@period data-cal-date="2015-12-27" data-cal-view="day" data-toggle="tooltip" title="" data-original-title="">Day:@day;Period:@period</span>
-                                
-                                <div id="cal-week-box" data-cal-week="2016-01-01" style="display: none;">Week 1</div>
+
                             </div>
                         </div>
                     }
                 </div>
             }
-            @*<a href="events_a.php?a=Professional_Workshop" data-event-id="13" data-event-class="event-important" class="pull-left event event-important" data-toggle="tooltip" title="" data-original-title="Professional Workshop"></a>*@
 
-
+            </div>
         </div>
     </div>
-
-
-
-    <div class="col-md-3"><div id="eventlist" class="nav nav-list"></div></div>
 </div>
 
-@section scripts {
+
+@*@section scripts {
     <script>
         $("#events").addClass("active");
 
@@ -117,5 +94,5 @@
         }(jQuery));
 
     </script>
-}
+}*@
 
