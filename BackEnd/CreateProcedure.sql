@@ -47,7 +47,7 @@ AS
 begin
 	Declare @login bit;
 	Exec UserLogin @UserID , @login output;
-	if @login == 0
+	if @login = 0
 		return 1;  -- fail to login
 	if  LEN(@Password) < 6
 		return 2;  -- password shorter than 7!
