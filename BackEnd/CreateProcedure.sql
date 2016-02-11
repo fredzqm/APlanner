@@ -14,7 +14,7 @@ AS
 begin
 	if  LEN(@Password) < 6
 		return 2;  -- password shorter than 7!
-	INSERT INTO [People] ([UserID] ,[FName] ,[LName] ,[SOP] ,[Password])
+	INSERT INTO [People] ([UserID] ,[FName] ,[LName] ,[type] ,[Password])
 		 VALUES (@UserID,  @FName,  @LName, @SorP, HASHBYTES('SHA1', @Password));
     return 0;
 end
@@ -110,7 +110,7 @@ Create Procedure AddToWaitlist
 	@UserID varchar(9)
 AS
 	begin
-		insert into Waitlist (SectID , SUserID , T)
+		insert into Waitlist (SectID , SUserID , time)
 			values(@SectID,@UserID,CURRENT_TIMESTAMP);
 	end
 go

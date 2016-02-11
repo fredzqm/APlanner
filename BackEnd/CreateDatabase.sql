@@ -16,11 +16,12 @@ Create Table People (
 	UserName varchar(12),
 	FName varchar(30) not null,
 	LName varchar(30) not null,
-	SOP char(1),
+	type char(1),
+	email varchar(30),
 	Password char(20) not null,
 
 	Primary key(UserID),
-	Constraint PeopleType Check ( SOP = 'S' or SOP = 'P' )
+	Constraint PeopleType Check ( type = 'S' or type = 'P' )
 )
 Go 
 
@@ -61,7 +62,7 @@ Create Table FriendRequest (
 );
 Go
 
-Create Table Mess (
+Create Table Message (
 	MessID int IDENTITY (1,1),
 	Sender varchar(9),
 	Receiver varchar(9),
@@ -84,9 +85,8 @@ Go
 
 Create Table Professor (
 	PUserID varchar(9) primary key,
-	Office varchar(6),
 	DepartID varchar(5),
-
+	Office varchar(6),
 	Foreign key(PUserID) references People(UserID)
 		on update cascade on delete cascade,
 	Foreign key(DepartID) references Department(DepartID)
@@ -97,7 +97,7 @@ Go
 Create Table Student (
 	SUserID varchar(9) primary key,
 	Major varchar(12) DEFAULT 'Undeclared',
-	YR int,
+	Year int,
 	
 	Foreign key(SUserID) references People(UserID)
 		on update cascade on delete cascade
@@ -106,8 +106,8 @@ Go
 
 Create Table Term (
 	TermID int primary key,
-	Start_Date date not null,
-	End_Date date not null
+	Start_date date not null,
+	End_date date not null
 )
 Go
 
@@ -128,8 +128,9 @@ Go
 Create Table Course (
 	CourseID smallint,
 	CourseDP varchar(5) not null,
+	CourseName varchar(20),
 	CourseNum smallint,
-	Descrip text default '',
+	Description text default '',
 	Credit tinyint,
 
 	Primary key(CourseID),
@@ -205,7 +206,7 @@ Go
 Create Table Enroll (
 	SectID int not null,
 	SUserID varchar(9) not null,
-	T datetime not null,
+	Time datetime not null,
 	Rating tinyint default null,
 
 	Primary key(SectID, SUserID),
@@ -228,7 +229,7 @@ Go
 Create Table WaitList (
 	SectID int not null,
 	SUserID varchar(9) not null,
-	T datetime not null,
+	Time datetime not null,
 
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID)

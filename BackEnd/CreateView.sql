@@ -16,7 +16,7 @@ IF OBJECT_ID('StudentView', 'V') IS NOT NULL
 GO
 Create View StudentView  AS
 	Select s.SUserID, u.FName+' '+ u.LName As [StudName] , 
-		s.Major , s.YR As Year
+		s.Major , s.Year As Year
 	From People u , Student s
 	where u.UserID = s.SUserID;
 Go
