@@ -18,7 +18,7 @@ namespace APlanner.Database
         public string Sender { get; set; }
         public string Receiver { get; set; }
         public string Content { get; set; }
-        public Nullable<System.DateTime> T { get; set; }
+        public Nullable<System.DateTime> time { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual Person Person1 { get; set; }

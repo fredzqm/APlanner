@@ -10,116 +10,107 @@ using APlanner.Database;
 
 namespace APlanner.Controllers
 {
-    public class PlanController : Controller
+    public class DepartmentsController : Controller
     {
         private APlannerEntities db = new APlannerEntities();
 
-        // GET: Plan
+        // GET: Departments
         public ActionResult Index()
         {
-            var sPlans = db.SPlans.Include(s => s.Student).Include(s => s.Term);
-            return View(sPlans.ToList());
+            return View(db.Departments.ToList());
         }
 
-        // GET: Plan/Details/5
-        public ActionResult Details(int? id)
+        // GET: Departments/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SPlan sPlan = db.SPlans.Find(id);
-            if (sPlan == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(sPlan);
+            return View(department);
         }
 
-        // GET: Plan/Create
+        // GET: Departments/Create
         public ActionResult Create()
         {
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major");
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID");
             return View();
         }
 
-        // POST: Plan/Create
+        // POST: Departments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PID,SUserID,TermID,Priority,Probability")] SPlan sPlan)
+        public ActionResult Create([Bind(Include = "DepartID,DepartNAME")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.SPlans.Add(sPlan);
+                db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
-            return View(sPlan);
+            return View(department);
         }
 
-        // GET: Plan/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Departments/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SPlan sPlan = db.SPlans.Find(id);
-            if (sPlan == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
-            return View(sPlan);
+            return View(department);
         }
 
-        // POST: Plan/Edit/5
+        // POST: Departments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PID,SUserID,TermID,Priority,Probability")] SPlan sPlan)
+        public ActionResult Edit([Bind(Include = "DepartID,DepartNAME")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sPlan).State = EntityState.Modified;
+                db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
-            return View(sPlan);
+            return View(department);
         }
 
-        // GET: Plan/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Departments/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SPlan sPlan = db.SPlans.Find(id);
-            if (sPlan == null)
+            Department department = db.Departments.Find(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(sPlan);
+            return View(department);
         }
 
-        // POST: Plan/Delete/5
+        // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            SPlan sPlan = db.SPlans.Find(id);
-            db.SPlans.Remove(sPlan);
+            Department department = db.Departments.Find(id);
+            db.Departments.Remove(department);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

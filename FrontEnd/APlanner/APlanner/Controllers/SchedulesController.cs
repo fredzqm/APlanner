@@ -10,107 +10,112 @@ using APlanner.Database;
 
 namespace APlanner.Controllers
 {
-    public class TermController : Controller
+    public class SchedulesController : Controller
     {
         private APlannerEntities db = new APlannerEntities();
 
-        // GET: Term
+        // GET: Schedules
         public ActionResult Index()
         {
-            return View(db.Terms.ToList());
+            var schedules = db.Schedules.Include(s => s.SPlan);
+            return View(schedules.ToList());
         }
 
-        // GET: Term/Details/5
+        // GET: Schedules/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Term term = db.Terms.Find(id);
-            if (term == null)
+            Schedule schedule = db.Schedules.Find(id);
+            if (schedule == null)
             {
                 return HttpNotFound();
             }
-            return View(term);
+            return View(schedule);
         }
 
-        // GET: Term/Create
+        // GET: Schedules/Create
         public ActionResult Create()
         {
+            ViewBag.PID = new SelectList(db.SPlans, "PID", "SUserID");
             return View();
         }
 
-        // POST: Term/Create
+        // POST: Schedules/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TermID,Start_Date,End_Date")] Term term)
+        public ActionResult Create([Bind(Include = "ScheID,PID,Probability,Priority,PublicOrPrivate")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
-                db.Terms.Add(term);
+                db.Schedules.Add(schedule);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(term);
+            ViewBag.PID = new SelectList(db.SPlans, "PID", "SUserID", schedule.PID);
+            return View(schedule);
         }
 
-        // GET: Term/Edit/5
+        // GET: Schedules/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Term term = db.Terms.Find(id);
-            if (term == null)
+            Schedule schedule = db.Schedules.Find(id);
+            if (schedule == null)
             {
                 return HttpNotFound();
             }
-            return View(term);
+            ViewBag.PID = new SelectList(db.SPlans, "PID", "SUserID", schedule.PID);
+            return View(schedule);
         }
 
-        // POST: Term/Edit/5
+        // POST: Schedules/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TermID,Start_Date,End_Date")] Term term)
+        public ActionResult Edit([Bind(Include = "ScheID,PID,Probability,Priority,PublicOrPrivate")] Schedule schedule)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(term).State = EntityState.Modified;
+                db.Entry(schedule).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(term);
+            ViewBag.PID = new SelectList(db.SPlans, "PID", "SUserID", schedule.PID);
+            return View(schedule);
         }
 
-        // GET: Term/Delete/5
+        // GET: Schedules/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Term term = db.Terms.Find(id);
-            if (term == null)
+            Schedule schedule = db.Schedules.Find(id);
+            if (schedule == null)
             {
                 return HttpNotFound();
             }
-            return View(term);
+            return View(schedule);
         }
 
-        // POST: Term/Delete/5
+        // POST: Schedules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Term term = db.Terms.Find(id);
-            db.Terms.Remove(term);
+            Schedule schedule = db.Schedules.Find(id);
+            db.Schedules.Remove(schedule);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace APlanner.Models
 {
@@ -48,10 +50,13 @@ namespace APlanner.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string UserID { get; set; }
+        public string UserName { get; set; }
+        public string FName { get; set; }
+        public string LName { get; set; }
+
+        [Display(Name = "Professor?")]
+        public bool type { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,9 +70,24 @@ namespace APlanner.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "ID number")]
+        public string UserID { get; set; }
+        [Required]
+        public string UserName { get; set; }
+        [Display(Name = "First Name")]
+        [Required]
+        public string FName { get; set; }
+        [Display(Name = "Last Name")]
+        [Required]
+        public string LName { get; set; }
+
+        [Display(Name = "Account Type")]
+        [Required]
+        //public List<SelectListItem> type { get; set; }
+        public string type { get; set; }
+
+        //[Display(Name = "Professor?")]
+        //public bool type { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -77,7 +97,7 @@ namespace APlanner.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -96,7 +116,7 @@ namespace APlanner.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

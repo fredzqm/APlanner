@@ -10,18 +10,18 @@ using APlanner.Database;
 
 namespace APlanner.Controllers
 {
-    public class SectionController : Controller
+    public class SectionsController : Controller
     {
         private APlannerEntities db = new APlannerEntities();
 
-        // GET: Section
+        // GET: Sections
         public ActionResult Index()
         {
             var sections = db.Sections.Include(s => s.Course).Include(s => s.Professor).Include(s => s.Term);
             return View(sections.ToList());
         }
 
-        // GET: Section/Details/5
+        // GET: Sections/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace APlanner.Controllers
             return View(section);
         }
 
-        // GET: Section/Create
+        // GET: Sections/Create
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseDP");
@@ -45,7 +45,7 @@ namespace APlanner.Controllers
             return View();
         }
 
-        // POST: Section/Create
+        // POST: Sections/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +65,7 @@ namespace APlanner.Controllers
             return View(section);
         }
 
-        // GET: Section/Edit/5
+        // GET: Sections/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace APlanner.Controllers
             return View(section);
         }
 
-        // POST: Section/Edit/5
+        // POST: Sections/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -102,7 +102,7 @@ namespace APlanner.Controllers
             return View(section);
         }
 
-        // GET: Section/Delete/5
+        // GET: Sections/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,7 +117,7 @@ namespace APlanner.Controllers
             return View(section);
         }
 
-        // POST: Section/Delete/5
+        // POST: Sections/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

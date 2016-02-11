@@ -30,6 +30,8 @@ namespace APlanner.Database
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Enroll> Enrolls { get; set; }
+        public virtual DbSet<Friend> Friends { get; set; }
+        public virtual DbSet<FriendRequest> FriendRequests { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Professor> Professors { get; set; }

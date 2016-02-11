@@ -1,23 +1,5 @@
 use APlanner
 GO
-Delete from People;
-Insert into People ([UserID], [FName], [LName] , [type] , [Password])
-	Values 
-	('dingy2', 'Mercury', 'Ding', 'S','pskeidjnsrkk203'),
-	('whitec', 'Crystal', 'White','S', 'skenskesdf3203'),
-	('katrinap', 'Perry', 'Katrina', 'S','pskeidjnsrkk203'),
-	('greenk', 'Kate', 'Green','S', 'skenskesdf3203'),
-	('zhangq2', 'Fred', 'Zhang', 'S','pskeidjnsrkk203'),
-	('karryc', 'Crystal', 'Karry','P', 'skenskesdf3203');
-
-Delete from Student;
-Insert into Student ([SUserID], [Major] ,[Year])
-	Values 
-	('dingy2', 'CS',2),
-	('whitec', 'BE',2),
-	('katrinap', 'CHEM',2),
-	('zhangq2', 'SE',2),
-	('karryc', 'CPE',2);
 
 Delete from Department;
 Insert into Department (DepartID, DepartNAME)
@@ -28,10 +10,34 @@ Insert into Department (DepartID, DepartNAME)
 		('BIO', 'Biology');
 Go
 
+
+Delete from People;
+Delete from Student;
 Delete from Professor;
-Insert into Professor ([PUserID], [DepartID])
-	Values 
-	('greenk', 'CSSE');
+--- RegisterStudent
+---   	@UserID varchar(9),
+--- 	@UserName varchar(12),
+--- 	@FName varchar(30),
+---     @LName varchar(30),
+---     @Password char(20),
+--- 	@Major varchar(12),
+--- 	@Year tinyint;
+exec  RegisterStudent '80120574', 'dingy2', 'Mercury', 'Ding','pskeidjnsrkk203','CS', 2 ;
+exec  RegisterStudent '80120575', 'whitec', 'Crystal', 'White', 'skenskesdf3203','BE', 2 ;
+exec  RegisterStudent '80120576', 'katrinap', 'Perry', 'Katrina','pskeidjnsrkk203','CHEM', 2 ;
+exec  RegisterStudent '80120577', 'zhangq2', 'Fred', 'Zhang','pskeidjnsrkk203','SE', 3 ;
+exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203','CPE', 4 ;
+
+--- Create Procedure RegisterProfessor
+---   	@UserID varchar(9),
+--- 	@UserName varchar(12),
+--- 	@FName varchar(30),
+---     @LName varchar(30),
+---     @Password char(20),
+--- 	@Deartment varchar(5),
+--- 	@Office varchar(6)
+
+RegisterProfessor '80120578', 'greenk', 'Kate', 'Green', 'skenskesdf3203','ECE', C203 ;
 
 Delete from Course;
 Insert into Course ([CourseNum], [CourseDP] , [CourseName] , [Credit])
@@ -43,7 +49,7 @@ Insert into Course ([CourseNum], [CourseDP] , [CourseName] , [Credit])
 	(112, 'MA','CalculusII', 5),
 	(111, 'MA','CalculusI', 5);
 
-Delete from Course;
+Delete from Term;
 Insert into Term ([TermID] ,[Start_Date] ,[End_Date])
 	Values 
 	(1,'03-07-2016','05-27-2016');

@@ -1,24 +1,78 @@
 Use [APlanner];
 Go
 
-IF OBJECT_ID('Register', 'P') IS NOT NULL
-    DROP Proc Register;
+IF OBJECT_ID('RegisterStudent', 'P') IS NOT NULL
+    DROP Proc RegisterStudent;
 GO
-Create Procedure Register
+Create Procedure RegisterStudent
   	@UserID varchar(9),
+	@UserName varchar(12),
 	@FName varchar(30),
     @LName varchar(30),
-	@SorP char(1),
-    @Password char(20)
+    @Password char(20),
+	@Major varchar(12),
+	@Year tinyint
 AS
 begin
 	if  LEN(@Password) < 6
 		return 2;  -- password shorter than 7!
-	INSERT INTO [People] ([UserID] ,[FName] ,[LName] ,[type] ,[Password])
-		 VALUES (@UserID,  @FName,  @LName, @SorP, HASHBYTES('SHA1', @Password));
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'S', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Student] ([SUserID], [Major] ,[Year])
+		 VALUES (@UserID,  @Major,  @Year);
     return 0;
 end
 Go
+
+IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
+    DROP Proc RegisterProfessor;
+GO
+Create Procedure RegisterProfessor
+  	@UserID varchar(9),
+	@UserName varchar(12),
+	@FName varchar(30),
+    @LName varchar(30),
+    @Password char(20),
+	@Department varchar(5),
+	@Office varchar(6)
+AS
+begin
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
+		 VALUES (@UserID,  @Department,  @Office )
+    return 0;
+end
+GO
+
+IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
+    DROP Proc CreateSection;
+GO
+Create Procedure RegisterProfessor
+  	@UserID varchar(9),
+	@UserName varchar(12),
+	@FName varchar(30),
+    @LName varchar(30),
+    @Password char(20),
+	@Department varchar(5),
+	@Office varchar(6)
+AS
+begin
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
+		 VALUES (@UserID,  @Department,  @Office )
+    return 0;
+end
+GO
+
 
 IF OBJECT_ID('UserLogin', 'P') IS NOT NULL
     DROP Proc UserLogin;

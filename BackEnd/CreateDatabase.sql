@@ -17,7 +17,6 @@ Create Table People (
 	FName varchar(30) not null,
 	LName varchar(30) not null,
 	type char(1),
-	email varchar(30),
 	Password char(20) not null,
 
 	Primary key(UserID),
@@ -28,7 +27,7 @@ Go
 Create Table Friend (
 	Requester varchar(9) not null,
 	Accepter varchar(9) not null,
-
+	time date,
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID)
 		on update cascade on delete cascade,
@@ -52,7 +51,8 @@ Go
 Create Table FriendRequest (
 	Requester varchar(9) not null,
 	Accepter varchar(9) not null,
-
+	time date,
+	
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID),
 	Foreign key(Accepter) references People(UserID),
@@ -67,7 +67,7 @@ Create Table Message (
 	Sender varchar(9),
 	Receiver varchar(9),
 	Content text not null,
-	T datetime,
+	time datetime,
 
 	Primary key(MessID, Sender, Receiver),
 	Foreign key(Sender) references People(UserID)
@@ -97,7 +97,7 @@ Go
 Create Table Student (
 	SUserID varchar(9) primary key,
 	Major varchar(12) DEFAULT 'Undeclared',
-	Year int,
+	Year tinyint,
 	
 	Foreign key(SUserID) references People(UserID)
 		on update cascade on delete cascade

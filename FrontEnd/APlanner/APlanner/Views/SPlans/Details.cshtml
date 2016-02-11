@@ -1,0 +1,50 @@
+﻿@model APlanner.Database.SPlan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SPlan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Probability)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Probability)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Major)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Major)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Term.TermID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Term.TermID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

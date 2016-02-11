@@ -10,107 +10,116 @@ using APlanner.Database;
 
 namespace APlanner.Controllers
 {
-    public class DepartmentController : Controller
+    public class ProfessorsController : Controller
     {
         private APlannerEntities db = new APlannerEntities();
 
-        // GET: Department
+        // GET: Professors
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            var professors = db.Professors.Include(p => p.Department).Include(p => p.Person);
+            return View(professors.ToList());
         }
 
-        // GET: Department/Details/5
+        // GET: Professors/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Professor professor = db.Professors.Find(id);
+            if (professor == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(professor);
         }
 
-        // GET: Department/Create
+        // GET: Professors/Create
         public ActionResult Create()
         {
+            ViewBag.DepartID = new SelectList(db.Departments, "DepartID", "DepartNAME");
+            ViewBag.PUserID = new SelectList(db.People, "UserID", "UserName");
             return View();
         }
 
-        // POST: Department/Create
+        // POST: Professors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartID,DepartNAME")] Department department)
+        public ActionResult Create([Bind(Include = "PUserID,DepartID,Office")] Professor professor)
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
+                db.Professors.Add(professor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(department);
+            ViewBag.DepartID = new SelectList(db.Departments, "DepartID", "DepartNAME", professor.DepartID);
+            ViewBag.PUserID = new SelectList(db.People, "UserID", "UserName", professor.PUserID);
+            return View(professor);
         }
 
-        // GET: Department/Edit/5
+        // GET: Professors/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Professor professor = db.Professors.Find(id);
+            if (professor == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            ViewBag.DepartID = new SelectList(db.Departments, "DepartID", "DepartNAME", professor.DepartID);
+            ViewBag.PUserID = new SelectList(db.People, "UserID", "UserName", professor.PUserID);
+            return View(professor);
         }
 
-        // POST: Department/Edit/5
+        // POST: Professors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartID,DepartNAME")] Department department)
+        public ActionResult Edit([Bind(Include = "PUserID,DepartID,Office")] Professor professor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
+                db.Entry(professor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(department);
+            ViewBag.DepartID = new SelectList(db.Departments, "DepartID", "DepartNAME", professor.DepartID);
+            ViewBag.PUserID = new SelectList(db.People, "UserID", "UserName", professor.PUserID);
+            return View(professor);
         }
 
-        // GET: Department/Delete/5
+        // GET: Professors/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = db.Departments.Find(id);
-            if (department == null)
+            Professor professor = db.Professors.Find(id);
+            if (professor == null)
             {
                 return HttpNotFound();
             }
-            return View(department);
+            return View(professor);
         }
 
-        // POST: Department/Delete/5
+        // POST: Professors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
+            Professor professor = db.Professors.Find(id);
+            db.Professors.Remove(professor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
