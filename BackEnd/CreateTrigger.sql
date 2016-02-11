@@ -53,3 +53,35 @@ BEGIN
 
 END
 GO
+
+IF OBJECT_ID('UpdateWaitlistNumUpdate', 'TR') IS NOT NULL
+    DROP TRIGGER UpdateEnrollNumUpdate;
+GO
+CREATE TRIGGER UpdateWaitlistNumUpdate ON  [Waitlist]
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for trigger here
+
+END
+GO
+
+IF OBJECT_ID('UpdateWaitlistNumDelete', 'TR') IS NOT NULL
+    DROP TRIGGER UpdateEnrollNumDelete;
+GO
+CREATE TRIGGER UpdateWaitlistNumDelete ON  [Waitlist]
+   AFTER UPDATE
+AS 
+BEGIN
+	IF (SELECT COUNT(*) FROM Deleted) > 1 begin
+		print 'cannot add many students to the waitlist at the same time';
+		rollback;
+	end
+	if (SELECT COUNT(*) FROM Deleted) > 1
+		SET NOCOUNT ON;
+END
+GO
