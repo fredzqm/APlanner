@@ -46,7 +46,7 @@ Go
 IF OBJECT_ID('ScheduleView', 'V') IS NOT NULL
     DROP VIEW ScheduleView;
 GO
-Create View SchedulePublicView As
+Create View ScheduleView As
 	Select p.SUserID, p.StudName, p.TermID, p.Probability * s.Probability As [Probability], p.Credits
 	From Schedule s, PlanView p
 	where  s.PID = p.PID AND s.PublicOrPrivate = 1;

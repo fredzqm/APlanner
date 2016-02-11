@@ -1,0 +1,1754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="APlannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contain">
+          <Key>
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="CourseID" Type="smallint" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseDP" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="50" />
+          <Property Name="CourseNum" Type="smallint" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Credit" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartID" />
+          </Key>
+          <Property Name="DepartID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DepartNAME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enroll">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SectID" Type="int" Nullable="false" />
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Rating" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="Requester" />
+            <PropertyRef Name="Accepter" />
+          </Key>
+          <Property Name="Requester" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Accepter" Type="varchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FriendRequest">
+          <Key>
+            <PropertyRef Name="Requester" />
+            <PropertyRef Name="Accepter" />
+          </Key>
+          <Property Name="Requester" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Accepter" Type="varchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Has">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="ScheID" />
+          </Key>
+          <Property Name="SectID" Type="int" Nullable="false" />
+          <Property Name="ScheID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessID" />
+            <PropertyRef Name="Sender" />
+            <PropertyRef Name="Receiver" />
+          </Key>
+          <Property Name="MessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sender" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Receiver" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Content" Type="text" Nullable="false" />
+          <Property Name="T" Type="datetime" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="12" />
+          <Property Name="FName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="type" Type="char" MaxLength="1" />
+          <Property Name="email" Type="varchar" MaxLength="30" />
+          <Property Name="Password" Type="char" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prerequisite">
+          <Key>
+            <PropertyRef Name="Prerequisite" />
+            <PropertyRef Name="Requisite" />
+          </Key>
+          <Property Name="Prerequisite" Type="smallint" Nullable="false" />
+          <Property Name="Requisite" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="PUserID" />
+          </Key>
+          <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="DepartID" Type="varchar" MaxLength="5" />
+          <Property Name="Office" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheID" />
+          </Key>
+          <Property Name="ScheID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PID" Type="int" />
+          <Property Name="Probability" Type="float" />
+          <Property Name="Priority" Type="tinyint" />
+          <Property Name="PublicOrPrivate" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectID" />
+          </Key>
+          <Property Name="SectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="smallint" Nullable="false" />
+          <Property Name="SectNum" Type="tinyint" Nullable="false" />
+          <Property Name="PUserID" Type="varchar" MaxLength="9" />
+          <Property Name="EnrollNum" Type="tinyint" />
+          <Property Name="Capacity" Type="int" />
+        </EntityType>
+        <EntityType Name="SPlan">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" />
+          <Property Name="Probability" Type="float" />
+        </EntityType>
+        <EntityType Name="STime">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="Classroom" />
+            <PropertyRef Name="Period" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="SectID" Type="int" Nullable="false" />
+          <Property Name="Classroom" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Period" Type="tinyint" Nullable="false" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Major" Type="varchar" MaxLength="12" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <EntityType Name="Term">
+          <Key>
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="Start_date" Type="date" Nullable="false" />
+          <Property Name="End_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WaitList">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SectID" Type="int" Nullable="false" />
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APlanner.dbo.PlanView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PlanView">
+          <Key>
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="Probability" Type="float" />
+          <Property Name="Credits" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APlanner.dbo.ProfessorView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProfessorView">
+          <Key>
+            <PropertyRef Name="PUserID" />
+            <PropertyRef Name="ProfName" />
+          </Key>
+          <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="ProfName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="DepartMent" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APlanner.dbo.ScheduleView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ScheduleView">
+          <Key>
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="Probability" Type="float" />
+          <Property Name="Credits" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APlanner.dbo.SectionView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SectionView">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="TermID" />
+            <PropertyRef Name="ProfName" />
+          </Key>
+          <Property Name="SectID" Type="int" Nullable="false" />
+          <Property Name="Section" Type="smallint" />
+          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="ProfName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="Credit" Type="tinyint" />
+          <Property Name="EnrollNum" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="StudentView">
+          <Key>
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+          </Key>
+          <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="Major" Type="varchar" MaxLength="12" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <Association Name="FK__Contain__CourseI__36B12243">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contain" Type="Self.Contain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Contain">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contain__PID__37A5467C">
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contain" Type="Self.Contain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPlan">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="Contain">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Course__CourseDP__33D4B598">
+          <End Role="Department" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CourseDP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enroll__SectID__4BAC3F29">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="Enroll">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enroll__SUserID__4AB81AF0">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="Enroll">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Friend__Accepter__145C0A3F">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="Accepter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Friend__Requeste__1367E606">
+          <End Role="People" Type="Self.People" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Friend" Type="Self.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Friend">
+              <PropertyRef Name="Requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FriendReq__Accep__1B0907CE">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="Accepter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FriendReq__Reque__1A14E395">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FriendRequest">
+              <PropertyRef Name="Requester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Has__ScheID__46E78A0C">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Has" Type="Self.Has" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheID" />
+            </Principal>
+            <Dependent Role="Has">
+              <PropertyRef Name="ScheID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Has__SectID__45F365D3">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="Has" Type="Self.Has" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="Has">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Receive__1FCDBCEB">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Sender__1ED998B2">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prerequis__Prere__3A81B327">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Prerequisite">
+              <PropertyRef Name="Prerequisite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prerequis__Requi__3B75D760">
+          <End Role="Course" Type="Self.Course" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Prerequisite">
+              <PropertyRef Name="Requisite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__Depar__267ABA7A">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="DepartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__PUser__25869641">
+          <End Role="People" Type="Self.People" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="PUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__PID__3E52440B">
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPlan">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__CourseI__4222D4EF">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__PUserID__4316F928">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="PUserID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="PUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__TermID__412EB0B6">
+          <End Role="Term" Type="Self.Term" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SPlan__SUserID__2F10007B">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="SPlan">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SPlan__TermID__300424B4">
+          <End Role="Term" Type="Self.Term" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="SPlan">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STime__SectID__5629CD9C">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STime" Type="Self.STime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="STime">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STime__TermID__5535A963">
+          <End Role="Term" Type="Self.Term" Multiplicity="1" />
+          <End Role="STime" Type="Self.STime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="STime">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__SUserID__2A4B4B5E">
+          <End Role="People" Type="Self.People" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WaitList__SectID__5070F446">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="WaitList">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WaitList__SUserI__4F7CD00D">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="WaitList">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddToWaitlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SectID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="OldPassword" Type="char" Mode="In" />
+          <Parameter Name="NewPassword" Type="char" Mode="In" />
+          <Parameter Name="success" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="enrollAlready" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="sect" Type="int" Mode="In" />
+          <Parameter Name="user" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+          <Parameter Name="T" Type="datetime" Mode="In" />
+          <Parameter Name="Rating" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="friendAlready" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="req" Type="varchar" Mode="In" />
+          <Parameter Name="acc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sender" Type="varchar" Mode="In" />
+          <Parameter Name="reciever" Type="varchar" Mode="In" />
+          <Parameter Name="Text" Type="text" Mode="In" />
+        </Function>
+        <Function Name="ProvideOwnerPermit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Register" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="FName" Type="varchar" Mode="In" />
+          <Parameter Name="LName" Type="varchar" Mode="In" />
+          <Parameter Name="SorP" Type="char" Mode="In" />
+          <Parameter Name="Password" Type="char" Mode="In" />
+        </Function>
+        <Function Name="UnEnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="UnWaitlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SectID" Type="int" Mode="In" />
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="APlannerModelStoreContainer">
+          <EntitySet Name="Contain" EntityType="Self.Contain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enroll" EntityType="Self.Enroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friend" EntityType="Self.Friend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FriendRequest" EntityType="Self.FriendRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Has" EntityType="Self.Has" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prerequisite" EntityType="Self.Prerequisite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPlan" EntityType="Self.SPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STime" EntityType="Self.STime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Term" EntityType="Self.Term" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaitList" EntityType="Self.WaitList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanView" EntityType="Self.PlanView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PlanView].[PID] AS [PID], 
+    [PlanView].[SUserID] AS [SUserID], 
+    [PlanView].[StudName] AS [StudName], 
+    [PlanView].[TermID] AS [TermID], 
+    [PlanView].[Probability] AS [Probability], 
+    [PlanView].[Credits] AS [Credits]
+    FROM [dbo].[PlanView] AS [PlanView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProfessorView" EntityType="Self.ProfessorView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProfessorView].[PUserID] AS [PUserID], 
+    [ProfessorView].[ProfName] AS [ProfName], 
+    [ProfessorView].[DepartMent] AS [DepartMent]
+    FROM [dbo].[ProfessorView] AS [ProfessorView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ScheduleView" EntityType="Self.ScheduleView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ScheduleView].[SUserID] AS [SUserID], 
+    [ScheduleView].[StudName] AS [StudName], 
+    [ScheduleView].[TermID] AS [TermID], 
+    [ScheduleView].[Probability] AS [Probability], 
+    [ScheduleView].[Credits] AS [Credits]
+    FROM [dbo].[ScheduleView] AS [ScheduleView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SectionView" EntityType="Self.SectionView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SectionView].[SectID] AS [SectID], 
+    [SectionView].[Section] AS [Section], 
+    [SectionView].[TermID] AS [TermID], 
+    [SectionView].[ProfName] AS [ProfName], 
+    [SectionView].[Credit] AS [Credit], 
+    [SectionView].[EnrollNum] AS [EnrollNum]
+    FROM [dbo].[SectionView] AS [SectionView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="StudentView" EntityType="Self.StudentView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [StudentView].[SUserID] AS [SUserID], 
+    [StudentView].[StudName] AS [StudName], 
+    [StudentView].[Major] AS [Major], 
+    [StudentView].[Year] AS [Year]
+    FROM [dbo].[StudentView] AS [StudentView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Contain__CourseI__36B12243" Association="Self.FK__Contain__CourseI__36B12243">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Contain" EntitySet="Contain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contain__PID__37A5467C" Association="Self.FK__Contain__PID__37A5467C">
+            <End Role="SPlan" EntitySet="SPlan" />
+            <End Role="Contain" EntitySet="Contain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Course__CourseDP__33D4B598" Association="Self.FK__Course__CourseDP__33D4B598">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enroll__SectID__4BAC3F29" Association="Self.FK__Enroll__SectID__4BAC3F29">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Enroll" EntitySet="Enroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enroll__SUserID__4AB81AF0" Association="Self.FK__Enroll__SUserID__4AB81AF0">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Enroll" EntitySet="Enroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Friend__Accepter__145C0A3F" Association="Self.FK__Friend__Accepter__145C0A3F">
+            <End Role="People" EntitySet="People" />
+            <End Role="Friend" EntitySet="Friend" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Friend__Requeste__1367E606" Association="Self.FK__Friend__Requeste__1367E606">
+            <End Role="People" EntitySet="People" />
+            <End Role="Friend" EntitySet="Friend" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FriendReq__Accep__1B0907CE" Association="Self.FK__FriendReq__Accep__1B0907CE">
+            <End Role="People" EntitySet="People" />
+            <End Role="FriendRequest" EntitySet="FriendRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FriendReq__Reque__1A14E395" Association="Self.FK__FriendReq__Reque__1A14E395">
+            <End Role="People" EntitySet="People" />
+            <End Role="FriendRequest" EntitySet="FriendRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Has__ScheID__46E78A0C" Association="Self.FK__Has__ScheID__46E78A0C">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Has" EntitySet="Has" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Has__SectID__45F365D3" Association="Self.FK__Has__SectID__45F365D3">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Has" EntitySet="Has" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Receive__1FCDBCEB" Association="Self.FK__Message__Receive__1FCDBCEB">
+            <End Role="People" EntitySet="People" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Sender__1ED998B2" Association="Self.FK__Message__Sender__1ED998B2">
+            <End Role="People" EntitySet="People" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prerequis__Prere__3A81B327" Association="Self.FK__Prerequis__Prere__3A81B327">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Prerequisite" EntitySet="Prerequisite" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prerequis__Requi__3B75D760" Association="Self.FK__Prerequis__Requi__3B75D760">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Prerequisite" EntitySet="Prerequisite" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__Depar__267ABA7A" Association="Self.FK__Professor__Depar__267ABA7A">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__PUser__25869641" Association="Self.FK__Professor__PUser__25869641">
+            <End Role="People" EntitySet="People" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__PID__3E52440B" Association="Self.FK__Schedule__PID__3E52440B">
+            <End Role="SPlan" EntitySet="SPlan" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__CourseI__4222D4EF" Association="Self.FK__Section__CourseI__4222D4EF">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__PUserID__4316F928" Association="Self.FK__Section__PUserID__4316F928">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__TermID__412EB0B6" Association="Self.FK__Section__TermID__412EB0B6">
+            <End Role="Term" EntitySet="Term" />
+            <End Role="Section" EntitySet="Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SPlan__SUserID__2F10007B" Association="Self.FK__SPlan__SUserID__2F10007B">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="SPlan" EntitySet="SPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SPlan__TermID__300424B4" Association="Self.FK__SPlan__TermID__300424B4">
+            <End Role="Term" EntitySet="Term" />
+            <End Role="SPlan" EntitySet="SPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STime__SectID__5629CD9C" Association="Self.FK__STime__SectID__5629CD9C">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="STime" EntitySet="STime" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STime__TermID__5535A963" Association="Self.FK__STime__TermID__5535A963">
+            <End Role="Term" EntitySet="Term" />
+            <End Role="STime" EntitySet="STime" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__SUserID__2A4B4B5E" Association="Self.FK__Student__SUserID__2A4B4B5E">
+            <End Role="People" EntitySet="People" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WaitList__SectID__5070F446" Association="Self.FK__WaitList__SectID__5070F446">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="WaitList" EntitySet="WaitList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WaitList__SUserI__4F7CD00D" Association="Self.FK__WaitList__SUserI__4F7CD00D">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="WaitList" EntitySet="WaitList" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="APlannerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseDP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CourseNum" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Credit" Type="Byte" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Course__CourseDP__33D4B598" FromRole="Course" ToRole="Department" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__CourseI__4222D4EF" FromRole="Course" ToRole="Section" />
+          <NavigationProperty Name="SPlans" Relationship="Self.Contain" FromRole="Course" ToRole="SPlan" />
+          <NavigationProperty Name="Course1" Relationship="Self.Prerequisite" FromRole="Course" ToRole="Course1" />
+          <NavigationProperty Name="Courses" Relationship="Self.Prerequisite" FromRole="Course1" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartID" />
+          </Key>
+          <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__Course__CourseDP__33D4B598" FromRole="Department" ToRole="Course" />
+          <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Depar__267ABA7A" FromRole="Department" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Enroll">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SectID" Type="Int32" Nullable="false" />
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Rating" Type="Byte" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__Enroll__SectID__4BAC3F29" FromRole="Enroll" ToRole="Section" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Enroll__SUserID__4AB81AF0" FromRole="Enroll" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessID" />
+            <PropertyRef Name="Sender" />
+            <PropertyRef Name="Receiver" />
+          </Key>
+          <Property Name="MessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sender" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Receiver" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="T" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Message__Receive__1FCDBCEB" FromRole="Message" ToRole="People" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK__Message__Sender__1ED998B2" FromRole="Message" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Receive__1FCDBCEB" FromRole="People" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__Sender__1ED998B2" FromRole="People" ToRole="Message" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Professor__PUser__25869641" FromRole="People" ToRole="Professor" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__SUserID__2A4B4B5E" FromRole="People" ToRole="Student" />
+          <NavigationProperty Name="People1" Relationship="Self.Friend" FromRole="People" ToRole="People1" />
+          <NavigationProperty Name="People" Relationship="Self.Friend" FromRole="People1" ToRole="People" />
+          <NavigationProperty Name="People11" Relationship="Self.FriendRequest" FromRole="People" ToRole="People1" />
+          <NavigationProperty Name="People2" Relationship="Self.FriendRequest" FromRole="People1" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="PUserID" />
+          </Key>
+          <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__267ABA7A" FromRole="Professor" ToRole="Department" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__25869641" FromRole="Professor" ToRole="People" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__4316F928" FromRole="Professor" ToRole="Section" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheID" />
+          </Key>
+          <Property Name="ScheID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Priority" Type="Byte" />
+          <Property Name="PublicOrPrivate" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SPlan" Relationship="Self.FK__Schedule__PID__3E52440B" FromRole="Schedule" ToRole="SPlan" />
+          <NavigationProperty Name="Sections" Relationship="Self.Has" FromRole="Schedule" ToRole="Section" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectID" />
+          </Key>
+          <Property Name="SectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int16" Nullable="false" />
+          <Property Name="SectNum" Type="Byte" Nullable="false" />
+          <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="EnrollNum" Type="Byte" />
+          <Property Name="Capacity" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="Self.FK__Section__CourseI__4222D4EF" FromRole="Section" ToRole="Course" />
+          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SectID__4BAC3F29" FromRole="Section" ToRole="Enroll" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Section__PUserID__4316F928" FromRole="Section" ToRole="Professor" />
+          <NavigationProperty Name="Term" Relationship="Self.FK__Section__TermID__412EB0B6" FromRole="Section" ToRole="Term" />
+          <NavigationProperty Name="STimes" Relationship="Self.FK__STime__SectID__5629CD9C" FromRole="Section" ToRole="STime" />
+          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SectID__5070F446" FromRole="Section" ToRole="WaitList" />
+          <NavigationProperty Name="Schedules" Relationship="Self.Has" FromRole="Section" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="SPlan">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Byte" />
+          <Property Name="Probability" Type="Double" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__PID__3E52440B" FromRole="SPlan" ToRole="Schedule" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__SPlan__SUserID__2F10007B" FromRole="SPlan" ToRole="Student" />
+          <NavigationProperty Name="Term" Relationship="Self.FK__SPlan__TermID__300424B4" FromRole="SPlan" ToRole="Term" />
+          <NavigationProperty Name="Courses" Relationship="Self.Contain" FromRole="SPlan" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="STime">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="Classroom" />
+            <PropertyRef Name="Period" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="SectID" Type="Int32" Nullable="false" />
+          <Property Name="Classroom" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Period" Type="Byte" Nullable="false" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__STime__SectID__5629CD9C" FromRole="STime" ToRole="Section" />
+          <NavigationProperty Name="Term" Relationship="Self.FK__STime__TermID__5535A963" FromRole="STime" ToRole="Term" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__4AB81AF0" FromRole="Student" ToRole="Enroll" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__2A4B4B5E" FromRole="Student" ToRole="People" />
+          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__2F10007B" FromRole="Student" ToRole="SPlan" />
+          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SUserI__4F7CD00D" FromRole="Student" ToRole="WaitList" />
+        </EntityType>
+        <EntityType Name="Term">
+          <Key>
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="Start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="End_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__TermID__412EB0B6" FromRole="Term" ToRole="Section" />
+          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__TermID__300424B4" FromRole="Term" ToRole="SPlan" />
+          <NavigationProperty Name="STimes" Relationship="Self.FK__STime__TermID__5535A963" FromRole="Term" ToRole="STime" />
+        </EntityType>
+        <EntityType Name="WaitList">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="SUserID" />
+          </Key>
+          <Property Name="SectID" Type="Int32" Nullable="false" />
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__WaitList__SectID__5070F446" FromRole="WaitList" ToRole="Section" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__WaitList__SUserI__4F7CD00D" FromRole="WaitList" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="PlanView">
+          <Key>
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Credits" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProfessorView">
+          <Key>
+            <PropertyRef Name="PUserID" />
+            <PropertyRef Name="ProfName" />
+          </Key>
+          <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProfName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepartMent" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ScheduleView">
+          <Key>
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+            <PropertyRef Name="TermID" />
+          </Key>
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Credits" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SectionView">
+          <Key>
+            <PropertyRef Name="SectID" />
+            <PropertyRef Name="TermID" />
+            <PropertyRef Name="ProfName" />
+          </Key>
+          <Property Name="SectID" Type="Int32" Nullable="false" />
+          <Property Name="Section" Type="Int16" />
+          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="ProfName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Credit" Type="Byte" />
+          <Property Name="EnrollNum" Type="Byte" />
+        </EntityType>
+        <EntityType Name="StudentView">
+          <Key>
+            <PropertyRef Name="SUserID" />
+            <PropertyRef Name="StudName" />
+          </Key>
+          <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Course__CourseDP__33D4B598">
+          <End Role="Department" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CourseDP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__CourseI__4222D4EF">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__Depar__267ABA7A">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="DepartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enroll__SectID__4BAC3F29">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="Enroll">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enroll__SUserID__4AB81AF0">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="Enroll">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Receive__1FCDBCEB">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__Sender__1ED998B2">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__PUser__25869641">
+          <End Role="People" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="PUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__SUserID__2A4B4B5E">
+          <End Role="People" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__PUserID__4316F928">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="PUserID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="PUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__PID__3E52440B">
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPlan">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Section__TermID__412EB0B6">
+          <End Role="Term" Type="Self.Term" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STime__SectID__5629CD9C">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STime" Type="Self.STime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="STime">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WaitList__SectID__5070F446">
+          <End Role="Section" Type="Self.Section" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectID" />
+            </Principal>
+            <Dependent Role="WaitList">
+              <PropertyRef Name="SectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SPlan__SUserID__2F10007B">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="SPlan">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SPlan__TermID__300424B4">
+          <End Role="Term" Type="Self.Term" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="SPlan">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STime__TermID__5535A963">
+          <End Role="Term" Type="Self.Term" Multiplicity="1" />
+          <End Role="STime" Type="Self.STime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="TermID" />
+            </Principal>
+            <Dependent Role="STime">
+              <PropertyRef Name="TermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WaitList__SUserI__4F7CD00D">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="SUserID" />
+            </Principal>
+            <Dependent Role="WaitList">
+              <PropertyRef Name="SUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Contain">
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
+        </Association>
+        <Association Name="Friend">
+          <End Role="People" Type="Self.Person" Multiplicity="*" />
+          <End Role="People1" Type="Self.Person" Multiplicity="*" />
+        </Association>
+        <Association Name="FriendRequest">
+          <End Role="People" Type="Self.Person" Multiplicity="*" />
+          <End Role="People1" Type="Self.Person" Multiplicity="*" />
+        </Association>
+        <Association Name="Has">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <End Role="Section" Type="Self.Section" Multiplicity="*" />
+        </Association>
+        <Association Name="Prerequisite">
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <End Role="Course1" Type="Self.Course" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="APlannerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Enrolls" EntityType="Self.Enroll" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Professors" EntityType="Self.Professor" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="Sections" EntityType="Self.Section" />
+          <EntitySet Name="SPlans" EntityType="Self.SPlan" />
+          <EntitySet Name="STimes" EntityType="Self.STime" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Terms" EntityType="Self.Term" />
+          <EntitySet Name="WaitLists" EntityType="Self.WaitList" />
+          <EntitySet Name="PlanViews" EntityType="Self.PlanView" />
+          <EntitySet Name="ProfessorViews" EntityType="Self.ProfessorView" />
+          <EntitySet Name="ScheduleViews" EntityType="Self.ScheduleView" />
+          <EntitySet Name="SectionViews" EntityType="Self.SectionView" />
+          <EntitySet Name="StudentViews" EntityType="Self.StudentView" />
+          <AssociationSet Name="FK__Course__CourseDP__33D4B598" Association="Self.FK__Course__CourseDP__33D4B598">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__CourseI__4222D4EF" Association="Self.FK__Section__CourseI__4222D4EF">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__Depar__267ABA7A" Association="Self.FK__Professor__Depar__267ABA7A">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enroll__SectID__4BAC3F29" Association="Self.FK__Enroll__SectID__4BAC3F29">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Enroll" EntitySet="Enrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enroll__SUserID__4AB81AF0" Association="Self.FK__Enroll__SUserID__4AB81AF0">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Enroll" EntitySet="Enrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Receive__1FCDBCEB" Association="Self.FK__Message__Receive__1FCDBCEB">
+            <End Role="People" EntitySet="People" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Sender__1ED998B2" Association="Self.FK__Message__Sender__1ED998B2">
+            <End Role="People" EntitySet="People" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__PUser__25869641" Association="Self.FK__Professor__PUser__25869641">
+            <End Role="People" EntitySet="People" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__SUserID__2A4B4B5E" Association="Self.FK__Student__SUserID__2A4B4B5E">
+            <End Role="People" EntitySet="People" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__PUserID__4316F928" Association="Self.FK__Section__PUserID__4316F928">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__PID__3E52440B" Association="Self.FK__Schedule__PID__3E52440B">
+            <End Role="SPlan" EntitySet="SPlans" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Section__TermID__412EB0B6" Association="Self.FK__Section__TermID__412EB0B6">
+            <End Role="Term" EntitySet="Terms" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STime__SectID__5629CD9C" Association="Self.FK__STime__SectID__5629CD9C">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="STime" EntitySet="STimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WaitList__SectID__5070F446" Association="Self.FK__WaitList__SectID__5070F446">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="WaitList" EntitySet="WaitLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SPlan__SUserID__2F10007B" Association="Self.FK__SPlan__SUserID__2F10007B">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="SPlan" EntitySet="SPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SPlan__TermID__300424B4" Association="Self.FK__SPlan__TermID__300424B4">
+            <End Role="Term" EntitySet="Terms" />
+            <End Role="SPlan" EntitySet="SPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STime__TermID__5535A963" Association="Self.FK__STime__TermID__5535A963">
+            <End Role="Term" EntitySet="Terms" />
+            <End Role="STime" EntitySet="STimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WaitList__SUserI__4F7CD00D" Association="Self.FK__WaitList__SUserI__4F7CD00D">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="WaitList" EntitySet="WaitLists" />
+          </AssociationSet>
+          <AssociationSet Name="Contain" Association="Self.Contain">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="SPlan" EntitySet="SPlans" />
+          </AssociationSet>
+          <AssociationSet Name="Friend" Association="Self.Friend">
+            <End Role="People" EntitySet="People" />
+            <End Role="People1" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FriendRequest" Association="Self.FriendRequest">
+            <End Role="People" EntitySet="People" />
+            <End Role="People1" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="Has" Association="Self.Has">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="Prerequisite" Association="Self.Prerequisite">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Course1" EntitySet="Courses" />
+          </AssociationSet>
+          <FunctionImport Name="AddToWaitlist">
+            <Parameter Name="SectID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ChangePassword">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="OldPassword" Mode="In" Type="String" />
+            <Parameter Name="NewPassword" Mode="In" Type="String" />
+            <Parameter Name="success" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="EnrollStudent">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="SectID" Mode="In" Type="Byte" />
+            <Parameter Name="T" Mode="In" Type="DateTime" />
+            <Parameter Name="Rating" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="InsertMessage">
+            <Parameter Name="sender" Mode="In" Type="String" />
+            <Parameter Name="reciever" Mode="In" Type="String" />
+            <Parameter Name="Text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProvideOwnerPermit">
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Register">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="SorP" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UnEnrollStudent">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="SectID" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="UnWaitlist">
+            <Parameter Name="SectID" Mode="In" Type="Int32" />
+            <Parameter Name="SUserID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserLogin">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="APlannerModelStoreContainer" CdmEntityContainer="APlannerEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="APlannerModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseDP" ColumnName="CourseDP" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseNum" ColumnName="CourseNum" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="APlannerModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="DepartNAME" ColumnName="DepartNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrolls">
+            <EntityTypeMapping TypeName="APlannerModel.Enroll">
+              <MappingFragment StoreEntitySet="Enroll">
+                <ScalarProperty Name="SectID" ColumnName="SectID" />
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="APlannerModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessID" ColumnName="MessID" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="T" ColumnName="T" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="APlannerModel.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professors">
+            <EntityTypeMapping TypeName="APlannerModel.Professor">
+              <MappingFragment StoreEntitySet="Professor">
+                <ScalarProperty Name="PUserID" ColumnName="PUserID" />
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="APlannerModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheID" ColumnName="ScheID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="PublicOrPrivate" ColumnName="PublicOrPrivate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="APlannerModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="SectID" ColumnName="SectID" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="SectNum" ColumnName="SectNum" />
+                <ScalarProperty Name="PUserID" ColumnName="PUserID" />
+                <ScalarProperty Name="EnrollNum" ColumnName="EnrollNum" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPlans">
+            <EntityTypeMapping TypeName="APlannerModel.SPlan">
+              <MappingFragment StoreEntitySet="SPlan">
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STimes">
+            <EntityTypeMapping TypeName="APlannerModel.STime">
+              <MappingFragment StoreEntitySet="STime">
+                <ScalarProperty Name="SectID" ColumnName="SectID" />
+                <ScalarProperty Name="Classroom" ColumnName="Classroom" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="APlannerModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Terms">
+            <EntityTypeMapping TypeName="APlannerModel.Term">
+              <MappingFragment StoreEntitySet="Term">
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+                <ScalarProperty Name="End_date" ColumnName="End_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaitLists">
+            <EntityTypeMapping TypeName="APlannerModel.WaitList">
+              <MappingFragment StoreEntitySet="WaitList">
+                <ScalarProperty Name="SectID" ColumnName="SectID" />
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanViews">
+            <EntityTypeMapping TypeName="APlannerModel.PlanView">
+              <MappingFragment StoreEntitySet="PlanView">
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="StudName" ColumnName="StudName" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfessorViews">
+            <EntityTypeMapping TypeName="APlannerModel.ProfessorView">
+              <MappingFragment StoreEntitySet="ProfessorView">
+                <ScalarProperty Name="PUserID" ColumnName="PUserID" />
+                <ScalarProperty Name="ProfName" ColumnName="ProfName" />
+                <ScalarProperty Name="DepartMent" ColumnName="DepartMent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleViews">
+            <EntityTypeMapping TypeName="APlannerModel.ScheduleView">
+              <MappingFragment StoreEntitySet="ScheduleView">
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="StudName" ColumnName="StudName" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SectionViews">
+            <EntityTypeMapping TypeName="APlannerModel.SectionView">
+              <MappingFragment StoreEntitySet="SectionView">
+                <ScalarProperty Name="SectID" ColumnName="SectID" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="TermID" ColumnName="TermID" />
+                <ScalarProperty Name="ProfName" ColumnName="ProfName" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="EnrollNum" ColumnName="EnrollNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentViews">
+            <EntityTypeMapping TypeName="APlannerModel.StudentView">
+              <MappingFragment StoreEntitySet="StudentView">
+                <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+                <ScalarProperty Name="StudName" ColumnName="StudName" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Contain" TypeName="APlannerModel.Contain" StoreEntitySet="Contain">
+            <EndProperty Name="Course">
+              <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            </EndProperty>
+            <EndProperty Name="SPlan">
+              <ScalarProperty Name="PID" ColumnName="PID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Friend" TypeName="APlannerModel.Friend" StoreEntitySet="Friend">
+            <EndProperty Name="People">
+              <ScalarProperty Name="UserID" ColumnName="Accepter" />
+            </EndProperty>
+            <EndProperty Name="People1">
+              <ScalarProperty Name="UserID" ColumnName="Requester" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FriendRequest" TypeName="APlannerModel.FriendRequest" StoreEntitySet="FriendRequest">
+            <EndProperty Name="People">
+              <ScalarProperty Name="UserID" ColumnName="Accepter" />
+            </EndProperty>
+            <EndProperty Name="People1">
+              <ScalarProperty Name="UserID" ColumnName="Requester" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Has" TypeName="APlannerModel.Has" StoreEntitySet="Has">
+            <EndProperty Name="Schedule">
+              <ScalarProperty Name="ScheID" ColumnName="ScheID" />
+            </EndProperty>
+            <EndProperty Name="Section">
+              <ScalarProperty Name="SectID" ColumnName="SectID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Prerequisite" TypeName="APlannerModel.Prerequisite" StoreEntitySet="Prerequisite">
+            <EndProperty Name="Course">
+              <ScalarProperty Name="CourseID" ColumnName="Prerequisite" />
+            </EndProperty>
+            <EndProperty Name="Course1">
+              <ScalarProperty Name="CourseID" ColumnName="Requisite" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AddToWaitlist" FunctionName="APlannerModel.Store.AddToWaitlist" />
+          <FunctionImportMapping FunctionImportName="ChangePassword" FunctionName="APlannerModel.Store.ChangePassword" />
+          <FunctionImportMapping FunctionImportName="EnrollStudent" FunctionName="APlannerModel.Store.EnrollStudent" />
+          <FunctionImportMapping FunctionImportName="InsertMessage" FunctionName="APlannerModel.Store.InsertMessage" />
+          <FunctionImportMapping FunctionImportName="ProvideOwnerPermit" FunctionName="APlannerModel.Store.ProvideOwnerPermit" />
+          <FunctionImportMapping FunctionImportName="Register" FunctionName="APlannerModel.Store.Register" />
+          <FunctionImportMapping FunctionImportName="UnEnrollStudent" FunctionName="APlannerModel.Store.UnEnrollStudent" />
+          <FunctionImportMapping FunctionImportName="UnWaitlist" FunctionName="APlannerModel.Store.UnWaitlist" />
+          <FunctionImportMapping FunctionImportName="UserLogin" FunctionName="APlannerModel.Store.UserLogin" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

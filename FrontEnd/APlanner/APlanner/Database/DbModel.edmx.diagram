@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="74e10b1c04e64786be249041e8b2fb3f" Name="Diagram1">
+        <EntityTypeShape EntityType="APlannerModel.Course" Width="1.5" PointX="7.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Department" Width="1.5" PointX="3.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Enroll" Width="1.5" PointX="12" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Message" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Person" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Professor" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Schedule" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Section" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.SPlan" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.STime" Width="1.5" PointX="12" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Student" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Term" Width="1.5" PointX="7.5" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.WaitList" Width="1.5" PointX="12" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.PlanView" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.ProfessorView" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.ScheduleView" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.SectionView" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.StudentView" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="APlannerModel.FK__Course__CourseDP__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Section__CourseI__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Professor__Depar__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Enroll__SectID__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Enroll__SUserID__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Message__Receive__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Message__Sender__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Professor__PUser__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Student__SUserID__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Section__PUserID__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Schedule__PID__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__Section__TermID__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__STime__SectID__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__WaitList__SectID__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__SPlan__SUserID__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__SPlan__TermID__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__STime__TermID__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FK__WaitList__SUserI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.Contain" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.Friend" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.FriendRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.Has" ManuallyRouted="false" />
+        <AssociationConnector Association="APlannerModel.Prerequisite" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
