@@ -23,8 +23,8 @@ namespace APlanner.Database
         }
     
         public int TermID { get; set; }
-        public System.DateTime Start_Date { get; set; }
-        public System.DateTime End_Date { get; set; }
+        public System.DateTime Start_date { get; set; }
+        public System.DateTime End_date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }

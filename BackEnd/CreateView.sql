@@ -16,7 +16,7 @@ IF OBJECT_ID('StudentView', 'V') IS NOT NULL
 GO
 Create View StudentView  AS
 	Select s.SUserID, u.FName+' '+ u.LName As [StudName] , 
-		s.Major , s.YR As Year
+		s.Major , s.Year As Year
 	From People u , Student s
 	where u.UserID = s.SUserID;
 Go
@@ -46,7 +46,7 @@ Go
 IF OBJECT_ID('ScheduleView', 'V') IS NOT NULL
     DROP VIEW ScheduleView;
 GO
-Create View SchedulePublicView As
+Create View ScheduleView As
 	Select p.SUserID, p.StudName, p.TermID, p.Probability * s.Probability As [Probability], p.Credits
 	From Schedule s, PlanView p
 	where  s.PID = p.PID AND s.PublicOrPrivate = 1;

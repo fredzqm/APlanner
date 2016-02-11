@@ -22,6 +22,7 @@ namespace APlanner.Database
     
         public string PUserID { get; set; }
         public string DepartID { get; set; }
+        public string Office { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual Person Person { get; set; }

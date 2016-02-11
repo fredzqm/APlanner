@@ -19,16 +19,19 @@ namespace APlanner.Database
         {
             this.Enrolls = new HashSet<Enroll>();
             this.SPlans = new HashSet<SPlan>();
+            this.WaitLists = new HashSet<WaitList>();
         }
     
         public string SUserID { get; set; }
         public string Major { get; set; }
-        public Nullable<int> YR { get; set; }
+        public Nullable<int> Year { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enroll> Enrolls { get; set; }
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SPlan> SPlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaitList> WaitLists { get; set; }
     }
 }

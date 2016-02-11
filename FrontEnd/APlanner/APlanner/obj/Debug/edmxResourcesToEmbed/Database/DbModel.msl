@@ -6,8 +6,9 @@
         <MappingFragment StoreEntitySet="Course">
           <ScalarProperty Name="CourseID" ColumnName="CourseID" />
           <ScalarProperty Name="CourseDP" ColumnName="CourseDP" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
           <ScalarProperty Name="CourseNum" ColumnName="CourseNum" />
-          <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Credit" ColumnName="Credit" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -25,8 +26,7 @@
         <MappingFragment StoreEntitySet="Enroll">
           <ScalarProperty Name="SectID" ColumnName="SectID" />
           <ScalarProperty Name="SUserID" ColumnName="SUserID" />
-          <ScalarProperty Name="T" ColumnName="T" />
-          <ScalarProperty Name="S" ColumnName="S" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="Rating" ColumnName="Rating" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -36,18 +36,27 @@
         <MappingFragment StoreEntitySet="Friend">
           <ScalarProperty Name="Requester" ColumnName="Requester" />
           <ScalarProperty Name="Accepter" ColumnName="Accepter" />
-          <ScalarProperty Name="St" ColumnName="St" />
+          <ScalarProperty Name="time" ColumnName="time" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Messes">
-      <EntityTypeMapping TypeName="APlannerModel.Mess">
-        <MappingFragment StoreEntitySet="Mess">
+    <EntitySetMapping Name="FriendRequests">
+      <EntityTypeMapping TypeName="APlannerModel.FriendRequest">
+        <MappingFragment StoreEntitySet="FriendRequest">
+          <ScalarProperty Name="Requester" ColumnName="Requester" />
+          <ScalarProperty Name="Accepter" ColumnName="Accepter" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="APlannerModel.Message">
+        <MappingFragment StoreEntitySet="Message">
           <ScalarProperty Name="MessID" ColumnName="MessID" />
           <ScalarProperty Name="Sender" ColumnName="Sender" />
           <ScalarProperty Name="Receiver" ColumnName="Receiver" />
           <ScalarProperty Name="Content" ColumnName="Content" />
-          <ScalarProperty Name="T" ColumnName="T" />
+          <ScalarProperty Name="time" ColumnName="time" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -58,7 +67,7 @@
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="FName" ColumnName="FName" />
           <ScalarProperty Name="LName" ColumnName="LName" />
-          <ScalarProperty Name="SOP" ColumnName="SOP" />
+          <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -68,6 +77,7 @@
         <MappingFragment StoreEntitySet="Professor">
           <ScalarProperty Name="PUserID" ColumnName="PUserID" />
           <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+          <ScalarProperty Name="Office" ColumnName="Office" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -121,7 +131,7 @@
         <MappingFragment StoreEntitySet="Student">
           <ScalarProperty Name="SUserID" ColumnName="SUserID" />
           <ScalarProperty Name="Major" ColumnName="Major" />
-          <ScalarProperty Name="YR" ColumnName="YR" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -129,8 +139,17 @@
       <EntityTypeMapping TypeName="APlannerModel.Term">
         <MappingFragment StoreEntitySet="Term">
           <ScalarProperty Name="TermID" ColumnName="TermID" />
-          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+          <ScalarProperty Name="End_date" ColumnName="End_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WaitLists">
+      <EntityTypeMapping TypeName="APlannerModel.WaitList">
+        <MappingFragment StoreEntitySet="WaitList">
+          <ScalarProperty Name="SectID" ColumnName="SectID" />
+          <ScalarProperty Name="SUserID" ColumnName="SUserID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -155,13 +174,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SchedulePublicViews">
-      <EntityTypeMapping TypeName="APlannerModel.SchedulePublicView">
-        <MappingFragment StoreEntitySet="SchedulePublicView">
+    <EntitySetMapping Name="ScheduleViews">
+      <EntityTypeMapping TypeName="APlannerModel.ScheduleView">
+        <MappingFragment StoreEntitySet="ScheduleView">
           <ScalarProperty Name="SUserID" ColumnName="SUserID" />
           <ScalarProperty Name="StudName" ColumnName="StudName" />
           <ScalarProperty Name="TermID" ColumnName="TermID" />
-          <ScalarProperty Name="probability" ColumnName="probability" />
+          <ScalarProperty Name="Probability" ColumnName="Probability" />
           <ScalarProperty Name="Credits" ColumnName="Credits" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -206,12 +225,20 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="Prerequisite" TypeName="APlannerModel.Prerequisite" StoreEntitySet="Prerequisite">
       <EndProperty Name="Course">
-        <ScalarProperty Name="CourseID" ColumnName="CourseIDL" />
+        <ScalarProperty Name="CourseID" ColumnName="Prerequisite" />
       </EndProperty>
       <EndProperty Name="Course1">
-        <ScalarProperty Name="CourseID" ColumnName="CourseIDH" />
+        <ScalarProperty Name="CourseID" ColumnName="Requisite" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="AddToWaitlist" FunctionName="APlannerModel.Store.AddToWaitlist" />
+    <FunctionImportMapping FunctionImportName="ChangePassword" FunctionName="APlannerModel.Store.ChangePassword" />
+    <FunctionImportMapping FunctionImportName="EnrollStudent" FunctionName="APlannerModel.Store.EnrollStudent" />
+    <FunctionImportMapping FunctionImportName="InsertMessage" FunctionName="APlannerModel.Store.InsertMessage" />
     <FunctionImportMapping FunctionImportName="ProvideOwnerPermit" FunctionName="APlannerModel.Store.ProvideOwnerPermit" />
+    <FunctionImportMapping FunctionImportName="Register" FunctionName="APlannerModel.Store.Register" />
+    <FunctionImportMapping FunctionImportName="UnEnrollStudent" FunctionName="APlannerModel.Store.UnEnrollStudent" />
+    <FunctionImportMapping FunctionImportName="UnWaitlist" FunctionName="APlannerModel.Store.UnWaitlist" />
+    <FunctionImportMapping FunctionImportName="UserLogin" FunctionName="APlannerModel.Store.UserLogin" />
   </EntityContainerMapping>
 </Mapping>

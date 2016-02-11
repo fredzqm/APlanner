@@ -16,8 +16,7 @@ namespace APlanner.Database
     {
         public int SectID { get; set; }
         public string SUserID { get; set; }
-        public Nullable<System.DateTime> T { get; set; }
-        public string S { get; set; }
+        public System.DateTime Time { get; set; }
         public Nullable<byte> Rating { get; set; }
     
         public virtual Section Section { get; set; }

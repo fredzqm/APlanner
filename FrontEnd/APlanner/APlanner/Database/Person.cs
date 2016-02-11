@@ -19,15 +19,17 @@ namespace APlanner.Database
         {
             this.Friends = new HashSet<Friend>();
             this.Friends1 = new HashSet<Friend>();
-            this.Messes = new HashSet<Mess>();
-            this.Messes1 = new HashSet<Mess>();
+            this.FriendRequests = new HashSet<FriendRequest>();
+            this.FriendRequests1 = new HashSet<FriendRequest>();
+            this.receiveredMessages = new HashSet<Message>();
+            this.sentMessages = new HashSet<Message>();
         }
     
         public string UserID { get; set; }
         public string UserName { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
-        public string SOP { get; set; }
+        public string type { get; set; }
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -35,9 +37,13 @@ namespace APlanner.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friend> Friends1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mess> Messes { get; set; }
+        public virtual ICollection<FriendRequest> FriendRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mess> Messes1 { get; set; }
+        public virtual ICollection<FriendRequest> FriendRequests1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> receiveredMessages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> sentMessages { get; set; }
         public virtual Professor Professor { get; set; }
         public virtual Student Student { get; set; }
     }

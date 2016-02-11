@@ -170,17 +170,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CourseController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\EnrollController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PlanController.cs" />
-    <Compile Include="Controllers\ProfessorController.cs" />
-    <Compile Include="Controllers\ScheduleController.cs" />
-    <Compile Include="Controllers\SectionController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\TermController.cs" />
+    <Compile Include="Controllers\ProfessorsController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
+    <Compile Include="Controllers\SectionsController.cs" />
+    <Compile Include="Controllers\SPlansController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Database\Course.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -208,7 +206,10 @@
     <Compile Include="Database\Friend.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\Mess.cs">
+    <Compile Include="Database\FriendRequest.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Message.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Person.cs">
@@ -226,7 +227,7 @@
     <Compile Include="Database\Schedule.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\SchedulePublicView.cs">
+    <Compile Include="Database\ScheduleView.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Section.cs">
@@ -250,6 +251,9 @@
     <Compile Include="Database\Term.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\WaitList.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -260,7 +264,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="calendar.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar.min.css" />
@@ -303,7 +306,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -337,47 +342,41 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Schedule\Index.cshtml" />
-    <Content Include="Views\Course\Create.cshtml" />
-    <Content Include="Views\Course\Delete.cshtml" />
-    <Content Include="Views\Course\Details.cshtml" />
-    <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
-    <Content Include="Views\Department\Create.cshtml" />
-    <Content Include="Views\Department\Delete.cshtml" />
-    <Content Include="Views\Department\Details.cshtml" />
-    <Content Include="Views\Department\Edit.cshtml" />
-    <Content Include="Views\Department\Index.cshtml" />
-    <Content Include="Views\Section\Create.cshtml" />
-    <Content Include="Views\Section\Delete.cshtml" />
-    <Content Include="Views\Section\Details.cshtml" />
-    <Content Include="Views\Section\Edit.cshtml" />
-    <Content Include="Views\Section\Index.cshtml" />
-    <Content Include="Views\Student\Create.cshtml" />
-    <Content Include="Views\Student\Delete.cshtml" />
-    <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\Edit.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Professor\Create.cshtml" />
-    <Content Include="Views\Professor\Delete.cshtml" />
-    <Content Include="Views\Professor\Details.cshtml" />
-    <Content Include="Views\Professor\Edit.cshtml" />
-    <Content Include="Views\Professor\Index.cshtml" />
-    <Content Include="Views\Term\Create.cshtml" />
-    <Content Include="Views\Term\Delete.cshtml" />
-    <Content Include="Views\Term\Details.cshtml" />
-    <Content Include="Views\Term\Edit.cshtml" />
-    <Content Include="Views\Term\Index.cshtml" />
-    <Content Include="Views\Plan\Create.cshtml" />
-    <Content Include="Views\Plan\Delete.cshtml" />
-    <Content Include="Views\Plan\Details.cshtml" />
-    <Content Include="Views\Plan\Edit.cshtml" />
-    <Content Include="Views\Plan\Index.cshtml" />
-    <Content Include="Views\Enroll\Create.cshtml" />
-    <Content Include="Views\Enroll\Delete.cshtml" />
-    <Content Include="Views\Enroll\Details.cshtml" />
-    <Content Include="Views\Enroll\Edit.cshtml" />
-    <Content Include="Views\Enroll\Index.cshtml" />
+    <Content Include="Views\SPlans\Create.cshtml" />
+    <Content Include="Views\SPlans\Delete.cshtml" />
+    <Content Include="Views\SPlans\Details.cshtml" />
+    <Content Include="Views\SPlans\Edit.cshtml" />
+    <Content Include="Views\SPlans\Index.cshtml" />
+    <Content Include="Views\Schedules\Create.cshtml" />
+    <Content Include="Views\Schedules\Delete.cshtml" />
+    <Content Include="Views\Schedules\Details.cshtml" />
+    <Content Include="Views\Schedules\Edit.cshtml" />
+    <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Delete.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Sections\Create.cshtml" />
+    <Content Include="Views\Sections\Delete.cshtml" />
+    <Content Include="Views\Sections\Details.cshtml" />
+    <Content Include="Views\Sections\Edit.cshtml" />
+    <Content Include="Views\Sections\Index.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Professors\Create.cshtml" />
+    <Content Include="Views\Professors\Delete.cshtml" />
+    <Content Include="Views\Professors\Details.cshtml" />
+    <Content Include="Views\Professors\Edit.cshtml" />
+    <Content Include="Views\Professors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

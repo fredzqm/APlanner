@@ -16,7 +16,7 @@ namespace APlanner.Database
     {
         public string Requester { get; set; }
         public string Accepter { get; set; }
-        public string St { get; set; }
+        public Nullable<System.DateTime> time { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual Person Person1 { get; set; }

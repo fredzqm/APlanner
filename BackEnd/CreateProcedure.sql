@@ -1,24 +1,78 @@
 Use [APlanner];
 Go
 
-IF OBJECT_ID('Register', 'P') IS NOT NULL
-    DROP Proc Register;
+IF OBJECT_ID('RegisterStudent', 'P') IS NOT NULL
+    DROP Proc RegisterStudent;
 GO
-Create Procedure Register
+Create Procedure RegisterStudent
   	@UserID varchar(9),
+	@UserName varchar(12),
 	@FName varchar(30),
     @LName varchar(30),
-	@SorP char(1),
-    @Password char(20)
+    @Password char(20),
+	@Major varchar(12),
+	@Year tinyint
 AS
 begin
 	if  LEN(@Password) < 6
 		return 2;  -- password shorter than 7!
-	INSERT INTO [People] ([UserID] ,[FName] ,[LName] ,[SOP] ,[Password])
-		 VALUES (@UserID,  @FName,  @LName, @SorP, HASHBYTES('SHA1', @Password));
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'S', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Student] ([SUserID], [Major] ,[Year])
+		 VALUES (@UserID,  @Major,  @Year);
     return 0;
 end
 Go
+
+IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
+    DROP Proc RegisterProfessor;
+GO
+Create Procedure RegisterProfessor
+  	@UserID varchar(9),
+	@UserName varchar(12),
+	@FName varchar(30),
+    @LName varchar(30),
+    @Password char(20),
+	@Department varchar(5),
+	@Office varchar(6)
+AS
+begin
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
+		 VALUES (@UserID,  @Department,  @Office )
+    return 0;
+end
+GO
+
+IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
+    DROP Proc CreateSection;
+GO
+Create Procedure RegisterProfessor
+  	@UserID varchar(9),
+	@UserName varchar(12),
+	@FName varchar(30),
+    @LName varchar(30),
+    @Password char(20),
+	@Department varchar(5),
+	@Office varchar(6)
+AS
+begin
+	if  LEN(@Password) < 6
+		return 2;  -- password shorter than 7!
+	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
+		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
+    return 0;
+	INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
+		 VALUES (@UserID,  @Department,  @Office )
+    return 0;
+end
+GO
+
 
 IF OBJECT_ID('UserLogin', 'P') IS NOT NULL
     DROP Proc UserLogin;
@@ -49,12 +103,12 @@ begin
 	Exec UserLogin @UserID , @login output;
 	if @login = 0
 		return 1;  -- fail to login
-	if  LEN(@Password) < 6
+	if  LEN(@NewPassword) < 6
 		return 2;  -- password shorter than 7!
 	UPDATE People
 		SET Password = HASHBYTES('SHA1', @NewPassword) 
 		where UserID = @UserID;
-	return 0; // success
+	return 0; -- success
 end
 Go
 
@@ -74,16 +128,15 @@ AS
 	end
 go
 
-IF OBJECT_ID('DeleteStudent', 'P') IS NOT NULL
-    DROP Proc DeleteStudent;
+IF OBJECT_ID('UnEnrollStudent', 'P') IS NOT NULL
+    DROP Proc UnEnrollStudent;
 GO
-Create Procedure DeleteStudent
+Create Procedure UnEnrollStudent
 	@UserID varchar(10),
 	@SectID tinyint
 AS
 	begin
-		declare @SectionID int;
-		Delete From Enroll where @SectID=SectID and @UserID=Enroll
+		Delete From Enroll where SectID=@SectID and SUserID=@UserID
 	end
 go
 
@@ -92,46 +145,40 @@ IF OBJECT_ID('InsertMessage', 'P') IS NOT NULL
     DROP Proc InsertMessage;
 GO
 Create Procedure InsertMessage
-	@UserName1 varchar(10),
-	@UserName2 varchar(10),
+	@sender varchar(10),
+	@reciever varchar(10),
 	@Text text
 AS
 	begin
-		insert(@UserName1,@UserName2,@Text);
+		insert into Mess ([Sender],[Receiver],[Content],[T])
+			values(@sender,@reciever,@Text, CURRENT_TIMESTAMP);
 	end
 go
 
 
-IF OBJECT_ID('EnrollWaitlist', 'P') IS NOT NULL
-    DROP Proc EnrollWaitlist;
+IF OBJECT_ID('AddToWaitlist', 'P') IS NOT NULL
+    DROP Proc AddToWaitlist;
 GO
-Create Procedure EnrollWaitlist
+Create Procedure AddToWaitlist
 	@SectID int,
-	@UserN varchar(9),
-	@T datetime,
-	@Rating tinyint
+	@UserID varchar(9)
 AS
 	begin
-		declare @UserID varchar(9);
-		set @UserID=(select SUserID From Student where UserName=@UserN)
-		insert into Waitlist values(@SectID,@UserID,@T,@Rateing);
+		insert into Waitlist (SectID , SUserID , time)
+			values(@SectID,@UserID,CURRENT_TIMESTAMP);
 	end
 go
 
-IF OBJECT_ID('DeleteWaitlist', 'P') IS NOT NULL
-    DROP Proc DeleteWaitlist;
+IF OBJECT_ID('UnWaitlist', 'P') IS NOT NULL
+    DROP Proc UnWaitlist;
 GO
 
-Create Procedure DeleteWaitlist
+Create Procedure UnWaitlist
 	@SectID int,
-	@UserN varchar(9),
-	@T datetime,
-	@Rating tinyint
+	@SUserID varchar(9)
 AS
 	begin
-		declare @UserID varchar(9);
-		set @UserID=(select SUserID From Student where UserName=@UserN)
-		delete From Waitlist where(@SectID=SectID and @UserID=@UserN);
+		delete From Waitlist where(SectID=@SectID and SUserID=@SUserID);
 	end
 go
 

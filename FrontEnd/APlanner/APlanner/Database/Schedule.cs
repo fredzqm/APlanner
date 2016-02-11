@@ -22,9 +22,9 @@ namespace APlanner.Database
     
         public int ScheID { get; set; }
         public Nullable<int> PID { get; set; }
-        public Nullable<int> Probability { get; set; }
+        public Nullable<double> Probability { get; set; }
         public Nullable<byte> Priority { get; set; }
-        public string PublicOrPrivate { get; set; }
+        public bool PublicOrPrivate { get; set; }
     
         public virtual SPlan SPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

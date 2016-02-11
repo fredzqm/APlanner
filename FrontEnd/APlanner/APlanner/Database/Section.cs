@@ -19,13 +19,14 @@ namespace APlanner.Database
         {
             this.Enrolls = new HashSet<Enroll>();
             this.STimes = new HashSet<STime>();
+            this.WaitLists = new HashSet<WaitList>();
             this.Schedules = new HashSet<Schedule>();
         }
     
         public int SectID { get; set; }
-        public Nullable<int> TermID { get; set; }
-        public Nullable<short> CourseID { get; set; }
-        public Nullable<byte> SectNum { get; set; }
+        public int TermID { get; set; }
+        public short CourseID { get; set; }
+        public byte SectNum { get; set; }
         public string PUserID { get; set; }
         public Nullable<byte> EnrollNum { get; set; }
         public Nullable<int> Capacity { get; set; }
@@ -37,6 +38,8 @@ namespace APlanner.Database
         public virtual Term Term { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<STime> STimes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaitList> WaitLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
     }

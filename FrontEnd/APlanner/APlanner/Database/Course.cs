@@ -25,9 +25,10 @@ namespace APlanner.Database
     
         public short CourseID { get; set; }
         public string CourseDP { get; set; }
+        public string CourseName { get; set; }
         public Nullable<short> CourseNum { get; set; }
-        public string Descrip { get; set; }
-        public byte Credit { get; set; }
+        public string Description { get; set; }
+        public Nullable<byte> Credit { get; set; }
     
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
