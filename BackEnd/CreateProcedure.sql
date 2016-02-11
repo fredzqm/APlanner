@@ -49,8 +49,9 @@ begin
 end
 GO
 
+
 IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
-    DROP Proc CreateSection;
+    DROP Proc RegisterProfessor;
 GO
 Create Procedure RegisterProfessor
   	@UserID varchar(9),

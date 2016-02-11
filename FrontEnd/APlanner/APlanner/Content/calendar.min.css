@@ -53,12 +53,12 @@
   *width: 42.80383795309168%;
 }
 .cal-row-fluid .cal-cell2 {
-  width: 28.57142857142857%;
+  width: 10%;
   *width: 28.518123667377395%;
 }
 .cal-row-fluid .cal-cell1 {
-  width: 20%;
-  /**width: 14.232409381663112%;*/
+  width: 18%;
+  *width: 14.233576642335766%;
 }
 .cal-week-box .cal-offset7,
 .cal-row-fluid .cal-offset7,
@@ -102,10 +102,7 @@
   margin-left: 14.285714285714285%;
   *margin-left: 14.17910447761194%;
 }
-.cal-row-fluid .cal-cell1 {
-  width: 20%;
-  *width: 14.233576642335766%;
-}
+
 [class*="cal-cell"].hide,
 .cal-row-fluid [class*="cal-cell"].hide {
   display: none;

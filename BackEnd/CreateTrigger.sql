@@ -8,12 +8,10 @@ CREATE TRIGGER UpdateEnrollNumInsert ON  [Enroll]
    AFTER INSERT
 AS 
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-    -- Insert statements for trigger here
-
+	Declare @Num int;
+	set @Num=(select Count(*) From inserted);
+	Declare @Sec int;
+	set @Sec=(select SectID From Section where Section.SectID=inserted.SectID);
 END
 GO
 
@@ -23,7 +21,7 @@ GO
 CREATE TRIGGER UpdateEnrollNumDelete ON  [Enroll]
    AFTER DELETE
 AS 
-BEGIN
+BEGIN                                                                                                     ggggggggg
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	IF (SELECT COUNT(*) FROM Deleted) > 1 begin
@@ -81,8 +79,6 @@ BEGIN
 		print 'cannot add many students to the waitlist at the same time';
 		rollback;
 	end
-	if (SELECT COUNT(*) FROM Deleted) > 1
-		SET NOCOUNT ON;
 END
 GO
 
@@ -98,6 +94,7 @@ BEGIN
 	where (inserted.Requester=FriendRequest.Requester) and (inserted.Accepter=FriendRequest.Accepter))
 	IF @Num > 0 begin
 		print 'Already be friend!';
+		rollback;
 	end
 	else begin
 		Insert into [FriendRequest]
