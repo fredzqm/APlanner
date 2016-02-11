@@ -22,7 +22,7 @@ Create Table People (
 	Primary key(UserID),
 	Constraint PeopleType Check ( type = 'S' or type = 'P' )
 )
-Go 
+Go
 
 Create Table Friend (
 	Requester varchar(9) not null,
@@ -126,6 +126,12 @@ Create Table SPlan (
 )
 Go
 
+CREATE INDEX SPlan_SUserIndex
+    ON SPlan(SUserID);
+
+CREATE INDEX SPlan_TermIDIndex
+    ON SPlan(TermID);
+
 Create Table Course (
 	CourseID smallint identity(1, 1),
 	CourseDP varchar(5) not null,
@@ -140,6 +146,9 @@ Create Table Course (
 )
 Go
 
+CREATE INDEX Course_DepartIndex
+    ON Course(CourseDP);
+
 Create Table Contain (
 	CourseID smallint not null,
 	PID int not null,
@@ -151,6 +160,9 @@ Create Table Contain (
 		on update cascade on delete cascade
 )
 Go
+
+CREATE INDEX Contain_CourseIndex
+    ON Contain(CourseID);
 
 Create Table Prerequisite (
 	Prerequisite smallint not null,
@@ -176,6 +188,9 @@ Create Table Schedule (
 )
 Go
 
+CREATE INDEX Schedule_PlanIndex
+    ON Schedule(PID);
+
 Create Table Section (
 	SectID int IDENTITY (1,1),
 	TermID int not null,
@@ -192,6 +207,15 @@ Create Table Section (
 	Foreign key(PUserID) references Professor(PUserID),
 )
 Go
+
+CREATE INDEX Section_TermIndex
+    ON Section(TermID);
+
+CREATE INDEX Section_CourseIndex
+    ON Section(CourseID);
+
+CREATE INDEX Section_ProfIndex
+    ON Section(PUserID);
 
 Create Table Has (
 	SectID int not null,
@@ -246,14 +270,19 @@ Create Table STime (
 	SectID int not null,
 	Classroom varchar(7) default 'TBA',
 	Period tinyint not null,
-	TermID int not null,
 
 	Primary key(Period, Classroom, TermID, SectID),
-	Foreign key(TermID) references Term(TermID),
 	Foreign key(SectID) references Section(SectID)
 		on update cascade on delete cascade
 );
 Go
+
+CREATE INDEX STime_SectIndex
+    ON STime(SectID);
+Go
+
+CREATE INDEX STime_Classroom
+    ON STime(Classroom);
 
 --- Go  a stored procedure for setting permissions
 Create proc ProvideOwnerPermit

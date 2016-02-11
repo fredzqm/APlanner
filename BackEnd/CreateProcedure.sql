@@ -49,6 +49,7 @@ begin
 end
 GO
 
+
 IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
     DROP Proc RegisterProfessor;
 GO
