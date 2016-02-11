@@ -126,9 +126,9 @@ Create Table SPlan (
 Go
 
 Create Table Course (
-	CourseID smallint,
+	CourseID smallint identity(1, 1),
 	CourseDP varchar(5) not null,
-	CourseName varchar(20),
+	CourseName varchar(50),
 	CourseNum smallint,
 	Description text default '',
 	Credit tinyint,

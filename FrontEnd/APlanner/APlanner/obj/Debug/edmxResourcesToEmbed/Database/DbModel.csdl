@@ -5,22 +5,26 @@
       <PropertyRef Name="CourseID" />
     </Key>
     <Property Name="CourseID" Type="Int16" Nullable="false" />
-    <Property Name="CourseDP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="CourseDP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CourseNum" Type="Int16" />
     <Property Name="Descrip" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Credit" Type="Byte" Nullable="false" />
+    <Property Name="Credit" Type="Byte" />
     <NavigationProperty Name="Department" Relationship="Self.FK__Course__CourseDP__29572725" FromRole="Course" ToRole="Department" />
     <NavigationProperty Name="Sections" Relationship="Self.FK__Section__CourseI__38996AB5" FromRole="Course" ToRole="Section" />
     <NavigationProperty Name="SPlans" Relationship="Self.Contain" FromRole="Course" ToRole="SPlan" />
     <NavigationProperty Name="Course1" Relationship="Self.Prerequisite" FromRole="Course" ToRole="Course1" />
     <NavigationProperty Name="Courses" Relationship="Self.Prerequisite" FromRole="Course1" ToRole="Course" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Course11" Relationship="APlannerModel.Prerequisite1" FromRole="Course" ToRole="Course1" />
+    <NavigationProperty Name="Courses1" Relationship="APlannerModel.Prerequisite1" FromRole="Course1" ToRole="Course" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
       <PropertyRef Name="DepartID" />
     </Key>
     <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="DepartNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepartNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Courses" Relationship="Self.FK__Course__CourseDP__29572725" FromRole="Department" ToRole="Course" />
     <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Depar__1CF15040" FromRole="Department" ToRole="Professor" />
   </EntityType>
@@ -36,6 +40,7 @@
     <Property Name="Rating" Type="Byte" />
     <NavigationProperty Name="Section" Relationship="Self.FK__Enroll__SectID__412EB0B6" FromRole="Enroll" ToRole="Section" />
     <NavigationProperty Name="Student" Relationship="Self.FK__Enroll__SUserID__403A8C7D" FromRole="Enroll" ToRole="Student" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="Friend">
     <Key>
@@ -67,17 +72,23 @@
       <PropertyRef Name="UserID" />
     </Key>
     <Property Name="UserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="FName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SOP" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Friends" Relationship="Self.FK__Friend__Accepter__1367E606" FromRole="People" ToRole="Friend" />
     <NavigationProperty Name="Friends1" Relationship="Self.FK__Friend__Requeste__1273C1CD" FromRole="People" ToRole="Friend" />
     <NavigationProperty Name="Messes" Relationship="Self.FK__Mess__Receiver__173876EA" FromRole="People" ToRole="Mess" />
     <NavigationProperty Name="Messes1" Relationship="Self.FK__Mess__Sender__164452B1" FromRole="People" ToRole="Mess" />
     <NavigationProperty Name="Professor" Relationship="Self.FK__Professor__PUser__1BFD2C07" FromRole="People" ToRole="Professor" />
     <NavigationProperty Name="Student" Relationship="Self.FK__Student__SUserID__1FCDBCEB" FromRole="People" ToRole="Student" />
+    <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Messages" Relationship="APlannerModel.FK__Message__Receive__1FCDBCEB" FromRole="Person" ToRole="Message" />
+    <NavigationProperty Name="Messages1" Relationship="APlannerModel.FK__Message__Sender__1ED998B2" FromRole="Person" ToRole="Message" />
+    <NavigationProperty Name="People11" Relationship="APlannerModel.FriendRequest" FromRole="Person" ToRole="Person1" />
+    <NavigationProperty Name="People2" Relationship="APlannerModel.FriendRequest" FromRole="Person1" ToRole="Person" />
   </EntityType>
   <EntityType Name="Professor">
     <Key>
@@ -88,6 +99,7 @@
     <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__1CF15040" FromRole="Professor" ToRole="Department" />
     <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__1BFD2C07" FromRole="Professor" ToRole="People" />
     <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__398D8EEE" FromRole="Professor" ToRole="Section" />
+    <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Schedule">
     <Key>
@@ -97,7 +109,7 @@
     <Property Name="PID" Type="Int32" />
     <Property Name="Probability" Type="Int32" />
     <Property Name="Priority" Type="Byte" />
-    <Property Name="PublicOrPrivate" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="PublicOrPrivate" Type="String" Nullable="false" />
     <NavigationProperty Name="SPlan" Relationship="Self.FK__Schedule__PID__34C8D9D1" FromRole="Schedule" ToRole="SPlan" />
     <NavigationProperty Name="Sections" Relationship="Self.Has" FromRole="Schedule" ToRole="Section" />
   </EntityType>
@@ -106,9 +118,9 @@
       <PropertyRef Name="SectID" />
     </Key>
     <Property Name="SectID" Type="Int32" Nullable="false" />
-    <Property Name="TermID" Type="Int32" />
-    <Property Name="CourseID" Type="Int16" />
-    <Property Name="SectNum" Type="Byte" />
+    <Property Name="TermID" Type="Int32" Nullable="false" />
+    <Property Name="CourseID" Type="Int16" Nullable="false" />
+    <Property Name="SectNum" Type="Byte" Nullable="false" />
     <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
     <Property Name="EnrollNum" Type="Byte" />
     <Property Name="Capacity" Type="Int32" />
@@ -118,14 +130,15 @@
     <NavigationProperty Name="Term" Relationship="Self.FK__Section__TermID__37A5467C" FromRole="Section" ToRole="Term" />
     <NavigationProperty Name="STimes" Relationship="Self.FK__STime__SectID__44FF419A" FromRole="Section" ToRole="STime" />
     <NavigationProperty Name="Schedules" Relationship="Self.Has" FromRole="Section" ToRole="Schedule" />
+    <NavigationProperty Name="WaitLists" Relationship="APlannerModel.FK__WaitList__SectID__5070F446" FromRole="Section" ToRole="WaitList" />
   </EntityType>
   <EntityType Name="SPlan">
     <Key>
       <PropertyRef Name="PID" />
     </Key>
     <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-    <Property Name="TermID" Type="Int32" />
+    <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TermID" Type="Int32" Nullable="false" />
     <Property Name="Priority" Type="Byte" />
     <Property Name="Probability" Type="Int32" />
     <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__PID__34C8D9D1" FromRole="SPlan" ToRole="Schedule" />
@@ -157,6 +170,8 @@
     <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__403A8C7D" FromRole="Student" ToRole="Enroll" />
     <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__1FCDBCEB" FromRole="Student" ToRole="People" />
     <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__25869641" FromRole="Student" ToRole="SPlan" />
+    <Property Name="Year" Type="Int32" />
+    <NavigationProperty Name="WaitLists" Relationship="APlannerModel.FK__WaitList__SUserI__4F7CD00D" FromRole="Student" ToRole="WaitList" />
   </EntityType>
   <EntityType Name="Term">
     <Key>
@@ -168,6 +183,8 @@
     <NavigationProperty Name="Sections" Relationship="Self.FK__Section__TermID__37A5467C" FromRole="Term" ToRole="Section" />
     <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__TermID__267ABA7A" FromRole="Term" ToRole="SPlan" />
     <NavigationProperty Name="STimes" Relationship="Self.FK__STime__TermID__440B1D61" FromRole="Term" ToRole="STime" />
+    <Property Name="Start_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="End_date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="PlanView">
     <Key>
@@ -554,5 +571,116 @@
     <FunctionImport Name="ProvideOwnerPermit">
       <Parameter Name="user" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Messages" EntityType="APlannerModel.Message" />
+    <EntitySet Name="WaitLists" EntityType="APlannerModel.WaitList" />
+    <AssociationSet Name="FK__Message__Receive__1FCDBCEB" Association="APlannerModel.FK__Message__Receive__1FCDBCEB">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Message__Sender__1ED998B2" Association="APlannerModel.FK__Message__Sender__1ED998B2">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WaitList__SectID__5070F446" Association="APlannerModel.FK__WaitList__SectID__5070F446">
+      <End Role="Section" EntitySet="Sections" />
+      <End Role="WaitList" EntitySet="WaitLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WaitList__SUserI__4F7CD00D" Association="APlannerModel.FK__WaitList__SUserI__4F7CD00D">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="WaitList" EntitySet="WaitLists" />
+    </AssociationSet>
+    <AssociationSet Name="FriendRequest" Association="APlannerModel.FriendRequest">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Person1" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="Prerequisite1" Association="APlannerModel.Prerequisite1">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Course1" EntitySet="Courses" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MessID" />
+      <PropertyRef Name="Sender" />
+      <PropertyRef Name="Receiver" />
+    </Key>
+    <Property Name="MessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sender" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="Receiver" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="T" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Person" Relationship="APlannerModel.FK__Message__Receive__1FCDBCEB" FromRole="Message" ToRole="Person" />
+    <NavigationProperty Name="Person1" Relationship="APlannerModel.FK__Message__Sender__1ED998B2" FromRole="Message" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="WaitList">
+    <Key>
+      <PropertyRef Name="SectID" />
+      <PropertyRef Name="SUserID" />
+    </Key>
+    <Property Name="SectID" Type="Int32" Nullable="false" />
+    <Property Name="SUserID" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Section" Relationship="APlannerModel.FK__WaitList__SectID__5070F446" FromRole="WaitList" ToRole="Section" />
+    <NavigationProperty Name="Student" Relationship="APlannerModel.FK__WaitList__SUserI__4F7CD00D" FromRole="WaitList" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK__Message__Receive__1FCDBCEB">
+    <End Type="APlannerModel.Person" Role="Person" Multiplicity="1" />
+    <End Type="APlannerModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="Receiver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Message__Sender__1ED998B2">
+    <End Type="APlannerModel.Person" Role="Person" Multiplicity="1" />
+    <End Type="APlannerModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="Sender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WaitList__SectID__5070F446">
+    <End Type="APlannerModel.Section" Role="Section" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="APlannerModel.WaitList" Role="WaitList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Section">
+        <PropertyRef Name="SectID" />
+      </Principal>
+      <Dependent Role="WaitList">
+        <PropertyRef Name="SectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WaitList__SUserI__4F7CD00D">
+    <End Type="APlannerModel.Student" Role="Student" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="APlannerModel.WaitList" Role="WaitList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="SUserID" />
+      </Principal>
+      <Dependent Role="WaitList">
+        <PropertyRef Name="SUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FriendRequest">
+    <End Type="APlannerModel.Person" Role="Person" Multiplicity="*" />
+    <End Type="APlannerModel.Person" Role="Person1" Multiplicity="*" />
+  </Association>
+  <Association Name="Prerequisite1">
+    <End Type="APlannerModel.Course" Role="Course" Multiplicity="*" />
+    <End Type="APlannerModel.Course" Role="Course1" Multiplicity="*" />
+  </Association>
 </Schema>
