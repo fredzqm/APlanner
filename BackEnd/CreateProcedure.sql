@@ -49,12 +49,12 @@ begin
 	Exec UserLogin @UserID , @login output;
 	if @login = 0
 		return 1;  -- fail to login
-	if  LEN(@Password) < 6
+	if  LEN(@NewPassword) < 6
 		return 2;  -- password shorter than 7!
 	UPDATE People
 		SET Password = HASHBYTES('SHA1', @NewPassword) 
 		where UserID = @UserID;
-	return 0; // success
+	return 0; -- success
 end
 Go
 
@@ -74,16 +74,15 @@ AS
 	end
 go
 
-IF OBJECT_ID('DeleteStudent', 'P') IS NOT NULL
-    DROP Proc DeleteStudent;
+IF OBJECT_ID('UnEnrollStudent', 'P') IS NOT NULL
+    DROP Proc UnEnrollStudent;
 GO
-Create Procedure DeleteStudent
+Create Procedure UnEnrollStudent
 	@UserID varchar(10),
 	@SectID tinyint
 AS
 	begin
-		declare @SectionID int;
-		Delete From Enroll where @SectID=SectID and @UserID=Enroll
+		Delete From Enroll where SectID=@SectID and SUserID=@UserID
 	end
 go
 
@@ -92,46 +91,40 @@ IF OBJECT_ID('InsertMessage', 'P') IS NOT NULL
     DROP Proc InsertMessage;
 GO
 Create Procedure InsertMessage
-	@UserName1 varchar(10),
-	@UserName2 varchar(10),
+	@sender varchar(10),
+	@reciever varchar(10),
 	@Text text
 AS
 	begin
-		insert(@UserName1,@UserName2,@Text);
+		insert into Mess ([Sender],[Receiver],[Content],[T])
+			values(@sender,@reciever,@Text, CURRENT_TIMESTAMP);
 	end
 go
 
 
-IF OBJECT_ID('EnrollWaitlist', 'P') IS NOT NULL
-    DROP Proc EnrollWaitlist;
+IF OBJECT_ID('AddToWaitlist', 'P') IS NOT NULL
+    DROP Proc AddToWaitlist;
 GO
-Create Procedure EnrollWaitlist
+Create Procedure AddToWaitlist
 	@SectID int,
-	@UserN varchar(9),
-	@T datetime,
-	@Rating tinyint
+	@UserID varchar(9)
 AS
 	begin
-		declare @UserID varchar(9);
-		set @UserID=(select SUserID From Student where UserName=@UserN)
-		insert into Waitlist values(@SectID,@UserID,@T,@Rateing);
+		insert into Waitlist (SectID , SUserID , T)
+			values(@SectID,@UserID,CURRENT_TIMESTAMP);
 	end
 go
 
-IF OBJECT_ID('DeleteWaitlist', 'P') IS NOT NULL
-    DROP Proc DeleteWaitlist;
+IF OBJECT_ID('UnWaitlist', 'P') IS NOT NULL
+    DROP Proc UnWaitlist;
 GO
 
-Create Procedure DeleteWaitlist
+Create Procedure UnWaitlist
 	@SectID int,
-	@UserN varchar(9),
-	@T datetime,
-	@Rating tinyint
+	@SUserID varchar(9)
 AS
 	begin
-		declare @UserID varchar(9);
-		set @UserID=(select SUserID From Student where UserName=@UserN)
-		delete From Waitlist where(@SectID=SectID and @UserID=@UserN);
+		delete From Waitlist where(SectID=@SectID and SUserID=@SUserID);
 	end
 go
 

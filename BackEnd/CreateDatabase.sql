@@ -206,7 +206,7 @@ Create Table Enroll (
 	SectID int not null,
 	SUserID varchar(9) not null,
 	T datetime not null,
-	Rating tinyint,
+	Rating tinyint default null,
 
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID),
@@ -229,7 +229,6 @@ Create Table WaitList (
 	SectID int not null,
 	SUserID varchar(9) not null,
 	T datetime not null,
-	Rating tinyint not null,
 
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID)
