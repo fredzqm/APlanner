@@ -31,7 +31,8 @@ Create Table Friend (
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID)
 		on update cascade on delete cascade,
-	Foreign key(Accepter) references People(UserID),
+	Foreign key(Accepter) references People(UserID)
+ 		on update no action on delete no action,
 	Constraint Friend_Different check (Requester <> Accepter),
 	Constraint Friend_Exist Check ( Requester <> null or  Accepter <> null )
 )

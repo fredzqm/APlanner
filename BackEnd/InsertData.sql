@@ -52,7 +52,9 @@ Insert into Course ([CourseNum], [CourseDP] , [CourseName] , [Credit])
 Delete from Term;
 Insert into Term ([TermID] ,[Start_Date] ,[End_Date])
 	Values 
-	(1,'03-07-2016','05-27-2016');
+	(201510,'8-28-2015','02-26-2016'),
+	(201520,'11-23-2015','02-26-2016'),
+	(201530,'03-07-2016','05-27-2016');
 
 Delete from Section;
 Insert into Section ([SectID] ,[TermID] ,[CourseID] ,[SectNum] ,[PUserID] ,[EnrollNum] ,[Capacity])
