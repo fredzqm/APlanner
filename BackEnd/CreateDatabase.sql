@@ -128,6 +128,7 @@ Go
 
 CREATE INDEX SPlan_SUserIndex
     ON SPlan(SUserID);
+go
 
 CREATE INDEX SPlan_TermIDIndex
     ON SPlan(TermID);
@@ -148,6 +149,7 @@ Go
 
 CREATE INDEX Course_DepartIndex
     ON Course(CourseDP);
+go
 
 Create Table Contain (
 	CourseID smallint not null,
@@ -163,6 +165,7 @@ Go
 
 CREATE INDEX Contain_CourseIndex
     ON Contain(CourseID);
+go
 
 Create Table Prerequisite (
 	Prerequisite smallint not null,
@@ -190,6 +193,7 @@ Go
 
 CREATE INDEX Schedule_PlanIndex
     ON Schedule(PID);
+go
 
 Create Table Section (
 	SectID int IDENTITY (1,1),
@@ -210,12 +214,15 @@ Go
 
 CREATE INDEX Section_TermIndex
     ON Section(TermID);
+go
 
 CREATE INDEX Section_CourseIndex
     ON Section(CourseID);
+go
 
 CREATE INDEX Section_ProfIndex
     ON Section(PUserID);
+go
 
 Create Table Has (
 	SectID int not null,
@@ -271,7 +278,7 @@ Create Table STime (
 	Classroom varchar(7) default 'TBA',
 	Period tinyint not null,
 
-	Primary key(Period, Classroom, TermID, SectID),
+	Primary key(Period, Classroom, SectID),
 	Foreign key(SectID) references Section(SectID)
 		on update cascade on delete cascade
 );
@@ -283,6 +290,7 @@ Go
 
 CREATE INDEX STime_Classroom
     ON STime(Classroom);
+go
 
 --- Go  a stored procedure for setting permissions
 Create proc ProvideOwnerPermit
