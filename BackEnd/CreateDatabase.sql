@@ -84,6 +84,7 @@ Go
 
 Create Table Professor (
 	PUserID varchar(9) primary key,
+	Office varchar(6),
 	DepartID varchar(5),
 
 	Foreign key(PUserID) references People(UserID)
@@ -150,12 +151,12 @@ Create Table Contain (
 Go
 
 Create Table Prerequisite (
-	CourseIDL smallint not null,
-	CourseIDH smallint not null,
+	Prerequisite smallint not null,
+	Requisite smallint not null,
 
-	Primary key(CourseIDL, CourseIDH),
-	Foreign key(CourseIDL) references Course(CourseID),
-	Foreign key(CourseIDH) references Course(CourseID)
+	Primary key(Prerequisite, Requisite),
+	Foreign key(Prerequisite) references Course(CourseID),
+	Foreign key(Requisite) references Course(CourseID)
 		on update cascade on delete cascade,
 )
 Go
