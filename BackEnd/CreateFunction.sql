@@ -41,6 +41,17 @@ begin
 end
 Go
 
+IF OBJECT_ID('getCourseID', 'FN') IS NOT NULL
+    DROP Function getCourseID;
+GO
+Create Function getCourseID(@SectID int)
+returns int
+As
+begin
+	return (select CourseID from Section where SectID = @SectID );
+end
+Go
+
 
 ------
 IF OBJECT_ID('find_ID', 'FN') IS NOT NULL

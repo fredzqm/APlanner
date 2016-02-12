@@ -188,9 +188,9 @@ Create Table Section (
 	TermID int,
 	CourseID smallint not null,
 	SectNum tinyint unique not null,
-	PUserID varchar(9),
-	EnrollNum tinyint,
-	Capacity int,
+	PUserID varchar(9) default null,
+	EnrollNum tinyint default 0,
+	Capacity int default 0,
 
 	Primary key(SectID),
 	Foreign key(TermID) references Term(TermID),
