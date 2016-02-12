@@ -96,7 +96,7 @@
     </Key>
     <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__24927208" FromRole="Professor" ToRole="Department" />
     <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__239E4DCF" FromRole="Professor" ToRole="People" />
     <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__44FF419A" FromRole="Professor" ToRole="Section" />
@@ -163,7 +163,7 @@
     </Key>
     <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-    <Property Name="Year" Type="Byte" />
+    <Property Name="Year" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__4D94879B" FromRole="Student" ToRole="Enroll" />
     <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__286302EC" FromRole="Student" ToRole="People" />
     <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__2D27B809" FromRole="Student" ToRole="SPlan" />
@@ -240,11 +240,12 @@
     <Key>
       <PropertyRef Name="SUserID" />
       <PropertyRef Name="StudName" />
+      <PropertyRef Name="Year" />
     </Key>
     <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-    <Property Name="Year" Type="Byte" />
+    <Property Name="Year" Type="Int16" Nullable="false" />
   </EntityType>
   <Association Name="FK__Course__CourseDP__31EC6D26">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />
@@ -524,7 +525,7 @@
     <End Role="Course" Type="Self.Course" Multiplicity="*" />
     <End Role="Course1" Type="Self.Course" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="APlannerEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Courses" EntityType="Self.Course" />
     <EntitySet Name="Departments" EntityType="Self.Department" />
     <EntitySet Name="Enrolls" EntityType="Self.Enroll" />
@@ -688,7 +689,7 @@
       <Parameter Name="LName" Mode="In" Type="String" />
       <Parameter Name="Password" Mode="In" Type="String" />
       <Parameter Name="Major" Mode="In" Type="String" />
-      <Parameter Name="Year" Mode="In" Type="Byte" />
+      <Parameter Name="Year" Mode="In" Type="Int16" />
     </FunctionImport>
     <FunctionImport Name="RemoveCourseToPlan">
       <Parameter Name="PID" Mode="In" Type="Int32" />

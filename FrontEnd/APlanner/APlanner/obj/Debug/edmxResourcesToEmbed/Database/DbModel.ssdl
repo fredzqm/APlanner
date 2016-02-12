@@ -97,7 +97,7 @@
     </Key>
     <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
     <Property Name="DepartID" Type="varchar" MaxLength="5" Nullable="false" />
-    <Property Name="Office" Type="varchar" MaxLength="6" />
+    <Property Name="Office" Type="varchar" MaxLength="6" Nullable="false" />
   </EntityType>
   <EntityType Name="Schedule">
     <Key>
@@ -147,7 +147,7 @@
     </Key>
     <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
     <Property Name="Major" Type="varchar" MaxLength="12" />
-    <Property Name="Year" Type="tinyint" />
+    <Property Name="Year" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Term">
     <Key>
@@ -226,11 +226,12 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
     <Key>
       <PropertyRef Name="SUserID" />
       <PropertyRef Name="StudName" />
+      <PropertyRef Name="Year" />
     </Key>
     <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
     <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
     <Property Name="Major" Type="varchar" MaxLength="12" />
-    <Property Name="Year" Type="tinyint" />
+    <Property Name="Year" Type="smallint" Nullable="false" />
   </EntityType>
   <Association Name="FK__Contain__CourseI__34C8D9D1">
     <End Role="Course" Type="Self.Course" Multiplicity="1">
@@ -637,7 +638,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
     <Parameter Name="LName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="char" Mode="In" />
     <Parameter Name="Major" Type="varchar" Mode="In" />
-    <Parameter Name="Year" Type="tinyint" Mode="In" />
+    <Parameter Name="Year" Type="smallint" Mode="In" />
   </Function>
   <Function Name="RemoveCourseToPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="PID" Type="int" Mode="In" />
