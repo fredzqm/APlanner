@@ -45,7 +45,7 @@ Create Procedure CreateSection
 AS
 	begin
 		insert into [Section]
-           ([TermID],[CourseID],,[SectNum],[PUserID],[Capacity])
+           ([TermID],[CourseID],[SectNum],[PUserID],[Capacity])
 		VALUES
            (@TermID, @CourseID, @SectNum, @PUserID, @Capacity)
 	end

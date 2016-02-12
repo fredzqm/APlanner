@@ -130,7 +130,7 @@ Create Table Course (
 
 	Primary key(CourseID),
 	Foreign key(CourseDP) references Department(DepartID)
-		on update cascade on delete cascade
+		on update no action on delete no action -- reject changes
 )
 Go
 
@@ -159,7 +159,7 @@ Create Table Prerequisite (
 	Requisite smallint not null,
 
 	Primary key(Prerequisite, Requisite),
-	Foreign key(Prerequisite) references Course(CourseID)
+	Foreign key(Prerequisite) references Course(CourseID),
 	    --- use trigger to handle it
 	Foreign key(Requisite) references Course(CourseID)
 		--- on update cascade on delete set null,

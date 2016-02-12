@@ -90,22 +90,24 @@ begin
 		select ScheID from Schedule
 			where PID = @PID;
 	
-	Declare @sections Table(ScheID int);
+	Declare @sections Table(SectID int);
 	insert into @sections (SectID)
 		select SectID from Section
 			where CourseID = @CourseID and SectNum = 0; 
 			--- section 0 represent a section not yet set  
-	if not exists(@sections) begin
+	if exists (select top 1 * from @sections) begin
 		raiserror('This course is not offered this term', 5, 2);
 		rollback;
 	end
 	
-	insert into Contain(CourseID, PID)
-		values(@CourseID, @PID)
 	
-	insert into Has
-		@sections join @schedules;
-	--- insert 0 section to schedules.
+	--- insert section0 to schedules.
+	insert into Has(SectID, ScheID)
+		(select SectID, ScheID from @sections, @schedules);
+
+	insert into Contain(CourseID, PID)
+		values(@CourseID, @PID);
+	
 end
 go
 
@@ -127,13 +129,14 @@ begin
 		select ScheID from Schedule
 			where PID = @PID;
 	
-	Declare @sections Table(ScheID int);
+	Declare @sections Table(SectID int);
 	insert into @sections (SectID)
 		select SectID from Section
 			where CourseID = @CourseID;
 
 	delete from Has
-		where SectID in @sections and  ScheID in @schedules
+		where exists( select * from @sections s where SectID = s.SectID) 
+			and exists( select * from @schedules s where ScheID = s.ScheID)
 end
 go
 
@@ -143,12 +146,12 @@ IF OBJECT_ID('UpdateSectNum', 'P') IS NOT NULL
 GO
 Create Procedure UpdateSectNum
 	@ScheID int,
-	@SecctID int
+	@SectID int
 AS
 begin
 	
 	update Has
-		Set SchelID = @SchelID
+		Set ScheID = @ScheID
 		where ScheID = @ScheID and dbo.getCourseID(SectID) = dbo.getCourseID(@SectID)
 
 end

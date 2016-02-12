@@ -125,15 +125,15 @@ BEGIN
 			values(@from , @to);
 	end
 	delete from FriendRequest 
-		where Requester = @from and Accepter = @to )
+		where Requester = @from and Accepter = @to 
 END
 Go
 
 
 IF OBJECT_ID('SendMessage', 'P') IS NOT NULL
-    DROP Proc InsertMessage;
+    DROP Proc SendMessage;
 GO
-Create Procedure InsertMessage
+Create Procedure SendMessage
 	@sender varchar(9),
 	@reciever varchar(9),
 	@Text text

@@ -62,11 +62,12 @@ Insert into Section ([SectID] ,[TermID] ,[CourseID] ,[SectNum] ,[PUserID] ,[Enro
 	(3295,1,123,1,'801200005',1,24),
 	(3296,1,123,2,'801200005',0,24),
 	(3297,1,123,3,'801200005',0,24);
-
+/*
 Delete from STime;
 Insert into STime ([SectID] ,[Classroom] ,[Period])
 	Values 
 	(3295,'M105',1,1);
+*/
 
 Delete from Enroll;
 Insert into Enroll ([SectID], [SUserID], [time], [Rating])

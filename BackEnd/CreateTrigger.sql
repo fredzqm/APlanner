@@ -10,12 +10,12 @@ AS
 BEGIN
 	Declare @Num int;
 	if (select count(distinct SectID) from inserted) > 1 begin
-		raiseerror('You cannot enroll students to different section at the same time' , 2, 2);
+		raiserror('You cannot enroll students to different section at the same time' , 2, 2);
 		rollback;
 	end
 	set @Num=(select Count(*) From inserted);
 	Update Section
-	   SET EnrollNum = EnrollNum + @Num;
+	   SET EnrollNum = EnrollNum + @Num
 	   WHERE Section.SectID = (Select SectID from inserted )
 END
 GO
@@ -34,7 +34,7 @@ BEGIN
 		rollback;
 	end
 	Update Section
-	   SET EnrollNum = EnrollNum - 1;
+	   SET EnrollNum = EnrollNum - 1
 	   WHERE Section.SectID = (Select SectID from inserted )
 END
 GO
@@ -47,18 +47,18 @@ CREATE TRIGGER CourseDelete ON  Course
 	instead of delete
 AS 
 BEGIN
-	if (count(*) from deleted) > 1 begin
+	if (select count(*) from deleted) > 1 begin
 		raiserror('Cannot delete more than one course at a time', 10, 3);
 	end
 	Declare @CourseID smallint;
-	Set @CourseID = select CourseID from deleted;
+	Set @CourseID = (select CourseID from deleted);
 	if exists (select * from Section where CourseID = @CourseID) begin
 		delete from Section
-			Where CourseID = @CourseID and not dbo.hasStarted(TermID)
-		rollback
+			Where CourseID = @CourseID and dbo.hasStarted(TermID) = 0;
+		rollback;
 	end
 	delete from Prerequisite 
-		where Prerequisite = @CourseID or Requisite = @CourseID);
+		where Prerequisite = @CourseID or Requisite = @CourseID;
 	
 	--- TODO:
 END
