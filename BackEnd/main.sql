@@ -15,7 +15,7 @@ go
 go
 
 :r C:\Users\zhang\Documents\GitHub\databaseGit\database\BackEnd\CreateTrigger.sql
-go
+go	
 
 :r C:\Users\zhang\Documents\GitHub\databaseGit\database\BackEnd\InsertData.sql
 go

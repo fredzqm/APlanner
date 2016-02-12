@@ -18,8 +18,7 @@ begin
 		return 2;  -- password shorter than 7!
 	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
 		 VALUES (@UserID, @UserName , @FName,  @LName, 'S', HASHBYTES('SHA1', @Password));
-    return 0;
-	INSERT INTO [Student] ([SUserID], [Major] ,[Year])
+    INSERT INTO [Student] ([SUserID], [Major] ,[Year])
 		 VALUES (@UserID,  @Major,  @Year);
     return 0;
 end
@@ -43,8 +42,7 @@ begin
 		return 2;  -- password shorter than 7!
 	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
 		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
-    return 0;
-	INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
+    INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
 		 VALUES (@UserID,  @Department,  @Office )
     return 0;
 end
