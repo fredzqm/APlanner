@@ -16,7 +16,7 @@ namespace APlanner.Database
     {
         public int SectID { get; set; }
         public Nullable<short> Section { get; set; }
-        public int TermID { get; set; }
+        public Nullable<int> TermID { get; set; }
         public string ProfName { get; set; }
         public Nullable<byte> Credit { get; set; }
         public Nullable<byte> EnrollNum { get; set; }

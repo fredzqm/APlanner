@@ -16,7 +16,7 @@ namespace APlanner.Database
     {
         public string SUserID { get; set; }
         public string StudName { get; set; }
-        public int TermID { get; set; }
+        public Nullable<int> TermID { get; set; }
         public Nullable<double> Probability { get; set; }
         public Nullable<int> Credits { get; set; }
     }

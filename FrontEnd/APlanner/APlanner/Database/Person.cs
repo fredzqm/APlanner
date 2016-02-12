@@ -21,8 +21,8 @@ namespace APlanner.Database
             this.Friends1 = new HashSet<Friend>();
             this.FriendRequests = new HashSet<FriendRequest>();
             this.FriendRequests1 = new HashSet<FriendRequest>();
-            this.receiveredMessages = new HashSet<Message>();
-            this.sentMessages = new HashSet<Message>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
         }
     
         public string UserID { get; set; }
@@ -41,9 +41,9 @@ namespace APlanner.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FriendRequest> FriendRequests1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> receiveredMessages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> sentMessages { get; set; }
+        public virtual ICollection<Message> Messages1 { get; set; }
         public virtual Professor Professor { get; set; }
         public virtual Student Student { get; set; }
     }

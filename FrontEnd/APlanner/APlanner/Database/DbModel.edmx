@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="APlannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="APlannerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contain">
           <Key>
             <PropertyRef Name="CourseID" />
@@ -70,12 +70,10 @@
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MessID" />
-            <PropertyRef Name="Sender" />
-            <PropertyRef Name="Receiver" />
           </Key>
           <Property Name="MessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Sender" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="Receiver" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Sender" Type="varchar" MaxLength="9" />
+          <Property Name="Receiver" Type="varchar" MaxLength="9" />
           <Property Name="Content" Type="text" Nullable="false" />
           <Property Name="time" Type="datetime" />
         </EntityType>
@@ -103,7 +101,7 @@
             <PropertyRef Name="PUserID" />
           </Key>
           <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="DepartID" Type="varchar" MaxLength="5" />
+          <Property Name="DepartID" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Office" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="Schedule">
@@ -121,7 +119,7 @@
             <PropertyRef Name="SectID" />
           </Key>
           <Property Name="SectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="TermID" Type="int" />
           <Property Name="CourseID" Type="smallint" Nullable="false" />
           <Property Name="SectNum" Type="tinyint" Nullable="false" />
           <Property Name="PUserID" Type="varchar" MaxLength="9" />
@@ -134,7 +132,7 @@
           </Key>
           <Property Name="PID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="TermID" Type="int" />
           <Property Name="Priority" Type="tinyint" />
           <Property Name="Probability" Type="float" />
         </EntityType>
@@ -143,12 +141,10 @@
             <PropertyRef Name="SectID" />
             <PropertyRef Name="Classroom" />
             <PropertyRef Name="Period" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="SectID" Type="int" Nullable="false" />
           <Property Name="Classroom" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="Period" Type="tinyint" Nullable="false" />
-          <Property Name="TermID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -156,7 +152,7 @@
           </Key>
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="Major" Type="varchar" MaxLength="12" />
-          <Property Name="Year" Type="int" />
+          <Property Name="Year" Type="tinyint" />
         </EntityType>
         <EntityType Name="Term">
           <Key>
@@ -182,12 +178,11 @@ warning 6002: The table/view 'APlanner.dbo.PlanView' does not have a primary key
             <PropertyRef Name="PID" />
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="PID" Type="int" Nullable="false" />
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
-          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="TermID" Type="int" />
           <Property Name="Probability" Type="float" />
           <Property Name="Credits" Type="int" />
         </EntityType>
@@ -197,10 +192,11 @@ warning 6002: The table/view 'APlanner.dbo.ProfessorView' does not have a primar
           <Key>
             <PropertyRef Name="PUserID" />
             <PropertyRef Name="ProfName" />
+            <PropertyRef Name="DepartMent" />
           </Key>
           <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="ProfName" Type="varchar" MaxLength="61" Nullable="false" />
-          <Property Name="DepartMent" Type="varchar" MaxLength="5" />
+          <Property Name="DepartMent" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'APlanner.dbo.ScheduleView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -208,11 +204,10 @@ warning 6002: The table/view 'APlanner.dbo.ScheduleView' does not have a primary
           <Key>
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
-          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="TermID" Type="int" />
           <Property Name="Probability" Type="float" />
           <Property Name="Credits" Type="int" />
         </EntityType>
@@ -221,12 +216,11 @@ warning 6002: The table/view 'APlanner.dbo.SectionView' does not have a primary 
         <EntityType Name="SectionView">
           <Key>
             <PropertyRef Name="SectID" />
-            <PropertyRef Name="TermID" />
             <PropertyRef Name="ProfName" />
           </Key>
           <Property Name="SectID" Type="int" Nullable="false" />
           <Property Name="Section" Type="smallint" />
-          <Property Name="TermID" Type="int" Nullable="false" />
+          <Property Name="TermID" Type="int" />
           <Property Name="ProfName" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="Credit" Type="tinyint" />
           <Property Name="EnrollNum" Type="tinyint" />
@@ -241,9 +235,9 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="Major" Type="varchar" MaxLength="12" />
-          <Property Name="Year" Type="int" />
+          <Property Name="Year" Type="tinyint" />
         </EntityType>
-        <Association Name="FK__Contain__CourseI__36B12243">
+        <Association Name="FK__Contain__CourseI__34C8D9D1">
           <End Role="Course" Type="Self.Course" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -257,7 +251,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Contain__PID__37A5467C">
+        <Association Name="FK__Contain__PID__35BCFE0A">
           <End Role="SPlan" Type="Self.SPlan" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -271,10 +265,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Course__CourseDP__33D4B598">
-          <End Role="Department" Type="Self.Department" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__Course__CourseDP__31EC6D26">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
@@ -285,7 +277,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Enroll__SectID__4BAC3F29">
+        <Association Name="FK__Enroll__SectID__4E88ABD4">
           <End Role="Section" Type="Self.Section" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -299,7 +291,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Enroll__SUserID__4AB81AF0">
+        <Association Name="FK__Enroll__SUserID__4D94879B">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
           <ReferentialConstraint>
@@ -337,7 +329,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Accep__1B0907CE">
+        <Association Name="FK__FriendReq__Accep__1A14E395">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -349,7 +341,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Reque__1A14E395">
+        <Association Name="FK__FriendReq__Reque__1920BF5C">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,7 +353,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Has__ScheID__46E78A0C">
+        <Association Name="FK__Has__ScheID__49C3F6B7">
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -375,7 +367,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Has__SectID__45F365D3">
+        <Association Name="FK__Has__SectID__48CFD27E">
           <End Role="Section" Type="Self.Section" Multiplicity="1" />
           <End Role="Has" Type="Self.Has" Multiplicity="*" />
           <ReferentialConstraint>
@@ -387,8 +379,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Receive__1FCDBCEB">
-          <End Role="People" Type="Self.People" Multiplicity="1" />
+        <Association Name="FK__Message__Receive__1DE57479">
+          <End Role="People" Type="Self.People" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="People">
@@ -399,8 +391,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Sender__1ED998B2">
-          <End Role="People" Type="Self.People" Multiplicity="1" />
+        <Association Name="FK__Message__Sender__1CF15040">
+          <End Role="People" Type="Self.People" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="People">
@@ -411,7 +403,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Prerequis__Prere__3A81B327">
+        <Association Name="FK__Prerequis__Prere__38996AB5">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
           <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
           <ReferentialConstraint>
@@ -423,10 +415,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Prerequis__Requi__3B75D760">
-          <End Role="Course" Type="Self.Course" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__Prerequis__Requi__398D8EEE">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
           <End Role="Prerequisite" Type="Self.Prerequisite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Course">
@@ -437,8 +427,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Professor__Depar__267ABA7A">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+        <Association Name="FK__Professor__Depar__24927208">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
@@ -449,7 +439,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Professor__PUser__25869641">
+        <Association Name="FK__Professor__PUser__239E4DCF">
           <End Role="People" Type="Self.People" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -463,7 +453,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__PID__3E52440B">
+        <Association Name="FK__Schedule__PID__3C69FB99">
           <End Role="SPlan" Type="Self.SPlan" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -475,7 +465,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__CourseI__4222D4EF">
+        <Association Name="FK__Section__CourseI__440B1D61">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -487,7 +477,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__PUserID__4316F928">
+        <Association Name="FK__Section__PUserID__44FF419A">
           <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -499,10 +489,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__TermID__412EB0B6">
-          <End Role="Term" Type="Self.Term" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__Section__TermID__4316F928">
+          <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Term">
@@ -513,7 +501,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SPlan__SUserID__2F10007B">
+        <Association Name="FK__SPlan__SUserID__2D27B809">
           <End Role="Student" Type="Self.Student" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -527,10 +515,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SPlan__TermID__300424B4">
-          <End Role="Term" Type="Self.Term" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__SPlan__TermID__2E1BDC42">
+          <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
           <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Term">
@@ -541,7 +527,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__STime__SectID__5629CD9C">
+        <Association Name="FK__STime__SectID__571DF1D5">
           <End Role="Section" Type="Self.Section" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -555,19 +541,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__STime__TermID__5535A963">
-          <End Role="Term" Type="Self.Term" Multiplicity="1" />
-          <End Role="STime" Type="Self.STime" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Term">
-              <PropertyRef Name="TermID" />
-            </Principal>
-            <Dependent Role="STime">
-              <PropertyRef Name="TermID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Student__SUserID__2A4B4B5E">
+        <Association Name="FK__Student__SUserID__286302EC">
           <End Role="People" Type="Self.People" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -581,10 +555,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WaitList__SectID__5070F446">
-          <End Role="Section" Type="Self.Section" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__WaitList__SectID__534D60F1">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
           <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
@@ -595,7 +567,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WaitList__SUserI__4F7CD00D">
+        <Association Name="FK__WaitList__SUserI__52593CB8">
           <End Role="Student" Type="Self.Student" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -609,52 +581,94 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddCourseToPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PID" Type="int" Mode="In" />
+          <Parameter Name="CourseID" Type="smallint" Mode="In" />
+        </Function>
         <Function Name="AddToWaitlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SectID" Type="int" Mode="In" />
-          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="varchar" Mode="In" />
           <Parameter Name="OldPassword" Type="char" Mode="In" />
           <Parameter Name="NewPassword" Type="char" Mode="In" />
-          <Parameter Name="success" Type="bit" Mode="InOut" />
+          <Parameter Name="success" Type="tinyint" Mode="InOut" />
+        </Function>
+        <Function Name="CreatePlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
+          <Parameter Name="TermID" Type="tinyint" Mode="In" />
+          <Parameter Name="PID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="enrollAlready" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
           <Parameter Name="sect" Type="int" Mode="In" />
           <Parameter Name="user" Type="varchar" Mode="In" />
         </Function>
         <Function Name="EnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
           <Parameter Name="SectID" Type="tinyint" Mode="In" />
-          <Parameter Name="T" Type="datetime" Mode="In" />
-          <Parameter Name="Rating" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="friendAlready" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
           <Parameter Name="req" Type="varchar" Mode="In" />
           <Parameter Name="acc" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="InsertMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="sender" Type="varchar" Mode="In" />
-          <Parameter Name="reciever" Type="varchar" Mode="In" />
-          <Parameter Name="Text" Type="text" Mode="In" />
+        <Function Name="getCourseID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SectID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="hasStarted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
+          <Parameter Name="TermID" Type="int" Mode="In" />
         </Function>
         <Function Name="ProvideOwnerPermit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="Register" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="RateSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
+          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+          <Parameter Name="Rating" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="RegisterProfessor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="FName" Type="varchar" Mode="In" />
           <Parameter Name="LName" Type="varchar" Mode="In" />
-          <Parameter Name="SorP" Type="char" Mode="In" />
           <Parameter Name="Password" Type="char" Mode="In" />
+          <Parameter Name="Department" Type="varchar" Mode="In" />
+          <Parameter Name="Office" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RegisterStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="FName" Type="varchar" Mode="In" />
+          <Parameter Name="LName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="char" Mode="In" />
+          <Parameter Name="Major" Type="varchar" Mode="In" />
+          <Parameter Name="Year" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="RemoveCourseToPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PID" Type="int" Mode="In" />
+          <Parameter Name="CourseID" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="ResponseFriendRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="varchar" Mode="In" />
+          <Parameter Name="to" Type="char" Mode="In" />
+          <Parameter Name="response" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SendFriendRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="from" Type="varchar" Mode="In" />
+          <Parameter Name="to" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SendMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sender" Type="varchar" Mode="In" />
+          <Parameter Name="reciever" Type="varchar" Mode="In" />
+          <Parameter Name="Text" Type="text" Mode="In" />
         </Function>
         <Function Name="UnEnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="SUserID" Type="varchar" Mode="In" />
           <Parameter Name="SectID" Type="tinyint" Mode="In" />
         </Function>
-        <Function Name="UnWaitlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="UpdateSectNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ScheID" Type="int" Mode="In" />
           <Parameter Name="SectID" Type="int" Mode="In" />
-          <Parameter Name="SUserID" Type="varchar" Mode="In" />
         </Function>
         <Function Name="UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="varchar" Mode="In" />
@@ -723,23 +737,23 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
     [StudentView].[Year] AS [Year]
     FROM [dbo].[StudentView] AS [StudentView]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Contain__CourseI__36B12243" Association="Self.FK__Contain__CourseI__36B12243">
+          <AssociationSet Name="FK__Contain__CourseI__34C8D9D1" Association="Self.FK__Contain__CourseI__34C8D9D1">
             <End Role="Course" EntitySet="Course" />
             <End Role="Contain" EntitySet="Contain" />
           </AssociationSet>
-          <AssociationSet Name="FK__Contain__PID__37A5467C" Association="Self.FK__Contain__PID__37A5467C">
+          <AssociationSet Name="FK__Contain__PID__35BCFE0A" Association="Self.FK__Contain__PID__35BCFE0A">
             <End Role="SPlan" EntitySet="SPlan" />
             <End Role="Contain" EntitySet="Contain" />
           </AssociationSet>
-          <AssociationSet Name="FK__Course__CourseDP__33D4B598" Association="Self.FK__Course__CourseDP__33D4B598">
+          <AssociationSet Name="FK__Course__CourseDP__31EC6D26" Association="Self.FK__Course__CourseDP__31EC6D26">
             <End Role="Department" EntitySet="Department" />
             <End Role="Course" EntitySet="Course" />
           </AssociationSet>
-          <AssociationSet Name="FK__Enroll__SectID__4BAC3F29" Association="Self.FK__Enroll__SectID__4BAC3F29">
+          <AssociationSet Name="FK__Enroll__SectID__4E88ABD4" Association="Self.FK__Enroll__SectID__4E88ABD4">
             <End Role="Section" EntitySet="Section" />
             <End Role="Enroll" EntitySet="Enroll" />
           </AssociationSet>
-          <AssociationSet Name="FK__Enroll__SUserID__4AB81AF0" Association="Self.FK__Enroll__SUserID__4AB81AF0">
+          <AssociationSet Name="FK__Enroll__SUserID__4D94879B" Association="Self.FK__Enroll__SUserID__4D94879B">
             <End Role="Student" EntitySet="Student" />
             <End Role="Enroll" EntitySet="Enroll" />
           </AssociationSet>
@@ -751,92 +765,89 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <End Role="People" EntitySet="People" />
             <End Role="Friend" EntitySet="Friend" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Accep__1B0907CE" Association="Self.FK__FriendReq__Accep__1B0907CE">
+          <AssociationSet Name="FK__FriendReq__Accep__1A14E395" Association="Self.FK__FriendReq__Accep__1A14E395">
             <End Role="People" EntitySet="People" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Reque__1A14E395" Association="Self.FK__FriendReq__Reque__1A14E395">
+          <AssociationSet Name="FK__FriendReq__Reque__1920BF5C" Association="Self.FK__FriendReq__Reque__1920BF5C">
             <End Role="People" EntitySet="People" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__Has__ScheID__46E78A0C" Association="Self.FK__Has__ScheID__46E78A0C">
+          <AssociationSet Name="FK__Has__ScheID__49C3F6B7" Association="Self.FK__Has__ScheID__49C3F6B7">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Has" EntitySet="Has" />
           </AssociationSet>
-          <AssociationSet Name="FK__Has__SectID__45F365D3" Association="Self.FK__Has__SectID__45F365D3">
+          <AssociationSet Name="FK__Has__SectID__48CFD27E" Association="Self.FK__Has__SectID__48CFD27E">
             <End Role="Section" EntitySet="Section" />
             <End Role="Has" EntitySet="Has" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Receive__1FCDBCEB" Association="Self.FK__Message__Receive__1FCDBCEB">
+          <AssociationSet Name="FK__Message__Receive__1DE57479" Association="Self.FK__Message__Receive__1DE57479">
             <End Role="People" EntitySet="People" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Sender__1ED998B2" Association="Self.FK__Message__Sender__1ED998B2">
+          <AssociationSet Name="FK__Message__Sender__1CF15040" Association="Self.FK__Message__Sender__1CF15040">
             <End Role="People" EntitySet="People" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Prerequis__Prere__3A81B327" Association="Self.FK__Prerequis__Prere__3A81B327">
+          <AssociationSet Name="FK__Prerequis__Prere__38996AB5" Association="Self.FK__Prerequis__Prere__38996AB5">
             <End Role="Course" EntitySet="Course" />
             <End Role="Prerequisite" EntitySet="Prerequisite" />
           </AssociationSet>
-          <AssociationSet Name="FK__Prerequis__Requi__3B75D760" Association="Self.FK__Prerequis__Requi__3B75D760">
+          <AssociationSet Name="FK__Prerequis__Requi__398D8EEE" Association="Self.FK__Prerequis__Requi__398D8EEE">
             <End Role="Course" EntitySet="Course" />
             <End Role="Prerequisite" EntitySet="Prerequisite" />
           </AssociationSet>
-          <AssociationSet Name="FK__Professor__Depar__267ABA7A" Association="Self.FK__Professor__Depar__267ABA7A">
+          <AssociationSet Name="FK__Professor__Depar__24927208" Association="Self.FK__Professor__Depar__24927208">
             <End Role="Department" EntitySet="Department" />
             <End Role="Professor" EntitySet="Professor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Professor__PUser__25869641" Association="Self.FK__Professor__PUser__25869641">
+          <AssociationSet Name="FK__Professor__PUser__239E4DCF" Association="Self.FK__Professor__PUser__239E4DCF">
             <End Role="People" EntitySet="People" />
             <End Role="Professor" EntitySet="Professor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__PID__3E52440B" Association="Self.FK__Schedule__PID__3E52440B">
+          <AssociationSet Name="FK__Schedule__PID__3C69FB99" Association="Self.FK__Schedule__PID__3C69FB99">
             <End Role="SPlan" EntitySet="SPlan" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__CourseI__4222D4EF" Association="Self.FK__Section__CourseI__4222D4EF">
+          <AssociationSet Name="FK__Section__CourseI__440B1D61" Association="Self.FK__Section__CourseI__440B1D61">
             <End Role="Course" EntitySet="Course" />
             <End Role="Section" EntitySet="Section" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__PUserID__4316F928" Association="Self.FK__Section__PUserID__4316F928">
+          <AssociationSet Name="FK__Section__PUserID__44FF419A" Association="Self.FK__Section__PUserID__44FF419A">
             <End Role="Professor" EntitySet="Professor" />
             <End Role="Section" EntitySet="Section" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__TermID__412EB0B6" Association="Self.FK__Section__TermID__412EB0B6">
+          <AssociationSet Name="FK__Section__TermID__4316F928" Association="Self.FK__Section__TermID__4316F928">
             <End Role="Term" EntitySet="Term" />
             <End Role="Section" EntitySet="Section" />
           </AssociationSet>
-          <AssociationSet Name="FK__SPlan__SUserID__2F10007B" Association="Self.FK__SPlan__SUserID__2F10007B">
+          <AssociationSet Name="FK__SPlan__SUserID__2D27B809" Association="Self.FK__SPlan__SUserID__2D27B809">
             <End Role="Student" EntitySet="Student" />
             <End Role="SPlan" EntitySet="SPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK__SPlan__TermID__300424B4" Association="Self.FK__SPlan__TermID__300424B4">
+          <AssociationSet Name="FK__SPlan__TermID__2E1BDC42" Association="Self.FK__SPlan__TermID__2E1BDC42">
             <End Role="Term" EntitySet="Term" />
             <End Role="SPlan" EntitySet="SPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK__STime__SectID__5629CD9C" Association="Self.FK__STime__SectID__5629CD9C">
+          <AssociationSet Name="FK__STime__SectID__571DF1D5" Association="Self.FK__STime__SectID__571DF1D5">
             <End Role="Section" EntitySet="Section" />
             <End Role="STime" EntitySet="STime" />
           </AssociationSet>
-          <AssociationSet Name="FK__STime__TermID__5535A963" Association="Self.FK__STime__TermID__5535A963">
-            <End Role="Term" EntitySet="Term" />
-            <End Role="STime" EntitySet="STime" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Student__SUserID__2A4B4B5E" Association="Self.FK__Student__SUserID__2A4B4B5E">
+          <AssociationSet Name="FK__Student__SUserID__286302EC" Association="Self.FK__Student__SUserID__286302EC">
             <End Role="People" EntitySet="People" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__WaitList__SectID__5070F446" Association="Self.FK__WaitList__SectID__5070F446">
+          <AssociationSet Name="FK__WaitList__SectID__534D60F1" Association="Self.FK__WaitList__SectID__534D60F1">
             <End Role="Section" EntitySet="Section" />
             <End Role="WaitList" EntitySet="WaitList" />
           </AssociationSet>
-          <AssociationSet Name="FK__WaitList__SUserI__4F7CD00D" Association="Self.FK__WaitList__SUserI__4F7CD00D">
+          <AssociationSet Name="FK__WaitList__SUserI__52593CB8" Association="Self.FK__WaitList__SUserI__52593CB8">
             <End Role="Student" EntitySet="Student" />
             <End Role="WaitList" EntitySet="WaitList" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="APlannerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -850,8 +861,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="CourseNum" Type="Int16" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Credit" Type="Byte" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Course__CourseDP__33D4B598" FromRole="Course" ToRole="Department" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__CourseI__4222D4EF" FromRole="Course" ToRole="Section" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Course__CourseDP__31EC6D26" FromRole="Course" ToRole="Department" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__CourseI__440B1D61" FromRole="Course" ToRole="Section" />
           <NavigationProperty Name="SPlans" Relationship="Self.Contain" FromRole="Course" ToRole="SPlan" />
           <NavigationProperty Name="Course1" Relationship="Self.Prerequisite" FromRole="Course" ToRole="Course1" />
           <NavigationProperty Name="Courses" Relationship="Self.Prerequisite" FromRole="Course1" ToRole="Course" />
@@ -862,8 +873,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </Key>
           <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DepartNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK__Course__CourseDP__33D4B598" FromRole="Department" ToRole="Course" />
-          <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Depar__267ABA7A" FromRole="Department" ToRole="Professor" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__Course__CourseDP__31EC6D26" FromRole="Department" ToRole="Course" />
+          <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Depar__24927208" FromRole="Department" ToRole="Professor" />
         </EntityType>
         <EntityType Name="Enroll">
           <Key>
@@ -874,8 +885,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Rating" Type="Byte" />
-          <NavigationProperty Name="Section" Relationship="Self.FK__Enroll__SectID__4BAC3F29" FromRole="Enroll" ToRole="Section" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Enroll__SUserID__4AB81AF0" FromRole="Enroll" ToRole="Student" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__Enroll__SectID__4E88ABD4" FromRole="Enroll" ToRole="Section" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Enroll__SUserID__4D94879B" FromRole="Enroll" ToRole="Student" />
         </EntityType>
         <EntityType Name="Friend">
           <Key>
@@ -896,22 +907,20 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="Requester" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Accepter" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="time" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Person" Relationship="Self.FK__FriendReq__Accep__1B0907CE" FromRole="FriendRequest" ToRole="People" />
-          <NavigationProperty Name="Person1" Relationship="Self.FK__FriendReq__Reque__1A14E395" FromRole="FriendRequest" ToRole="People" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__FriendReq__Accep__1A14E395" FromRole="FriendRequest" ToRole="People" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK__FriendReq__Reque__1920BF5C" FromRole="FriendRequest" ToRole="People" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MessID" />
-            <PropertyRef Name="Sender" />
-            <PropertyRef Name="Receiver" />
           </Key>
           <Property Name="MessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Sender" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Receiver" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sender" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Receiver" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="time" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Person" Relationship="Self.FK__Message__Receive__1FCDBCEB" FromRole="Message" ToRole="People" />
-          <NavigationProperty Name="Person1" Relationship="Self.FK__Message__Sender__1ED998B2" FromRole="Message" ToRole="People" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Message__Receive__1DE57479" FromRole="Message" ToRole="People" />
+          <NavigationProperty Name="Person1" Relationship="Self.FK__Message__Sender__1CF15040" FromRole="Message" ToRole="People" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -925,23 +934,23 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Friends" Relationship="Self.FK__Friend__Accepter__145C0A3F" FromRole="People" ToRole="Friend" />
           <NavigationProperty Name="Friends1" Relationship="Self.FK__Friend__Requeste__1367E606" FromRole="People" ToRole="Friend" />
-          <NavigationProperty Name="FriendRequests" Relationship="Self.FK__FriendReq__Accep__1B0907CE" FromRole="People" ToRole="FriendRequest" />
-          <NavigationProperty Name="FriendRequests1" Relationship="Self.FK__FriendReq__Reque__1A14E395" FromRole="People" ToRole="FriendRequest" />
-          <NavigationProperty Name="receiveredMessages" Relationship="Self.FK__Message__Receive__1FCDBCEB" FromRole="People" ToRole="Message" />
-          <NavigationProperty Name="sentMessages" Relationship="Self.FK__Message__Sender__1ED998B2" FromRole="People" ToRole="Message" />
-          <NavigationProperty Name="Professor" Relationship="Self.FK__Professor__PUser__25869641" FromRole="People" ToRole="Professor" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Student__SUserID__2A4B4B5E" FromRole="People" ToRole="Student" />
+          <NavigationProperty Name="FriendRequests" Relationship="Self.FK__FriendReq__Accep__1A14E395" FromRole="People" ToRole="FriendRequest" />
+          <NavigationProperty Name="FriendRequests1" Relationship="Self.FK__FriendReq__Reque__1920BF5C" FromRole="People" ToRole="FriendRequest" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Receive__1DE57479" FromRole="People" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__Sender__1CF15040" FromRole="People" ToRole="Message" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Professor__PUser__239E4DCF" FromRole="People" ToRole="Professor" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__SUserID__286302EC" FromRole="People" ToRole="Student" />
         </EntityType>
         <EntityType Name="Professor">
           <Key>
             <PropertyRef Name="PUserID" />
           </Key>
           <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__267ABA7A" FromRole="Professor" ToRole="Department" />
-          <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__25869641" FromRole="Professor" ToRole="People" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__4316F928" FromRole="Professor" ToRole="Section" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__24927208" FromRole="Professor" ToRole="Department" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__239E4DCF" FromRole="Professor" ToRole="People" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__44FF419A" FromRole="Professor" ToRole="Section" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -952,7 +961,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="Probability" Type="Double" />
           <Property Name="Priority" Type="Byte" />
           <Property Name="PublicOrPrivate" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="SPlan" Relationship="Self.FK__Schedule__PID__3E52440B" FromRole="Schedule" ToRole="SPlan" />
+          <NavigationProperty Name="SPlan" Relationship="Self.FK__Schedule__PID__3C69FB99" FromRole="Schedule" ToRole="SPlan" />
           <NavigationProperty Name="Sections" Relationship="Self.Has" FromRole="Schedule" ToRole="Section" />
         </EntityType>
         <EntityType Name="Section">
@@ -960,18 +969,18 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <PropertyRef Name="SectID" />
           </Key>
           <Property Name="SectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="TermID" Type="Int32" />
           <Property Name="CourseID" Type="Int16" Nullable="false" />
           <Property Name="SectNum" Type="Byte" Nullable="false" />
           <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="EnrollNum" Type="Byte" />
           <Property Name="Capacity" Type="Int32" />
-          <NavigationProperty Name="Course" Relationship="Self.FK__Section__CourseI__4222D4EF" FromRole="Section" ToRole="Course" />
-          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SectID__4BAC3F29" FromRole="Section" ToRole="Enroll" />
-          <NavigationProperty Name="Professor" Relationship="Self.FK__Section__PUserID__4316F928" FromRole="Section" ToRole="Professor" />
-          <NavigationProperty Name="Term" Relationship="Self.FK__Section__TermID__412EB0B6" FromRole="Section" ToRole="Term" />
-          <NavigationProperty Name="STimes" Relationship="Self.FK__STime__SectID__5629CD9C" FromRole="Section" ToRole="STime" />
-          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SectID__5070F446" FromRole="Section" ToRole="WaitList" />
+          <NavigationProperty Name="Course" Relationship="Self.FK__Section__CourseI__440B1D61" FromRole="Section" ToRole="Course" />
+          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SectID__4E88ABD4" FromRole="Section" ToRole="Enroll" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Section__PUserID__44FF419A" FromRole="Section" ToRole="Professor" />
+          <NavigationProperty Name="Term" Relationship="Self.FK__Section__TermID__4316F928" FromRole="Section" ToRole="Term" />
+          <NavigationProperty Name="STimes" Relationship="Self.FK__STime__SectID__571DF1D5" FromRole="Section" ToRole="STime" />
+          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SectID__534D60F1" FromRole="Section" ToRole="WaitList" />
           <NavigationProperty Name="Schedules" Relationship="Self.Has" FromRole="Section" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="SPlan">
@@ -980,12 +989,12 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </Key>
           <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="TermID" Type="Int32" />
           <Property Name="Priority" Type="Byte" />
           <Property Name="Probability" Type="Double" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__PID__3E52440B" FromRole="SPlan" ToRole="Schedule" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__SPlan__SUserID__2F10007B" FromRole="SPlan" ToRole="Student" />
-          <NavigationProperty Name="Term" Relationship="Self.FK__SPlan__TermID__300424B4" FromRole="SPlan" ToRole="Term" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__PID__3C69FB99" FromRole="SPlan" ToRole="Schedule" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__SPlan__SUserID__2D27B809" FromRole="SPlan" ToRole="Student" />
+          <NavigationProperty Name="Term" Relationship="Self.FK__SPlan__TermID__2E1BDC42" FromRole="SPlan" ToRole="Term" />
           <NavigationProperty Name="Courses" Relationship="Self.Contain" FromRole="SPlan" ToRole="Course" />
         </EntityType>
         <EntityType Name="STime">
@@ -993,14 +1002,11 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <PropertyRef Name="SectID" />
             <PropertyRef Name="Classroom" />
             <PropertyRef Name="Period" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="SectID" Type="Int32" Nullable="false" />
           <Property Name="Classroom" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Period" Type="Byte" Nullable="false" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Section" Relationship="Self.FK__STime__SectID__5629CD9C" FromRole="STime" ToRole="Section" />
-          <NavigationProperty Name="Term" Relationship="Self.FK__STime__TermID__5535A963" FromRole="STime" ToRole="Term" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__STime__SectID__571DF1D5" FromRole="STime" ToRole="Section" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -1008,11 +1014,11 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </Key>
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="Int32" />
-          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__4AB81AF0" FromRole="Student" ToRole="Enroll" />
-          <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__2A4B4B5E" FromRole="Student" ToRole="People" />
-          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__2F10007B" FromRole="Student" ToRole="SPlan" />
-          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SUserI__4F7CD00D" FromRole="Student" ToRole="WaitList" />
+          <Property Name="Year" Type="Byte" />
+          <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__4D94879B" FromRole="Student" ToRole="Enroll" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__286302EC" FromRole="Student" ToRole="People" />
+          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__2D27B809" FromRole="Student" ToRole="SPlan" />
+          <NavigationProperty Name="WaitLists" Relationship="Self.FK__WaitList__SUserI__52593CB8" FromRole="Student" ToRole="WaitList" />
         </EntityType>
         <EntityType Name="Term">
           <Key>
@@ -1021,9 +1027,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="TermID" Type="Int32" Nullable="false" />
           <Property Name="Start_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="End_date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__TermID__412EB0B6" FromRole="Term" ToRole="Section" />
-          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__TermID__300424B4" FromRole="Term" ToRole="SPlan" />
-          <NavigationProperty Name="STimes" Relationship="Self.FK__STime__TermID__5535A963" FromRole="Term" ToRole="STime" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK__Section__TermID__4316F928" FromRole="Term" ToRole="Section" />
+          <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__TermID__2E1BDC42" FromRole="Term" ToRole="SPlan" />
         </EntityType>
         <EntityType Name="WaitList">
           <Key>
@@ -1033,20 +1038,19 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="SectID" Type="Int32" Nullable="false" />
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Section" Relationship="Self.FK__WaitList__SectID__5070F446" FromRole="WaitList" ToRole="Section" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__WaitList__SUserI__4F7CD00D" FromRole="WaitList" ToRole="Student" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__WaitList__SectID__534D60F1" FromRole="WaitList" ToRole="Section" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__WaitList__SUserI__52593CB8" FromRole="WaitList" ToRole="Student" />
         </EntityType>
         <EntityType Name="PlanView">
           <Key>
             <PropertyRef Name="PID" />
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="PID" Type="Int32" Nullable="false" />
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="TermID" Type="Int32" />
           <Property Name="Probability" Type="Double" />
           <Property Name="Credits" Type="Int32" />
         </EntityType>
@@ -1054,32 +1058,31 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Key>
             <PropertyRef Name="PUserID" />
             <PropertyRef Name="ProfName" />
+            <PropertyRef Name="DepartMent" />
           </Key>
           <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProfName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DepartMent" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DepartMent" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="ScheduleView">
           <Key>
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
-            <PropertyRef Name="TermID" />
           </Key>
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="TermID" Type="Int32" />
           <Property Name="Probability" Type="Double" />
           <Property Name="Credits" Type="Int32" />
         </EntityType>
         <EntityType Name="SectionView">
           <Key>
             <PropertyRef Name="SectID" />
-            <PropertyRef Name="TermID" />
             <PropertyRef Name="ProfName" />
           </Key>
           <Property Name="SectID" Type="Int32" Nullable="false" />
           <Property Name="Section" Type="Int16" />
-          <Property Name="TermID" Type="Int32" Nullable="false" />
+          <Property Name="TermID" Type="Int32" />
           <Property Name="ProfName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Credit" Type="Byte" />
           <Property Name="EnrollNum" Type="Byte" />
@@ -1092,12 +1095,10 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="Int32" />
+          <Property Name="Year" Type="Byte" />
         </EntityType>
-        <Association Name="FK__Course__CourseDP__33D4B598">
-          <End Role="Department" Type="Self.Department" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__Course__CourseDP__31EC6D26">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
@@ -1108,7 +1109,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__CourseI__4222D4EF">
+        <Association Name="FK__Section__CourseI__440B1D61">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1120,8 +1121,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Professor__Depar__267ABA7A">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+        <Association Name="FK__Professor__Depar__24927208">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
@@ -1132,7 +1133,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Enroll__SectID__4BAC3F29">
+        <Association Name="FK__Enroll__SectID__4E88ABD4">
           <End Role="Section" Type="Self.Section" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1146,7 +1147,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Enroll__SUserID__4AB81AF0">
+        <Association Name="FK__Enroll__SUserID__4D94879B">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Enroll" Type="Self.Enroll" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1184,7 +1185,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Accep__1B0907CE">
+        <Association Name="FK__FriendReq__Accep__1A14E395">
           <End Role="People" Type="Self.Person" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1196,7 +1197,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Reque__1A14E395">
+        <Association Name="FK__FriendReq__Reque__1920BF5C">
           <End Role="People" Type="Self.Person" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1208,8 +1209,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Receive__1FCDBCEB">
-          <End Role="People" Type="Self.Person" Multiplicity="1" />
+        <Association Name="FK__Message__Receive__1DE57479">
+          <End Role="People" Type="Self.Person" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="People">
@@ -1220,8 +1221,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Sender__1ED998B2">
-          <End Role="People" Type="Self.Person" Multiplicity="1" />
+        <Association Name="FK__Message__Sender__1CF15040">
+          <End Role="People" Type="Self.Person" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="People">
@@ -1232,7 +1233,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Professor__PUser__25869641">
+        <Association Name="FK__Professor__PUser__239E4DCF">
           <End Role="People" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1246,7 +1247,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__SUserID__2A4B4B5E">
+        <Association Name="FK__Student__SUserID__286302EC">
           <End Role="People" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1260,7 +1261,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__PUserID__4316F928">
+        <Association Name="FK__Section__PUserID__44FF419A">
           <End Role="Professor" Type="Self.Professor" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1272,7 +1273,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Schedule__PID__3E52440B">
+        <Association Name="FK__Schedule__PID__3C69FB99">
           <End Role="SPlan" Type="Self.SPlan" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1284,10 +1285,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Section__TermID__412EB0B6">
-          <End Role="Term" Type="Self.Term" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__Section__TermID__4316F928">
+          <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
           <End Role="Section" Type="Self.Section" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Term">
@@ -1298,7 +1297,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__STime__SectID__5629CD9C">
+        <Association Name="FK__STime__SectID__571DF1D5">
           <End Role="Section" Type="Self.Section" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1312,10 +1311,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WaitList__SectID__5070F446">
-          <End Role="Section" Type="Self.Section" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__WaitList__SectID__534D60F1">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
           <End Role="WaitList" Type="Self.WaitList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Section">
@@ -1326,7 +1323,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SPlan__SUserID__2F10007B">
+        <Association Name="FK__SPlan__SUserID__2D27B809">
           <End Role="Student" Type="Self.Student" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1340,10 +1337,8 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SPlan__TermID__300424B4">
-          <End Role="Term" Type="Self.Term" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__SPlan__TermID__2E1BDC42">
+          <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
           <End Role="SPlan" Type="Self.SPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Term">
@@ -1354,19 +1349,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__STime__TermID__5535A963">
-          <End Role="Term" Type="Self.Term" Multiplicity="1" />
-          <End Role="STime" Type="Self.STime" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Term">
-              <PropertyRef Name="TermID" />
-            </Principal>
-            <Dependent Role="STime">
-              <PropertyRef Name="TermID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__WaitList__SUserI__4F7CD00D">
+        <Association Name="FK__WaitList__SUserI__52593CB8">
           <End Role="Student" Type="Self.Student" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1413,23 +1396,23 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <EntitySet Name="ScheduleViews" EntityType="Self.ScheduleView" />
           <EntitySet Name="SectionViews" EntityType="Self.SectionView" />
           <EntitySet Name="StudentViews" EntityType="Self.StudentView" />
-          <AssociationSet Name="FK__Course__CourseDP__33D4B598" Association="Self.FK__Course__CourseDP__33D4B598">
+          <AssociationSet Name="FK__Course__CourseDP__31EC6D26" Association="Self.FK__Course__CourseDP__31EC6D26">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__CourseI__4222D4EF" Association="Self.FK__Section__CourseI__4222D4EF">
+          <AssociationSet Name="FK__Section__CourseI__440B1D61" Association="Self.FK__Section__CourseI__440B1D61">
             <End Role="Course" EntitySet="Courses" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
-          <AssociationSet Name="FK__Professor__Depar__267ABA7A" Association="Self.FK__Professor__Depar__267ABA7A">
+          <AssociationSet Name="FK__Professor__Depar__24927208" Association="Self.FK__Professor__Depar__24927208">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Professor" EntitySet="Professors" />
           </AssociationSet>
-          <AssociationSet Name="FK__Enroll__SectID__4BAC3F29" Association="Self.FK__Enroll__SectID__4BAC3F29">
+          <AssociationSet Name="FK__Enroll__SectID__4E88ABD4" Association="Self.FK__Enroll__SectID__4E88ABD4">
             <End Role="Section" EntitySet="Sections" />
             <End Role="Enroll" EntitySet="Enrolls" />
           </AssociationSet>
-          <AssociationSet Name="FK__Enroll__SUserID__4AB81AF0" Association="Self.FK__Enroll__SUserID__4AB81AF0">
+          <AssociationSet Name="FK__Enroll__SUserID__4D94879B" Association="Self.FK__Enroll__SUserID__4D94879B">
             <End Role="Student" EntitySet="Students" />
             <End Role="Enroll" EntitySet="Enrolls" />
           </AssociationSet>
@@ -1441,63 +1424,59 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <End Role="People" EntitySet="People" />
             <End Role="Friend" EntitySet="Friends" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Accep__1B0907CE" Association="Self.FK__FriendReq__Accep__1B0907CE">
+          <AssociationSet Name="FK__FriendReq__Accep__1A14E395" Association="Self.FK__FriendReq__Accep__1A14E395">
             <End Role="People" EntitySet="People" />
             <End Role="FriendRequest" EntitySet="FriendRequests" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Reque__1A14E395" Association="Self.FK__FriendReq__Reque__1A14E395">
+          <AssociationSet Name="FK__FriendReq__Reque__1920BF5C" Association="Self.FK__FriendReq__Reque__1920BF5C">
             <End Role="People" EntitySet="People" />
             <End Role="FriendRequest" EntitySet="FriendRequests" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Receive__1FCDBCEB" Association="Self.FK__Message__Receive__1FCDBCEB">
+          <AssociationSet Name="FK__Message__Receive__1DE57479" Association="Self.FK__Message__Receive__1DE57479">
             <End Role="People" EntitySet="People" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Sender__1ED998B2" Association="Self.FK__Message__Sender__1ED998B2">
+          <AssociationSet Name="FK__Message__Sender__1CF15040" Association="Self.FK__Message__Sender__1CF15040">
             <End Role="People" EntitySet="People" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Professor__PUser__25869641" Association="Self.FK__Professor__PUser__25869641">
+          <AssociationSet Name="FK__Professor__PUser__239E4DCF" Association="Self.FK__Professor__PUser__239E4DCF">
             <End Role="People" EntitySet="People" />
             <End Role="Professor" EntitySet="Professors" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__SUserID__2A4B4B5E" Association="Self.FK__Student__SUserID__2A4B4B5E">
+          <AssociationSet Name="FK__Student__SUserID__286302EC" Association="Self.FK__Student__SUserID__286302EC">
             <End Role="People" EntitySet="People" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__PUserID__4316F928" Association="Self.FK__Section__PUserID__4316F928">
+          <AssociationSet Name="FK__Section__PUserID__44FF419A" Association="Self.FK__Section__PUserID__44FF419A">
             <End Role="Professor" EntitySet="Professors" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
-          <AssociationSet Name="FK__Schedule__PID__3E52440B" Association="Self.FK__Schedule__PID__3E52440B">
+          <AssociationSet Name="FK__Schedule__PID__3C69FB99" Association="Self.FK__Schedule__PID__3C69FB99">
             <End Role="SPlan" EntitySet="SPlans" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <AssociationSet Name="FK__Section__TermID__412EB0B6" Association="Self.FK__Section__TermID__412EB0B6">
+          <AssociationSet Name="FK__Section__TermID__4316F928" Association="Self.FK__Section__TermID__4316F928">
             <End Role="Term" EntitySet="Terms" />
             <End Role="Section" EntitySet="Sections" />
           </AssociationSet>
-          <AssociationSet Name="FK__STime__SectID__5629CD9C" Association="Self.FK__STime__SectID__5629CD9C">
+          <AssociationSet Name="FK__STime__SectID__571DF1D5" Association="Self.FK__STime__SectID__571DF1D5">
             <End Role="Section" EntitySet="Sections" />
             <End Role="STime" EntitySet="STimes" />
           </AssociationSet>
-          <AssociationSet Name="FK__WaitList__SectID__5070F446" Association="Self.FK__WaitList__SectID__5070F446">
+          <AssociationSet Name="FK__WaitList__SectID__534D60F1" Association="Self.FK__WaitList__SectID__534D60F1">
             <End Role="Section" EntitySet="Sections" />
             <End Role="WaitList" EntitySet="WaitLists" />
           </AssociationSet>
-          <AssociationSet Name="FK__SPlan__SUserID__2F10007B" Association="Self.FK__SPlan__SUserID__2F10007B">
+          <AssociationSet Name="FK__SPlan__SUserID__2D27B809" Association="Self.FK__SPlan__SUserID__2D27B809">
             <End Role="Student" EntitySet="Students" />
             <End Role="SPlan" EntitySet="SPlans" />
           </AssociationSet>
-          <AssociationSet Name="FK__SPlan__TermID__300424B4" Association="Self.FK__SPlan__TermID__300424B4">
+          <AssociationSet Name="FK__SPlan__TermID__2E1BDC42" Association="Self.FK__SPlan__TermID__2E1BDC42">
             <End Role="Term" EntitySet="Terms" />
             <End Role="SPlan" EntitySet="SPlans" />
           </AssociationSet>
-          <AssociationSet Name="FK__STime__TermID__5535A963" Association="Self.FK__STime__TermID__5535A963">
-            <End Role="Term" EntitySet="Terms" />
-            <End Role="STime" EntitySet="STimes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__WaitList__SUserI__4F7CD00D" Association="Self.FK__WaitList__SUserI__4F7CD00D">
+          <AssociationSet Name="FK__WaitList__SUserI__52593CB8" Association="Self.FK__WaitList__SUserI__52593CB8">
             <End Role="Student" EntitySet="Students" />
             <End Role="WaitList" EntitySet="WaitLists" />
           </AssociationSet>
@@ -1513,44 +1492,80 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <End Role="Course" EntitySet="Courses" />
             <End Role="Course1" EntitySet="Courses" />
           </AssociationSet>
+          <FunctionImport Name="AddCourseToPlan">
+            <Parameter Name="PID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int16" />
+          </FunctionImport>
           <FunctionImport Name="AddToWaitlist">
             <Parameter Name="SectID" Mode="In" Type="Int32" />
-            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="SUserID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ChangePassword">
             <Parameter Name="UserID" Mode="In" Type="String" />
             <Parameter Name="OldPassword" Mode="In" Type="String" />
             <Parameter Name="NewPassword" Mode="In" Type="String" />
-            <Parameter Name="success" Mode="InOut" Type="Boolean" />
+            <Parameter Name="success" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="CreatePlan">
+            <Parameter Name="SUserID" Mode="In" Type="String" />
+            <Parameter Name="TermID" Mode="In" Type="Byte" />
+            <Parameter Name="PID" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EnrollStudent">
-            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="SUserID" Mode="In" Type="String" />
             <Parameter Name="SectID" Mode="In" Type="Byte" />
-            <Parameter Name="T" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="ProvideOwnerPermit">
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RateSection">
+            <Parameter Name="SUserID" Mode="In" Type="String" />
+            <Parameter Name="SectID" Mode="In" Type="Byte" />
             <Parameter Name="Rating" Mode="In" Type="Byte" />
           </FunctionImport>
-          <FunctionImport Name="InsertMessage">
+          <FunctionImport Name="RegisterProfessor">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Department" Mode="In" Type="String" />
+            <Parameter Name="Office" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RegisterStudent">
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="FName" Mode="In" Type="String" />
+            <Parameter Name="LName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Major" Mode="In" Type="String" />
+            <Parameter Name="Year" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="RemoveCourseToPlan">
+            <Parameter Name="PID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="ResponseFriendRequest">
+            <Parameter Name="from" Mode="In" Type="String" />
+            <Parameter Name="to" Mode="In" Type="String" />
+            <Parameter Name="response" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SendFriendRequest">
+            <Parameter Name="from" Mode="In" Type="String" />
+            <Parameter Name="to" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SendMessage">
             <Parameter Name="sender" Mode="In" Type="String" />
             <Parameter Name="reciever" Mode="In" Type="String" />
             <Parameter Name="Text" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="ProvideOwnerPermit">
-          <Parameter Name="user" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Register">
-            <Parameter Name="UserID" Mode="In" Type="String" />
-            <Parameter Name="FName" Mode="In" Type="String" />
-            <Parameter Name="LName" Mode="In" Type="String" />
-            <Parameter Name="SorP" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="UnEnrollStudent">
-            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="SUserID" Mode="In" Type="String" />
             <Parameter Name="SectID" Mode="In" Type="Byte" />
           </FunctionImport>
-          <FunctionImport Name="UnWaitlist">
+          <FunctionImport Name="UpdateSectNum">
+            <Parameter Name="ScheID" Mode="In" Type="Int32" />
             <Parameter Name="SectID" Mode="In" Type="Int32" />
-            <Parameter Name="SUserID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UserLogin">
             <Parameter Name="UserID" Mode="In" Type="String" />
@@ -1684,7 +1699,6 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
                 <ScalarProperty Name="SectID" ColumnName="SectID" />
                 <ScalarProperty Name="Classroom" ColumnName="Classroom" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
-                <ScalarProperty Name="TermID" ColumnName="TermID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1793,14 +1807,21 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
               <ScalarProperty Name="CourseID" ColumnName="Requisite" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AddCourseToPlan" FunctionName="APlannerModel.Store.AddCourseToPlan" />
           <FunctionImportMapping FunctionImportName="AddToWaitlist" FunctionName="APlannerModel.Store.AddToWaitlist" />
           <FunctionImportMapping FunctionImportName="ChangePassword" FunctionName="APlannerModel.Store.ChangePassword" />
+          <FunctionImportMapping FunctionImportName="CreatePlan" FunctionName="APlannerModel.Store.CreatePlan" />
           <FunctionImportMapping FunctionImportName="EnrollStudent" FunctionName="APlannerModel.Store.EnrollStudent" />
-          <FunctionImportMapping FunctionImportName="InsertMessage" FunctionName="APlannerModel.Store.InsertMessage" />
           <FunctionImportMapping FunctionImportName="ProvideOwnerPermit" FunctionName="APlannerModel.Store.ProvideOwnerPermit" />
-          <FunctionImportMapping FunctionImportName="Register" FunctionName="APlannerModel.Store.Register" />
+          <FunctionImportMapping FunctionImportName="RateSection" FunctionName="APlannerModel.Store.RateSection" />
+          <FunctionImportMapping FunctionImportName="RegisterProfessor" FunctionName="APlannerModel.Store.RegisterProfessor" />
+          <FunctionImportMapping FunctionImportName="RegisterStudent" FunctionName="APlannerModel.Store.RegisterStudent" />
+          <FunctionImportMapping FunctionImportName="RemoveCourseToPlan" FunctionName="APlannerModel.Store.RemoveCourseToPlan" />
+          <FunctionImportMapping FunctionImportName="ResponseFriendRequest" FunctionName="APlannerModel.Store.ResponseFriendRequest" />
+          <FunctionImportMapping FunctionImportName="SendFriendRequest" FunctionName="APlannerModel.Store.SendFriendRequest" />
+          <FunctionImportMapping FunctionImportName="SendMessage" FunctionName="APlannerModel.Store.SendMessage" />
           <FunctionImportMapping FunctionImportName="UnEnrollStudent" FunctionName="APlannerModel.Store.UnEnrollStudent" />
-          <FunctionImportMapping FunctionImportName="UnWaitlist" FunctionName="APlannerModel.Store.UnWaitlist" />
+          <FunctionImportMapping FunctionImportName="UpdateSectNum" FunctionName="APlannerModel.Store.UpdateSectNum" />
           <FunctionImportMapping FunctionImportName="UserLogin" FunctionName="APlannerModel.Store.UserLogin" />
         </EntityContainerMapping>
       </Mapping>

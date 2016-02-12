@@ -24,7 +24,7 @@ namespace APlanner.Database
         }
     
         public int SectID { get; set; }
-        public int TermID { get; set; }
+        public Nullable<int> TermID { get; set; }
         public short CourseID { get; set; }
         public byte SectNum { get; set; }
         public string PUserID { get; set; }

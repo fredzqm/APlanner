@@ -19,7 +19,6 @@ namespace APlanner.Database
         {
             this.Sections = new HashSet<Section>();
             this.SPlans = new HashSet<SPlan>();
-            this.STimes = new HashSet<STime>();
         }
     
         public int TermID { get; set; }
@@ -30,7 +29,5 @@ namespace APlanner.Database
         public virtual ICollection<Section> Sections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SPlan> SPlans { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<STime> STimes { get; set; }
     }
 }

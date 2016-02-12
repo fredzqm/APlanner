@@ -56,7 +56,8 @@ namespace APlanner.Models
         public string LName { get; set; }
 
         [Display(Name = "Professor?")]
-        public bool type { get; set; }
+        public string type { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]
@@ -83,11 +84,16 @@ namespace APlanner.Models
 
         [Display(Name = "Account Type")]
         [Required]
-        //public List<SelectListItem> type { get; set; }
-        public string type { get; set; }
+        public string type { get; set; } // either "P" or "S"
 
         //[Display(Name = "Professor?")]
         //public bool type { get; set; }
+        public string major { get; set; }
+        public string year { get; set; }
+
+        [Required]
+        public string departID { get; set; }
+        public string office { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

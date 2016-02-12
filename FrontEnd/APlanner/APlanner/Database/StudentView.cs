@@ -17,6 +17,6 @@ namespace APlanner.Database
         public string SUserID { get; set; }
         public string StudName { get; set; }
         public string Major { get; set; }
-        public Nullable<int> Year { get; set; }
+        public Nullable<byte> Year { get; set; }
     }
 }
