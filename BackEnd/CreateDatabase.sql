@@ -38,17 +38,6 @@ Create Table Friend (
 )
 Go
 
-Create Function friendAlready(@req varchar(9), @acc varchar(9))
-returns bit
-As
-begin
-	if( exists (select * from Friend f where (@req = Requester and @acc = Accepter)
-						or (@acc = Requester and @req = Accepter) ) )
-		return 1;
-	return 0;
-end
-Go
-
 Create Table FriendRequest (
 	Requester varchar(9) not null,
 	Accepter varchar(9) not null,
@@ -56,10 +45,7 @@ Create Table FriendRequest (
 	
 	Primary key(Requester, Accepter),
 	Foreign key(Requester) references People(UserID),
-	Foreign key(Accepter) references People(UserID),
-	constraint ResquestToNonFriend Check (
-		dbo.friendAlready(Requester, Accepter) = 0
-	)
+	Foreign key(Accepter) references People(UserID)
 );
 Go
 
@@ -70,10 +56,11 @@ Create Table Message (
 	Content text not null,
 	time datetime,
 
-	Primary key(MessID, Sender, Receiver),
+	Primary key(MessID),
 	Foreign key(Sender) references People(UserID)
-		on update cascade,
+		on update no action on delete set null,
 	Foreign key(Receiver) references People(UserID),
+		--- on update no action on delete set null
 	Constraint MessOwner Check ( Sender <> null or  Receiver <> null )
 );
 Go
@@ -212,6 +199,7 @@ Create Table Section (
 		on update no action on delete no action, --- on update cascade on delete cascade
 	Foreign key(PUserID) references Professor(PUserID)
 		on update cascade on delete no action,  --- avoid loss of information
+	Constraint EnrollNum_Not_Neg Check ( EnrollNum >= 0 )
 )
 Go
 
@@ -251,15 +239,6 @@ Create Table Enroll (
 )
 Go
 
-Create Function enrollAlready(@sect int, @user varchar(9))
-returns bit
-As
-begin
-	if exists (select * from Enroll where (@sect = SectID and @user = SUserID) ) 
-		return 1;
-	return 0;
-end
-Go
 
 Create Table WaitList (
 	SectID int not null,
@@ -270,8 +249,7 @@ Create Table WaitList (
 	Foreign key(SUserID) references Student(SUserID)
 		on update cascade on delete cascade,
 	Foreign key(SectID) references Section(SectID)
-		on update no action on delete no action, -- on update cascade on delete cascade,
-	constraint waitListNotEnrolledStudent Check (dbo. enrollAlready(SectID, SUserID) = 0)
+		on update no action on delete no action, -- on update cascade on delete cascade
 )
 
 Go

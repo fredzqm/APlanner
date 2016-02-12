@@ -37,7 +37,7 @@ exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203'
 --- 	@Deartment varchar(5),
 --- 	@Office varchar(6)
 
-RegisterProfessor '80120578', 'greenk', 'Kate', 'Green', 'skenskesdf3203','ECE', C203 ;
+exec RegisterProfessor '80120578', 'greenk', 'Kate', 'Green', 'skenskesdf3203','ECE', 'C203' ;
 
 Delete from Course;
 Insert into Course ([CourseNum], [CourseDP] , [CourseName] , [Credit])
@@ -64,7 +64,7 @@ Insert into Section ([SectID] ,[TermID] ,[CourseID] ,[SectNum] ,[PUserID] ,[Enro
 	(3297,1,123,3,'801200005',0,24);
 
 Delete from STime;
-Insert into STime ([SectID] ,[Classroom] ,[Period] ,[TermID])
+Insert into STime ([SectID] ,[Classroom] ,[Period])
 	Values 
 	(3295,'M105',1,1);
 
