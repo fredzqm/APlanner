@@ -104,3 +104,13 @@ END
 GO
 
 
+IF OBJECT_ID('CourseDelete') IS NOT NULL
+    DROP TRIGGER Request;
+GO
+CREATE TRIGGER CourseDelete ON  Course
+	delete
+AS 
+BEGIN
+	--- TODO:
+END
+GO

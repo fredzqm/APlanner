@@ -86,12 +86,12 @@ Go
 
 Create Table Professor (
 	PUserID varchar(9) primary key,
-	DepartID varchar(5),
+	DepartID varchar(5) not null,
 	Office varchar(6),
 	Foreign key(PUserID) references People(UserID)
 		on update cascade on delete cascade,
 	Foreign key(DepartID) references Department(DepartID)
-		on update cascade on delete set null
+		-- reject all changes
 )
 Go
 
@@ -115,14 +115,14 @@ Go
 Create Table SPlan (
 	PID int primary key IDENTITY (1,1),
 	SUserID varchar(9) not null,
-	TermID int  not null,
+	TermID int,
 	Priority tinyint,
 	Probability float,
 	
 	Foreign key(SUserID) references Student(SUserID)
 		on update cascade on delete cascade,
 	Foreign key(TermID) references Term(TermID)
-		on update cascade on delete cascade
+		--- reject all changes
 )
 Go
 
@@ -157,8 +157,8 @@ Create Table Contain (
 	
 	Primary key(CourseID, PID),
 	Foreign key(CourseID) references Course(CourseID)
-		on update cascade on delete cascade,
-	Foreign key(PID) references SPlan(PID)
+		on update cascade on delete no action,  -- create a trigger
+ 	Foreign key(PID) references SPlan(PID)
 		on update cascade on delete cascade
 )
 Go
@@ -172,9 +172,10 @@ Create Table Prerequisite (
 	Requisite smallint not null,
 
 	Primary key(Prerequisite, Requisite),
-	Foreign key(Prerequisite) references Course(CourseID),
+	Foreign key(Prerequisite) references Course(CourseID)
+	    on update cascade on delete cascade,
 	Foreign key(Requisite) references Course(CourseID)
-		on update cascade on delete cascade,
+		--- on update cascade on delete set null,
 )
 Go
 
@@ -197,7 +198,7 @@ go
 
 Create Table Section (
 	SectID int IDENTITY (1,1),
-	TermID int not null,
+	TermID int,
 	CourseID smallint not null,
 	SectNum tinyint not null,
 	PUserID varchar(9),
@@ -205,10 +206,12 @@ Create Table Section (
 	Capacity int,
 
 	Primary key(SectID),
-	Foreign key(TermID) references Term(TermID)
-		on update cascade on delete cascade,
-	Foreign key(CourseID) references Course(CourseID),
-	Foreign key(PUserID) references Professor(PUserID),
+	Foreign key(TermID) references Term(TermID),
+		-- rejcts all changes
+	Foreign key(CourseID) references Course(CourseID)
+		on update no action on delete no action, --- on update cascade on delete cascade
+	Foreign key(PUserID) references Professor(PUserID)
+		on update cascade on delete no action,  --- avoid loss of information
 )
 Go
 
@@ -267,7 +270,7 @@ Create Table WaitList (
 	Foreign key(SUserID) references Student(SUserID)
 		on update cascade on delete cascade,
 	Foreign key(SectID) references Section(SectID)
-		on update cascade on delete cascade,
+		on update no action on delete no action, -- on update cascade on delete cascade,
 	constraint waitListNotEnrolledStudent Check (dbo. enrollAlready(SectID, SUserID) = 0)
 )
 
