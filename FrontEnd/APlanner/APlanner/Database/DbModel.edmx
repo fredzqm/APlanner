@@ -102,7 +102,7 @@
           </Key>
           <Property Name="PUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="DepartID" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="Office" Type="varchar" MaxLength="6" />
+          <Property Name="Office" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -152,7 +152,7 @@
           </Key>
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="Major" Type="varchar" MaxLength="12" />
-          <Property Name="Year" Type="tinyint" />
+          <Property Name="Year" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Term">
           <Key>
@@ -231,11 +231,12 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Key>
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
+            <PropertyRef Name="Year" />
           </Key>
           <Property Name="SUserID" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="StudName" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="Major" Type="varchar" MaxLength="12" />
-          <Property Name="Year" Type="tinyint" />
+          <Property Name="Year" Type="smallint" Nullable="false" />
         </EntityType>
         <Association Name="FK__Contain__CourseI__34C8D9D1">
           <End Role="Course" Type="Self.Course" Multiplicity="1">
@@ -642,7 +643,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Parameter Name="LName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="char" Mode="In" />
           <Parameter Name="Major" Type="varchar" Mode="In" />
-          <Parameter Name="Year" Type="tinyint" Mode="In" />
+          <Parameter Name="Year" Type="smallint" Mode="In" />
         </Function>
         <Function Name="RemoveCourseToPlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PID" Type="int" Mode="In" />
@@ -947,7 +948,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </Key>
           <Property Name="PUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DepartID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Office" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK__Professor__Depar__24927208" FromRole="Professor" ToRole="Department" />
           <NavigationProperty Name="Person" Relationship="Self.FK__Professor__PUser__239E4DCF" FromRole="Professor" ToRole="People" />
           <NavigationProperty Name="Sections" Relationship="Self.FK__Section__PUserID__44FF419A" FromRole="Professor" ToRole="Section" />
@@ -1014,7 +1015,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </Key>
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="Byte" />
+          <Property Name="Year" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Enrolls" Relationship="Self.FK__Enroll__SUserID__4D94879B" FromRole="Student" ToRole="Enroll" />
           <NavigationProperty Name="Person" Relationship="Self.FK__Student__SUserID__286302EC" FromRole="Student" ToRole="People" />
           <NavigationProperty Name="SPlans" Relationship="Self.FK__SPlan__SUserID__2D27B809" FromRole="Student" ToRole="SPlan" />
@@ -1091,11 +1092,12 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Key>
             <PropertyRef Name="SUserID" />
             <PropertyRef Name="StudName" />
+            <PropertyRef Name="Year" />
           </Key>
           <Property Name="SUserID" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StudName" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Major" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="Byte" />
+          <Property Name="Year" Type="Int16" Nullable="false" />
         </EntityType>
         <Association Name="FK__Course__CourseDP__31EC6D26">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
@@ -1375,7 +1377,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <End Role="Course" Type="Self.Course" Multiplicity="*" />
           <End Role="Course1" Type="Self.Course" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="APlannerEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Enrolls" EntityType="Self.Enroll" />
@@ -1539,7 +1541,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <Parameter Name="LName" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="Major" Mode="In" Type="String" />
-            <Parameter Name="Year" Mode="In" Type="Byte" />
+            <Parameter Name="Year" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="RemoveCourseToPlan">
             <Parameter Name="PID" Mode="In" Type="Int32" />
@@ -1577,7 +1579,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="APlannerModelStoreContainer" CdmEntityContainer="APlannerEntities">
+        <EntityContainerMapping StorageEntityContainer="APlannerModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="APlannerModel.Course">
               <MappingFragment StoreEntitySet="Course">

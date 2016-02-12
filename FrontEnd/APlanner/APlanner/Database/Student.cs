@@ -24,7 +24,7 @@ namespace APlanner.Database
     
         public string SUserID { get; set; }
         public string Major { get; set; }
-        public Nullable<byte> Year { get; set; }
+        public short Year { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enroll> Enrolls { get; set; }

@@ -155,10 +155,13 @@ namespace APlanner.Controllers
         {
             int register;
             if (String.Equals(model.type, "S", StringComparison.Ordinal))
-                register = db.RegisterStudent(model.UserID, model.UserName, model.FName, model.Password, model.major, model.year);
+            {
+                register = db.RegisterStudent(model.UserID, model.UserName, model.FName, model.LName, model.Password, model.major, model.year);
+            }
             else if (String.Equals(model.type, "P", StringComparison.Ordinal))
-                register = db.RegisterProfessor(model.UserName, model.UserName, model.FName, model.Password, model.departID, model.office);
-
+            {
+                register = db.RegisterProfessor(model.UserID, model.UserName, model.UserName, model.FName, model.Password, model.departID, model.office);
+            }
             if (ModelState.IsValid)
             {
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };

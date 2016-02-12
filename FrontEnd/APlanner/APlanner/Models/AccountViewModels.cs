@@ -89,7 +89,7 @@ namespace APlanner.Models
         //[Display(Name = "Professor?")]
         //public bool type { get; set; }
         public string major { get; set; }
-        public string year { get; set; }
+        public short year { get; set; }
 
         [Required]
         public string departID { get; set; }

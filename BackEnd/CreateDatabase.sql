@@ -74,7 +74,7 @@ Go
 Create Table Professor (
 	PUserID varchar(9) primary key,
 	DepartID varchar(5) not null,
-	Office varchar(6),
+	Office varchar(6) not null,
 	Foreign key(PUserID) references People(UserID)
 		on update cascade on delete cascade,
 	Foreign key(DepartID) references Department(DepartID)
@@ -85,7 +85,7 @@ Go
 Create Table Student (
 	SUserID varchar(9) primary key,
 	Major varchar(12) DEFAULT 'Undeclared',
-	Year tinyint,
+	Year smallint not null,
 	
 	Foreign key(SUserID) references People(UserID)
 		on update cascade on delete cascade

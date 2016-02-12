@@ -11,7 +11,7 @@ Create Procedure RegisterStudent
     @LName varchar(30),
     @Password char(20),
 	@Major varchar(12),
-	@Year tinyint
+	@Year smallint
 AS
 begin
 	if  LEN(@Password) < 6

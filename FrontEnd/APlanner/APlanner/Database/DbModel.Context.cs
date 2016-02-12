@@ -15,10 +15,10 @@ namespace APlanner.Database
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class APlannerEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public APlannerEntities()
-            : base("name=APlannerEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -176,7 +176,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterProfessor", userIDParameter, userNameParameter, fNameParameter, lNameParameter, passwordParameter, departmentParameter, officeParameter);
         }
     
-        public virtual int RegisterStudent(string userID, string userName, string fName, string lName, string password, string major, Nullable<byte> year)
+        public virtual int RegisterStudent(string userID, string userName, string fName, string lName, string password, string major, Nullable<short> year)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
@@ -204,7 +204,7 @@ namespace APlanner.Database
     
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
-                new ObjectParameter("Year", typeof(byte));
+                new ObjectParameter("Year", typeof(short));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterStudent", userIDParameter, userNameParameter, fNameParameter, lNameParameter, passwordParameter, majorParameter, yearParameter);
         }
