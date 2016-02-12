@@ -64,3 +64,19 @@ AS
 			where SectID = @SectID and PUserID = @PUserID;
 	end
 go
+
+IF OBJECT_ID('AddMeetTime', 'P') IS NOT NULL
+    DROP Proc AddMeetTime;
+GO
+Create Procedure AddMeetTime
+	@PUserID varchar(9),
+	@SectID int,
+	@Period tinyint,
+	@Classroom varchar(7) = 'TBA',
+
+AS
+	begin
+		insert into STime(SectID, Period, Classroom)
+			values(@SectID, @Period, @lassroom)
+	end
+go
