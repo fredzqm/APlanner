@@ -144,7 +144,7 @@ Create Table Contain (
 	
 	Primary key(CourseID, PID),
 	Foreign key(CourseID) references Course(CourseID)
-		on update cascade on delete no action,  -- create a trigger
+		on update cascade on delete cascade,  -- create a trigger
  	Foreign key(PID) references SPlan(PID)
 		on update cascade on delete cascade
 )
@@ -160,7 +160,7 @@ Create Table Prerequisite (
 
 	Primary key(Prerequisite, Requisite),
 	Foreign key(Prerequisite) references Course(CourseID)
-	    on update cascade on delete cascade,
+	    --- use trigger to handle it
 	Foreign key(Requisite) references Course(CourseID)
 		--- on update cascade on delete set null,
 )
@@ -187,7 +187,7 @@ Create Table Section (
 	SectID int IDENTITY (1,1),
 	TermID int,
 	CourseID smallint not null,
-	SectNum tinyint not null,
+	SectNum tinyint unique not null,
 	PUserID varchar(9),
 	EnrollNum tinyint,
 	Capacity int,
@@ -235,7 +235,8 @@ Create Table Enroll (
 	Primary key(SectID, SUserID),
 	Foreign key(SUserID) references Student(SUserID),
 	Foreign key(SectID) references Section(SectID)
-		on update cascade on delete cascade
+		on update cascade on delete cascade,
+	Constraint RatingRange Check ( Rating >= 0 and Rating <= 10)
 )
 Go
 

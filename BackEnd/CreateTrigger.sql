@@ -44,9 +44,22 @@ IF OBJECT_ID('CourseDelete') IS NOT NULL
     DROP TRIGGER Request;
 GO
 CREATE TRIGGER CourseDelete ON  Course
-	delete
+	instead of delete
 AS 
 BEGIN
+	if (count(*) from deleted) > 1 begin
+		raiserror('Cannot delete more than one course at a time', 10, 3);
+	end
+	Declare @CourseID smallint;
+	Set @CourseID = select CourseID from deleted;
+	if exists (select * from Section where CourseID = @CourseID) begin
+		delete from Section
+			Where CourseID = @CourseID and not dbo.hasStarted(TermID)
+		rollback
+	end
+	delete from Prerequisite 
+		where Prerequisite = @CourseID or Requisite = @CourseID);
+	
 	--- TODO:
 END
 GO

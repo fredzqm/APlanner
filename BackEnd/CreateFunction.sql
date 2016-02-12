@@ -28,8 +28,23 @@ begin
 end
 Go
 
+IF OBJECT_ID('hasStarted', 'FN') IS NOT NULL
+    DROP Function hasStarted;
+GO
+Create Function hasStarted(@TermID int)
+returns bit
+As
+begin
+	if (select Start_date from Term where TermID = @TermID) > GETDATE( )
+		return 1;
+	return 0;
+end
+Go
+
+
 ------
 IF OBJECT_ID('find_ID', 'FN') IS NOT NULL
     DROP Function find_ID;
 GO
 -- create function find_ID ()
+

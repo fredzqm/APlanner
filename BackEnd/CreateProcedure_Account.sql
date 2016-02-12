@@ -25,6 +25,7 @@ begin
 end
 Go
 
+
 IF OBJECT_ID('RegisterProfessor', 'P') IS NOT NULL
     DROP Proc RegisterProfessor;
 GO
@@ -54,7 +55,7 @@ IF OBJECT_ID('UserLogin', 'P') IS NOT NULL
     DROP Proc UserLogin;
 GO
 Create Procedure UserLogin
-	@UserID varchar(30),
+	@UserID varchar(9),
     @Password char(20)
 AS
 begin
@@ -69,7 +70,7 @@ IF OBJECT_ID('ChangePassword', 'P') IS NOT NULL
     DROP Proc ChangePassword;
 GO
 Create Procedure ChangePassword
-  	@UserID varchar(30),
+  	@UserID varchar(9),
     @OldPassword char(20),
     @NewPassword char(20),
 	@success tinyint output
@@ -92,8 +93,8 @@ IF OBJECT_ID('SendFriendRequest', 'P') IS NOT NULL
     DROP Proc SendFriendRequest;
 GO
 Create Procedure SendFriendRequest
-  	@from varchar(30),
-    @to char(30)
+  	@from varchar(9),
+    @to char(9)
 AS
 BEGIN
 	IF dbo.friendAlready(@from, @to) = 0 begin
@@ -109,8 +110,8 @@ IF OBJECT_ID('ResponseFriendRequest', 'P') IS NOT NULL
     DROP Proc ResponseFriendRequest;
 GO
 Create Procedure ResponseFriendRequest
-  	@from varchar(30),
-    @to char(30),
+  	@from varchar(9),
+    @to char(9),
 	@response bit
 AS
 BEGIN
@@ -129,12 +130,12 @@ END
 Go
 
 
-IF OBJECT_ID('InsertMessage', 'P') IS NOT NULL
+IF OBJECT_ID('SendMessage', 'P') IS NOT NULL
     DROP Proc InsertMessage;
 GO
 Create Procedure InsertMessage
-	@sender varchar(10),
-	@reciever varchar(10),
+	@sender varchar(9),
+	@reciever varchar(9),
 	@Text text
 AS
 	begin
