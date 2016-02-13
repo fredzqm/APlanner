@@ -11,6 +11,9 @@ using Microsoft.Owin.Security;
 using APlanner.Models;
 using System.Collections.Generic;
 using APlanner.Database;
+using System.Data.SqlClient;
+using System.Text;
+using System.Data.Entity.Core;
 
 namespace APlanner.Controllers
 {
@@ -57,7 +60,7 @@ namespace APlanner.Controllers
 
 
         //GET: /Account/Login
-       [AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -66,7 +69,7 @@ namespace APlanner.Controllers
 
         //
         //POST: /Account/Login
-       [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -90,7 +93,7 @@ namespace APlanner.Controllers
             //    case SignInStatus.Failure:
             //    default:
             //        ModelState.AddModelError("", "Invalid login attempt.");
-                   return View(model);
+            return View(model);
             //}
         }
 
@@ -123,7 +126,7 @@ namespace APlanner.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -154,34 +157,36 @@ namespace APlanner.Controllers
         public ActionResult Register(RegisterViewModel model)
         {
             int register;
-            if (String.Equals(model.type, "S", StringComparison.Ordinal))
+            try
             {
-                register = db.RegisterStudent(model.UserID, model.UserName, model.FName, model.LName, model.Password, model.major, model.year);
+                if (string.Equals(model.type, "S", StringComparison.Ordinal))
+                {
+                    register = db.RegisterStudent(model.UserID, model.UserName, model.FName, model.LName, model.Password, model.major, model.year);
+                }
+                else if (String.Equals(model.type, "P", StringComparison.Ordinal))
+                {
+                    register = db.RegisterProfessor(model.UserID, model.UserName, model.UserName, model.FName, model.Password, model.departID, model.office);
+
+                }
             }
-            else if (String.Equals(model.type, "P", StringComparison.Ordinal))
+            catch (EntityCommandExecutionException exeception)
             {
-                register = db.RegisterProfessor(model.UserID, model.UserName, model.UserName, model.FName, model.Password, model.departID, model.office);
+                var ex = (SqlException)exeception.InnerException;
+
+                String[] errorMessages = new string[ex.Errors.Count];
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorMessages[i] = "Index #" + i + "\n" +
+                        "Message: " + ex.Errors[i].Message + "\n" +
+                        "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                        "Number: " + ex.Errors[i].Number + "\n" +
+                        "Source: " + ex.Errors[i].Source + "\n" +
+                        "Procedure: " + ex.Errors[i].Procedure + "\n" ;
+                }
+                ViewBag.errorMessage = errorMessages;
+                return View("Login");
             }
-            //if (ModelState.IsValid)
-            //{
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                //    // Send an email with this link
-                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                   return RedirectToAction("Index", "Home");
-                //}
-                //AddErrors(result);
-            //}
-
-            //return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         //

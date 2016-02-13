@@ -14,19 +14,22 @@ namespace APlanner.Database
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data.SqlClient;
+    using System.Text;
+    using System.Data.Entity.Core;
+
     public partial class APlannerEntities : DbContext
     {
         public APlannerEntities()
             : base("name=APlannerEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Enroll> Enrolls { get; set; }
@@ -47,264 +50,264 @@ namespace APlanner.Database
         public virtual DbSet<ScheduleView> ScheduleViews { get; set; }
         public virtual DbSet<SectionView> SectionViews { get; set; }
         public virtual DbSet<StudentView> StudentViews { get; set; }
-    
+
         public virtual int AddCourseToPlan(Nullable<int> pID, Nullable<short> courseID)
         {
             var pIDParameter = pID.HasValue ?
                 new ObjectParameter("PID", pID) :
                 new ObjectParameter("PID", typeof(int));
-    
+
             var courseIDParameter = courseID.HasValue ?
                 new ObjectParameter("CourseID", courseID) :
                 new ObjectParameter("CourseID", typeof(short));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCourseToPlan", pIDParameter, courseIDParameter);
         }
-    
+
         public virtual int AddToWaitlist(Nullable<int> sectID, string sUserID)
         {
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
                 new ObjectParameter("SectID", typeof(int));
-    
+
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
                 new ObjectParameter("SUserID", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddToWaitlist", sectIDParameter, sUserIDParameter);
         }
-    
+
         public virtual int ChangePassword(string userID, string oldPassword, string newPassword, ObjectParameter success)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
                 new ObjectParameter("UserID", typeof(string));
-    
+
             var oldPasswordParameter = oldPassword != null ?
                 new ObjectParameter("OldPassword", oldPassword) :
                 new ObjectParameter("OldPassword", typeof(string));
-    
+
             var newPasswordParameter = newPassword != null ?
                 new ObjectParameter("NewPassword", newPassword) :
                 new ObjectParameter("NewPassword", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangePassword", userIDParameter, oldPasswordParameter, newPasswordParameter, success);
         }
-    
+
         public virtual int CreatePlan(string sUserID, Nullable<byte> termID, ObjectParameter pID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
                 new ObjectParameter("SUserID", typeof(string));
-    
+
             var termIDParameter = termID.HasValue ?
                 new ObjectParameter("TermID", termID) :
                 new ObjectParameter("TermID", typeof(byte));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreatePlan", sUserIDParameter, termIDParameter, pID);
         }
-    
+
         public virtual int EnrollStudent(string sUserID, Nullable<byte> sectID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
                 new ObjectParameter("SUserID", typeof(string));
-    
+
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
                 new ObjectParameter("SectID", typeof(byte));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EnrollStudent", sUserIDParameter, sectIDParameter);
         }
-    
+
         public virtual int ProvideOwnerPermit(string user)
         {
             var userParameter = user != null ?
                 new ObjectParameter("user", user) :
                 new ObjectParameter("user", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProvideOwnerPermit", userParameter);
         }
-    
+
         public virtual int RateSection(string sUserID, Nullable<byte> sectID, Nullable<byte> rating)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
                 new ObjectParameter("SUserID", typeof(string));
-    
+
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
                 new ObjectParameter("SectID", typeof(byte));
-    
+
             var ratingParameter = rating.HasValue ?
                 new ObjectParameter("Rating", rating) :
                 new ObjectParameter("Rating", typeof(byte));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RateSection", sUserIDParameter, sectIDParameter, ratingParameter);
         }
-    
+
         public virtual int RegisterProfessor(string userID, string userName, string fName, string lName, string password, string department, string office)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
                 new ObjectParameter("UserID", typeof(string));
-    
+
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
-    
+
             var fNameParameter = fName != null ?
                 new ObjectParameter("FName", fName) :
                 new ObjectParameter("FName", typeof(string));
-    
+
             var lNameParameter = lName != null ?
                 new ObjectParameter("LName", lName) :
                 new ObjectParameter("LName", typeof(string));
-    
+
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
-    
+
             var departmentParameter = department != null ?
                 new ObjectParameter("Department", department) :
                 new ObjectParameter("Department", typeof(string));
-    
+
             var officeParameter = office != null ?
                 new ObjectParameter("Office", office) :
                 new ObjectParameter("Office", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterProfessor", userIDParameter, userNameParameter, fNameParameter, lNameParameter, passwordParameter, departmentParameter, officeParameter);
         }
-    
+
         public virtual int RegisterStudent(string userID, string userName, string fName, string lName, string password, string major, Nullable<short> year)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
                 new ObjectParameter("UserID", typeof(string));
-    
+
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
-    
+
             var fNameParameter = fName != null ?
                 new ObjectParameter("FName", fName) :
                 new ObjectParameter("FName", typeof(string));
-    
+
             var lNameParameter = lName != null ?
                 new ObjectParameter("LName", lName) :
                 new ObjectParameter("LName", typeof(string));
-    
+
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
-    
+
             var majorParameter = major != null ?
                 new ObjectParameter("Major", major) :
                 new ObjectParameter("Major", typeof(string));
-    
+
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
                 new ObjectParameter("Year", typeof(short));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterStudent", userIDParameter, userNameParameter, fNameParameter, lNameParameter, passwordParameter, majorParameter, yearParameter);
         }
-    
+
         public virtual int RemoveCourseToPlan(Nullable<int> pID, Nullable<short> courseID)
         {
             var pIDParameter = pID.HasValue ?
                 new ObjectParameter("PID", pID) :
                 new ObjectParameter("PID", typeof(int));
-    
+
             var courseIDParameter = courseID.HasValue ?
                 new ObjectParameter("CourseID", courseID) :
                 new ObjectParameter("CourseID", typeof(short));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RemoveCourseToPlan", pIDParameter, courseIDParameter);
         }
-    
+
         public virtual int ResponseFriendRequest(string from, string to, Nullable<bool> response)
         {
             var fromParameter = from != null ?
                 new ObjectParameter("from", from) :
                 new ObjectParameter("from", typeof(string));
-    
+
             var toParameter = to != null ?
                 new ObjectParameter("to", to) :
                 new ObjectParameter("to", typeof(string));
-    
+
             var responseParameter = response.HasValue ?
                 new ObjectParameter("response", response) :
                 new ObjectParameter("response", typeof(bool));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ResponseFriendRequest", fromParameter, toParameter, responseParameter);
         }
-    
+
         public virtual int SendFriendRequest(string from, string to)
         {
             var fromParameter = from != null ?
                 new ObjectParameter("from", from) :
                 new ObjectParameter("from", typeof(string));
-    
+
             var toParameter = to != null ?
                 new ObjectParameter("to", to) :
                 new ObjectParameter("to", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SendFriendRequest", fromParameter, toParameter);
         }
-    
+
         public virtual int SendMessage(string sender, string reciever, string text)
         {
             var senderParameter = sender != null ?
                 new ObjectParameter("sender", sender) :
                 new ObjectParameter("sender", typeof(string));
-    
+
             var recieverParameter = reciever != null ?
                 new ObjectParameter("reciever", reciever) :
                 new ObjectParameter("reciever", typeof(string));
-    
+
             var textParameter = text != null ?
                 new ObjectParameter("Text", text) :
                 new ObjectParameter("Text", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SendMessage", senderParameter, recieverParameter, textParameter);
         }
-    
+
         public virtual int UnEnrollStudent(string sUserID, Nullable<byte> sectID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
                 new ObjectParameter("SUserID", typeof(string));
-    
+
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
                 new ObjectParameter("SectID", typeof(byte));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UnEnrollStudent", sUserIDParameter, sectIDParameter);
         }
-    
+
         public virtual int UpdateSectNum(Nullable<int> scheID, Nullable<int> sectID)
         {
             var scheIDParameter = scheID.HasValue ?
                 new ObjectParameter("ScheID", scheID) :
                 new ObjectParameter("ScheID", typeof(int));
-    
+
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
                 new ObjectParameter("SectID", typeof(int));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSectNum", scheIDParameter, sectIDParameter);
         }
-    
+
         public virtual int UserLogin(string userID, string password)
         {
             var userIDParameter = userID != null ?
                 new ObjectParameter("UserID", userID) :
                 new ObjectParameter("UserID", typeof(string));
-    
+
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserLogin", userIDParameter, passwordParameter);
         }
     }
