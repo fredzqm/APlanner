@@ -247,6 +247,116 @@ Go
 exec CreateSection 201510,20,3,'80120005',24;
 Go
 
+exec AddMeetTime '80120001',1,011,'C115';
+exec AddMeetTime '80120001',1,012,'C115';
+exec AddMeetTime '80120001',1,013,'C115';
+exec AddMeetTime '80120001',1,014,'C115';
+exec AddMeetTime '80120001',1,015,'C115';
+
+exec AddMeetTime '80120001',2,021,'C115';
+exec AddMeetTime '80120001',2,022,'C115';
+exec AddMeetTime '80120001',2,023,'C115';
+exec AddMeetTime '80120001',2,024,'C115';
+exec AddMeetTime '80120001',2,025,'C115';
+
+exec AddMeetTime '80120001',3,031,'C115';
+exec AddMeetTime '80120001',3,032,'C115';
+exec AddMeetTime '80120001',3,033,'C115';
+exec AddMeetTime '80120001',3,034,'C115';
+exec AddMeetTime '80120001',3,035,'C115';
+
+exec AddMeetTime '80120002',4,011,'D115';
+exec AddMeetTime '80120002',4,012,'D115';
+exec AddMeetTime '80120002',4,013,'D115';
+exec AddMeetTime '80120002',4,014,'D115';
+exec AddMeetTime '80120002',4,015,'D115';
+
+exec AddMeetTime '80120002',5,021,'D115';
+exec AddMeetTime '80120002',5,022,'D115';
+exec AddMeetTime '80120002',5,023,'D115';
+exec AddMeetTime '80120002',5,024,'D115';
+exec AddMeetTime '80120002',5,025,'D115';
+
+exec AddMeetTime '80120002',6,031,'D115';
+exec AddMeetTime '80120002',6,032,'D115';
+exec AddMeetTime '80120002',6,033,'D115';
+exec AddMeetTime '80120002',6,034,'D115';
+exec AddMeetTime '80120002',6,035,'D115';
+
+exec AddMeetTime '80120003',7,041,'D115';
+exec AddMeetTime '80120003',7,042,'D115';
+exec AddMeetTime '80120003',7,043,'D115';
+exec AddMeetTime '80120003',7,044,'D115';
+exec AddMeetTime '80120003',7,045,'D115';
+
+exec AddMeetTime '80120003',8,051,'D115';
+exec AddMeetTime '80120003',8,052,'D115';
+exec AddMeetTime '80120003',8,053,'D115';
+exec AddMeetTime '80120003',8,054,'D115';
+exec AddMeetTime '80120003',8,055,'D115';
+
+exec AddMeetTime '80120003',9,061,'D115';
+exec AddMeetTime '80120003',9,062,'D115';
+exec AddMeetTime '80120003',9,063,'D115';
+exec AddMeetTime '80120003',9,064,'D115';
+exec AddMeetTime '80120003',9,065,'D115';
+
+exec AddMeetTime '80120004',10,041,'C103';
+exec AddMeetTime '80120004',10,042,'C103';
+exec AddMeetTime '80120004',10,043,'C103';
+exec AddMeetTime '80120004',10,044,'C103';
+exec AddMeetTime '80120004',10,045,'C103';
+
+exec AddMeetTime '80120004',11,051,'C103';
+exec AddMeetTime '80120004',11,052,'C103';
+exec AddMeetTime '80120004',11,053,'C103';
+exec AddMeetTime '80120004',11,054,'C103';
+exec AddMeetTime '80120004',11,055,'C103';
+
+exec AddMeetTime '80120004',12,061,'C103';
+exec AddMeetTime '80120004',12,062,'C103';
+exec AddMeetTime '80120004',12,063,'C103';
+exec AddMeetTime '80120004',12,064,'C103';
+exec AddMeetTime '80120004',12,065,'C103';
+
+exec AddMeetTime '80120005',13,041,'C209';
+exec AddMeetTime '80120005',13,042,'C209';
+exec AddMeetTime '80120005',13,043,'C209';
+exec AddMeetTime '80120005',13,044,'C209';
+exec AddMeetTime '80120005',13,045,'C209';
+
+exec AddMeetTime '80120005',14,051,'C209';
+exec AddMeetTime '80120005',14,052,'C209';
+exec AddMeetTime '80120005',14,053,'C209';
+exec AddMeetTime '80120005',14,054,'C209';
+exec AddMeetTime '80120005',14,055,'C209';
+
+exec AddMeetTime '80120005',15,061,'C209';
+exec AddMeetTime '80120005',15,062,'C209';
+exec AddMeetTime '80120005',15,063,'C209';
+exec AddMeetTime '80120005',15,064,'C209';
+exec AddMeetTime '80120005',15,065,'C209';
+
+exec AddMeetTime '80120006',16,071,'C209';
+exec AddMeetTime '80120006',16,072,'C209';
+exec AddMeetTime '80120006',16,073,'C209';
+exec AddMeetTime '80120006',16,074,'C209';
+exec AddMeetTime '80120006',16,075,'C209';
+
+exec AddMeetTime '80120006',17,081,'C209';
+exec AddMeetTime '80120006',17,082,'C209';
+exec AddMeetTime '80120006',17,083,'C209';
+exec AddMeetTime '80120006',17,084,'C209';
+exec AddMeetTime '80120006',17,085,'C209';
+
+exec AddMeetTime '80120006',18,091,'C209';
+exec AddMeetTime '80120006',18,092,'C209';
+exec AddMeetTime '80120006',18,093,'C209';
+exec AddMeetTime '80120006',18,094,'C209';
+exec AddMeetTime '80120006',18,095,'C209';
+
+
+
 exec EnrollStudent '80120574', 1 ;
 Go
 exec EnrollStudent '80120575', 1 ;

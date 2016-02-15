@@ -6,17 +6,14 @@ IF OBJECT_ID('AddCourse', 'P') IS NOT NULL
 GO
 Create Procedure AddCourse
 	@CourseDP varchar(5),
-	@CourseName varchar(50),
 	@CourseNum smallint,
+	@CourseName varchar(50),
 	@Description text,
 	@Credit tinyint
 AS
 	begin
-		if not exists( select * from Course where CourseDP = @CourseDP and CourseNum = @CourseNum) begin
-			insert into Course(CourseDP, CourseName, CourseNum, Description, Credit)
-				values (@CourseDP, @CourseName, @CourseNum, @Description, @Credit)
-			--- 0 SectNum just represents that this course will be offered
-		end
+		insert into Course(CourseDP, CourseName, CourseNum, Description, Credit)
+			values (@CourseDP, @CourseName, @CourseNum, @Description, @Credit)
 	end
 go
 
@@ -57,16 +54,16 @@ IF OBJECT_ID('CreateSection', 'P') IS NOT NULL
 GO
 Create Procedure CreateSection
 	@TermID int,
-	@CourseID smallint,
+	@CourseDP varchar(5),
+	@CourseNum smallint,
 	@SectNum tinyint,
 	@PUserID varchar(9),
 	@Capacity int
 AS
 	begin
 		insert into [Section]
-           ([TermID],[CourseID],[SectNum],[PUserID],[Capacity])
-		VALUES
-           (@TermID, @CourseID, @SectNum, @PUserID, @Capacity)
+		     ([TermID],[CourseID],[SectNum],[PUserID],[Capacity])
+		VALUES(@TermID, dbo.CourseDpNumToCourseID(@CourseDP, @CourseNum), @SectNum, @PUserID, @Capacity)
 	end
 go
 

@@ -75,6 +75,7 @@ Create Table Department(
 );
 Go
 
+
 Create Table Professor (
 	PUserID varchar(9) primary key,
 	DepartID varchar(5) not null,
@@ -142,6 +143,10 @@ CREATE INDEX Course_DepartIndex
     ON Course(CourseDP);
 go
 
+CREATE INDEX Course_Index
+    ON Course(CourseDP, CourseNum);
+go
+
 Create Table Contain (
 	CourseID smallint not null,
 	PID int not null,
@@ -203,6 +208,7 @@ Create Table Section (
 		on update no action on delete no action, --- on update cascade on delete cascade
 	Foreign key(PUserID) references Professor(PUserID)
 		on update cascade on delete no action,  --- avoid loss of information
+	CONSTRAINT Section_Unique UNIQUE(TermID, CourseID, SectNum) ,
 	Constraint EnrollNum_Not_Neg Check ( EnrollNum >= 0 )
 )
 Go
@@ -217,6 +223,10 @@ go
 
 CREATE INDEX Section_ProfIndex
     ON Section(PUserID);
+go
+
+CREATE INDEX Section_Index
+    ON Section(TermID, CourseID, SectNum);
 go
 
 Create Table Has (
