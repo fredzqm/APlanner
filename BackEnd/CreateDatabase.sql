@@ -273,8 +273,9 @@ Create Table STime (
 	SectID int not null,
 	Classroom varchar(7) default 'TBA',
 	Period tinyint not null,
+	Weekday tinyint not null,
 
-	Primary key(Period, Classroom, SectID),
+	Primary key(Weekday, Period, Classroom, SectID),
 	Foreign key(SectID) references Section(SectID)
 		on update cascade on delete cascade
 );
