@@ -37,7 +37,7 @@ Create Procedure AddToWaitlist
 	@SUserID varchar(9)
 AS
 	begin
-		if (dbo.hasEnrolled(@SectID, @SUserID)) begin
+		if (dbo.hasEnrolled(@SectID, @SUserID) = 1) begin
 			raiserror('already enrolled' , 10 , 7);
 			rollback;
 		end

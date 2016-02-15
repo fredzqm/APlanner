@@ -1,4 +1,3 @@
-
 :r C:\Users\zhang\Documents\GitHub\databaseGit\database\BackEnd\CreateDatabase.sql
 go
 

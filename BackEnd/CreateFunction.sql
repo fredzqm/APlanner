@@ -19,8 +19,8 @@ GO
 Create Function CourseDpNumToCourseID(@CourseDP varchar(5), @CourseNum smallint)
 returns int
 As
-begin
-	return (select CourseID from Course where SectID = @SectID );
+begin	return (select CourseID from Course where CourseDP = @CourseDP
+			and CourseNum = @CourseNum );
 end
 Go
 
