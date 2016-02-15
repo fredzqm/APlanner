@@ -277,7 +277,10 @@ Create Table STime (
 
 	Primary key(Weekday, Period, Classroom, SectID),
 	Foreign key(SectID) references Section(SectID)
-		on update cascade on delete cascade
+		on update cascade on delete cascade,
+	Constraint Proper_Period Check (
+		 Period >= 1 and Period <= 10 and Weekday >= 1 and Weekday <=5
+	)
 );
 Go
 
