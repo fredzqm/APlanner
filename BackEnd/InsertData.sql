@@ -1,54 +1,13 @@
 use APlanner
 GO
 
---- DISABLE TRIGGER { [ schema_name . ] trigger_name [ ,...n ] | ALL }
---- ON { object_name | DATABASE | ALL SERVER };
-Disable trigger UpdateEnrollNumDelete ON  Enroll;
-Go
-Disable TRIGGER CourseDelete ON  Course
-Go
-
-Delete From STime;
-Go
-Delete From WaitList;
-Go
-Delete From Enroll;
-Go
-Delete From Has;
-Go
-Delete From Section;
-Go
-Delete From Schedule;
-Go
-Delete From Prerequisite;
-Go
-Delete From Contain;
-Go
-Delete From Course;
-Go
-Delete From SPlan;
-Go
-Delete From Term;
-Go
-Delete From Student;
-Go
-Delete From Professor;
-Go
-Delete From Department;
-Go
-Delete From Message;
-Go
-Delete From FriendRequest;
-Go
-Delete From Friend;
-Go
-Delete From People;
-Go
-
-enable TRIGGER CourseDelete ON  Course
-Go
-enable trigger UpdateEnrollNumDelete ON  [Enroll];
-Go
+Delete from Section;
+Delete from Student;
+Delete from Course;
+Delete from People;
+Delete from Professor;
+Delete from Department;
+Delete from Term;
 
 
 Insert into Department (DepartID, DepartNAME)
@@ -60,15 +19,15 @@ Insert into Department (DepartID, DepartNAME)
 Go
 
 
-exec  RegisterStudent '80120574', 'dingy2', 'Mercury', 'Ding','pskeidjnsrkk203','CS', 2 ;
+exec  RegisterStudent '80120574', 'dingy2', 'Mercury', 'Ding','pskeidjnsrkk203','CS', 2018 ;
 Go
-exec  RegisterStudent '80120575', 'whitec', 'Crystal', 'White', 'skenskesdf3203','BE', 2 ;
+exec  RegisterStudent '80120575', 'whitec', 'Crystal', 'White', 'skenskesdf3203','BE', 2018 ;
 Go
-exec  RegisterStudent '80120576', 'katrinap', 'Perry', 'Katrina','pskeidjnsrkk203','CHEM', 2 ;
+exec  RegisterStudent '80120576', 'katrinap', 'Perry', 'Katrina','pskeidjnsrkk203','CHEM', 2018 ;
 Go
-exec  RegisterStudent '80120577', 'zhangq2', 'Fred', 'Zhang','pskeidjnsrkk203','SE', 3 ;
+exec  RegisterStudent '80120577', 'zhangq2', 'Fred', 'Zhang','pskeidjnsrkk203','SE', 2018 ;
 Go
-exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203','CPE', 4 ;
+exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203','CPE', 2018 ;
 Go
 
 --- Create Procedure RegisterProfessor
@@ -102,57 +61,50 @@ exec RegisterProfessor '80120010', 'joshi', '', 'joshi', 'skenskesdf3203','PH', 
 Go
 
 
-exec AddCourse 'CSSE',120,'Intro to Software Development','', 4 ;
+exec AddCourse 'CSSE','Intro to Software Development',120,'', 4 ;
 Go
-exec AddCourse 'CSSE',220,'Object-Oriented Software Dvlpm','', 4 ;
+exec AddCourse 'CSSE','Object-Oriented Software Dvlpm',220,'', 4 ;
 Go
-exec AddCourse 'CSSE',230,'Data Struct & Algorithm Anlys','', 4 ;
+exec AddCourse 'CSSE','Data Struct & Algorithm Anlys',230,'', 4 ;
 Go
-exec AddCourse 'CSSE',332,'Operating Systems','', 4 ;
+exec AddCourse 'CSSE','Operating Systems',332,'', 4 ;
 Go
-exec AddCourse 'CSSE',232,'Computer Architecture I','', 4 ;
+exec AddCourse 'CSSE','Computer Architecture I',232,'', 4 ;
 Go
-exec AddCourse 'CSSE',333,'Intro to Database Systems','', 4 ;
+exec AddCourse 'CSSE','Intro to Database Systems',333,'', 4 ;
 Go
-exec AddCourse 'CSSE',374,'Software Design','', 4 ;
+exec AddCourse 'CSSE','Software Design',374,'', 4 ;
 Go
-exec AddCourse 'CSSE',375,'Software Constr & Evolution','', 4 ;
+exec AddCourse 'CSSE','Software Constr & Evolution',375,'', 4 ;
 Go
-exec AddCourse 'CSSE',403,'Programming Language Paradigms','', 4 ;
+exec AddCourse 'CSSE','Programming Language Paradigms',403,'', 4 ;
 Go
-exec AddCourse 'CSSE',442,'Computer Security','', 4 ;
+exec AddCourse 'CSSE','Computer Security',442,'', 4 ;
 Go
-exec AddCourse 'CSSE',463,'Image Recognition','', 4 ;
+exec AddCourse 'CSSE','Image Recognition',463,'', 4 ;
 Go
-exec AddCourse 'ECE',230,'Introduction to Microcontroller','', 4 ;
+
+exec AddCourse 'MA','Calculus II',112,'', 5 ;
 Go
-exec AddCourse 'ECE',160,'Engineering Practice','', 4 ;
+exec AddCourse 'MA','Calculus III',113,'', 5 ;
 Go
-exec AddCourse 'ECE',203,'DC circuit','', 4 ;
+exec AddCourse 'MA','Contemporary Mathematical Prob',190,'', 4 ;
 Go
-exec AddCourse 'ECE',204,'AC circuit','', 4 ;
+exec AddCourse 'MA','Differential Equations',211,'', 4 ;
 Go
-exec AddCourse 'MA',112,'Calculus II','', 5 ;
+exec AddCourse 'MA','Matr Alg & Sys of Diff Equ -Y1',212,'', 4 ;
 Go
-exec AddCourse 'MA',113,'Calculus III','', 5 ;
+exec AddCourse 'MA','Engineering Statistics I',223,'', 4 ;
 Go
-exec AddCourse 'MA',190,'Contemporary Mathematical Prob','', 4 ;
+exec AddCourse 'MA','Vector Calculus',330,'', 4 ;
 Go
-exec AddCourse 'MA',211,'Differential Equations','', 4 ;
+exec AddCourse 'MA','Discrete & Comb Algebra II',375,'', 4 ;
 Go
-exec AddCourse 'MA',212,'Matr Alg & Sys of Diff Equ -Y1','', 4 ;
+exec AddCourse 'MA','Abstract Algebra',376,'', 4 ;
 Go
-exec AddCourse 'MA',223,'Engineering Statistics I','', 4 ;
+exec AddCourse 'PH','Physics II',112,'', 4 ;
 Go
-exec AddCourse 'MA',330,'Vector Calculus','', 4 ;
-Go
-exec AddCourse 'MA',375,'Discrete & Comb Algebra II','', 4 ;
-Go
-exec AddCourse 'MA',376,'Abstract Algebra','', 4 ;
-Go
-exec AddCourse 'PH',112,'Physics II','', 4 ;
-Go
-exec AddCourse 'PH',113,'Physics III','', 4 ;
+exec AddCourse 'PH','Physics III',113,'', 4 ;
 Go
 
 
@@ -167,134 +119,243 @@ Insert into Term ([TermID] ,[Start_Date] ,[End_Date])
 	(201530,'03-07-2016','05-27-2016');
 Go
 
-
-exec CreateSection 201510,'CSSE',120,1,80120001,24;
+exec CreateSection 201510,1,1,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',120,2,80120001,24;
+exec CreateSection 201510,1,2,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',120,3,80120001,24;
+exec CreateSection 201510,1,3,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',220,1,80120002,24;
+exec CreateSection 201510,2,1,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',220,2,80120002,24;
+exec CreateSection 201510,2,2,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',220,3,80120002,24;
+exec CreateSection 201510,2,3,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',230,1,80120003,24;
+exec CreateSection 201510,3,1,'80120003',24;
 Go
-exec CreateSection 201510,'CSSE',230,2,80120003,24;
+exec CreateSection 201510,3,2,'80120003',24;
 Go
-exec CreateSection 201510,'CSSE',230,3,80120003,24;
-Go
-
-exec CreateSection 201510,'ECE',230,1,80120004,24;
-Go
-exec CreateSection 201510,'ECE',230,2,80120004,24;
-Go
-exec CreateSection 201510,'ECE',230,3,80120004,24;
-Go
-exec CreateSection 201510,'ECE',160,1,80120001,24;
-Go
-exec CreateSection 201510,'ECE',160,2,80120001,24;
-Go
-exec CreateSection 201510,'ECE',160,3,80120001,24;
-Go
-exec CreateSection 201510,'ECE',203,1,80120002,24;
-Go
-exec CreateSection 201510,'ECE',203,2,80120002,24;
-Go
-exec CreateSection 201510,'ECE',203,3,80120002,24;
+exec CreateSection 201510,3,3,'80120003',24;
 Go
 
-exec CreateSection 201510,'ECE',204,1,80120003,24;
+exec CreateSection 201510,4,1,'80120004',24;
 Go
-exec CreateSection 201510,'ECE',204,2,80120003,24;
+exec CreateSection 201510,4,2,'80120004',24;
 Go
-exec CreateSection 201510,'ECE',204,3,80120003,24;
+exec CreateSection 201510,4,3,'80120004',24;
 Go
-exec CreateSection 201510,'CSSE',232,1,80120004,24;
+exec CreateSection 201510,5,1,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',232,2,80120004,24;
+exec CreateSection 201510,5,2,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',232,3,80120004,24;
+exec CreateSection 201510,5,3,'80120001',24;
 Go
-exec CreateSection 201510,'MA',330,1,80120001,24;
+exec CreateSection 201510,6,1,'80120002',24;
 Go
-exec CreateSection 201510,'MA',330,2,80120001,24;
+exec CreateSection 201510,6,2,'80120002',24;
 Go
-exec CreateSection 201510,'MA',330,3,80120001,24;
-Go
-
-exec CreateSection 201510,'MA',113,1,80120002,24;
-Go
-exec CreateSection 201510,'MA',113,2,80120002,24;
-Go
-exec CreateSection 201510,'MA',113,3,80120002,24;
-Go
-exec CreateSection 201510,'MA',112,1,80120003,24;
-Go
-exec CreateSection 201510,'MA',112,2,80120003,24;
-Go
-exec CreateSection 201510,'MA',112,3,80120003,24;
+exec CreateSection 201510,6,3,'80120002',24;
 Go
 
-
-exec CreateSection 201510,'MA',212,1,80120005,24;
+exec CreateSection 201510,7,1,'80120003',24;
 Go
-exec CreateSection 201510,'MA',212,2,80120005,24;
+exec CreateSection 201510,7,2,'80120003',24;
 Go
-exec CreateSection 201510,'MA',212,3,80120005,24;
+exec CreateSection 201510,7,3,'80120003',24;
 Go
-exec CreateSection 201510,'MA',211,1,80120006,24;
+exec CreateSection 201510,8,1,'80120004',24;
 Go
-exec CreateSection 201510,'MA',211,2,80120006,24;
+exec CreateSection 201510,8,2,'80120004',24;
 Go
-exec CreateSection 201510,'MA',211,3,80120006,24;
+exec CreateSection 201510,8,3,'80120004',24;
 Go
-exec CreateSection 201510,'CSSE',374,1,80120007,24;
+exec CreateSection 201510,9,1,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',374,2,80120007,24;
+exec CreateSection 201510,9,2,'80120001',24;
 Go
-exec CreateSection 201510,'CSSE',374,3,80120007,24;
-Go
-
-exec CreateSection 201510,'CSSE',333,1,80120008,24;
-Go
-exec CreateSection 201510,'CSSE',333,2,80120008,24;
-Go
-exec CreateSection 201510,'CSSE',333,3,80120008,24;
-Go
-exec CreateSection 201510,'CSSE',442,1,80120005,24;
-Go
-exec CreateSection 201510,'CSSE',442,2,80120005,24;
-Go
-exec CreateSection 201510,'CSSE',442,3,80120005,24;
-Go
-exec CreateSection 201510,'CSSE',463,1,80120006,24;
-Go
-exec CreateSection 201510,'CSSE',463,2,80120006,24;
-Go
-exec CreateSection 201510,'CSSE',463,3,80120006,24;
+exec CreateSection 201510,9,3,'80120001',24;
 Go
 
-exec CreateSection 201510,'CSSE',375,1,80120007,24;
+exec CreateSection 201510,10,1,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',375,2,80120007,24;
+exec CreateSection 201510,10,2,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',375,3,80120007,24;
+exec CreateSection 201510,10,3,'80120002',24;
 Go
-exec CreateSection 201510,'CSSE',463,1,80120008,24;
+exec CreateSection 201510,11,1,'80120003',24;
 Go
-exec CreateSection 201510,'CSSE',463,2,80120008,24;
+exec CreateSection 201510,11,2,'80120003',24;
 Go
-exec CreateSection 201510,'CSSE',463,3,80120008,24;
+exec CreateSection 201510,11,3,'80120003',24;
 Go
-exec CreateSection 201510,'CSSE',463,1,80120005,24;
+
+
+exec CreateSection 201510,12,1,'80120005',24;
 Go
-exec CreateSection 201510,'CSSE',463,2,80120005,24;
+exec CreateSection 201510,12,2,'80120005',24;
 Go
-exec CreateSection 201510,'CSSE',463,3,80120005,24;
+exec CreateSection 201510,12,3,'80120005',24;
 Go
+exec CreateSection 201510,13,1,'80120006',24;
+Go
+exec CreateSection 201510,13,2,'80120006',24;
+Go
+exec CreateSection 201510,13,3,'80120006',24;
+Go
+exec CreateSection 201510,14,1,'80120007',24;
+Go
+exec CreateSection 201510,14,2,'80120007',24;
+Go
+exec CreateSection 201510,14,3,'80120007',24;
+Go
+
+exec CreateSection 201510,15,1,'80120008',24;
+Go
+exec CreateSection 201510,15,2,'80120008',24;
+Go
+exec CreateSection 201510,15,3,'80120008',24;
+Go
+exec CreateSection 201510,16,1,'80120005',24;
+Go
+exec CreateSection 201510,16,2,'80120005',24;
+Go
+exec CreateSection 201510,16,3,'80120005',24;
+Go
+exec CreateSection 201510,17,1,'80120006',24;
+Go
+exec CreateSection 201510,17,2,'80120006',24;
+Go
+exec CreateSection 201510,17,3,'80120006',24;
+Go
+
+exec CreateSection 201510,18,1,'80120007',24;
+Go
+exec CreateSection 201510,18,2,'80120007',24;
+Go
+exec CreateSection 201510,18,3,'80120007',24;
+Go
+exec CreateSection 201510,19,1,'80120008',24;
+Go
+exec CreateSection 201510,19,2,'80120008',24;
+Go
+exec CreateSection 201510,19,3,'80120008',24;
+Go
+exec CreateSection 201510,20,1,'80120005',24;
+Go
+exec CreateSection 201510,20,2,'80120005',24;
+Go
+exec CreateSection 201510,20,3,'80120005',24;
+Go
+
+exec AddMeetTime '80120001',1,011,'C115';
+exec AddMeetTime '80120001',1,012,'C115';
+exec AddMeetTime '80120001',1,013,'C115';
+exec AddMeetTime '80120001',1,014,'C115';
+exec AddMeetTime '80120001',1,015,'C115';
+
+exec AddMeetTime '80120001',2,021,'C115';
+exec AddMeetTime '80120001',2,022,'C115';
+exec AddMeetTime '80120001',2,023,'C115';
+exec AddMeetTime '80120001',2,024,'C115';
+exec AddMeetTime '80120001',2,025,'C115';
+
+exec AddMeetTime '80120001',3,031,'C115';
+exec AddMeetTime '80120001',3,032,'C115';
+exec AddMeetTime '80120001',3,033,'C115';
+exec AddMeetTime '80120001',3,034,'C115';
+exec AddMeetTime '80120001',3,035,'C115';
+
+exec AddMeetTime '80120002',4,011,'D115';
+exec AddMeetTime '80120002',4,012,'D115';
+exec AddMeetTime '80120002',4,013,'D115';
+exec AddMeetTime '80120002',4,014,'D115';
+exec AddMeetTime '80120002',4,015,'D115';
+
+exec AddMeetTime '80120002',5,021,'D115';
+exec AddMeetTime '80120002',5,022,'D115';
+exec AddMeetTime '80120002',5,023,'D115';
+exec AddMeetTime '80120002',5,024,'D115';
+exec AddMeetTime '80120002',5,025,'D115';
+
+exec AddMeetTime '80120002',6,031,'D115';
+exec AddMeetTime '80120002',6,032,'D115';
+exec AddMeetTime '80120002',6,033,'D115';
+exec AddMeetTime '80120002',6,034,'D115';
+exec AddMeetTime '80120002',6,035,'D115';
+
+exec AddMeetTime '80120003',7,041,'D115';
+exec AddMeetTime '80120003',7,042,'D115';
+exec AddMeetTime '80120003',7,043,'D115';
+exec AddMeetTime '80120003',7,044,'D115';
+exec AddMeetTime '80120003',7,045,'D115';
+
+exec AddMeetTime '80120003',8,051,'D115';
+exec AddMeetTime '80120003',8,052,'D115';
+exec AddMeetTime '80120003',8,053,'D115';
+exec AddMeetTime '80120003',8,054,'D115';
+exec AddMeetTime '80120003',8,055,'D115';
+
+exec AddMeetTime '80120003',9,061,'D115';
+exec AddMeetTime '80120003',9,062,'D115';
+exec AddMeetTime '80120003',9,063,'D115';
+exec AddMeetTime '80120003',9,064,'D115';
+exec AddMeetTime '80120003',9,065,'D115';
+
+exec AddMeetTime '80120004',10,041,'C103';
+exec AddMeetTime '80120004',10,042,'C103';
+exec AddMeetTime '80120004',10,043,'C103';
+exec AddMeetTime '80120004',10,044,'C103';
+exec AddMeetTime '80120004',10,045,'C103';
+
+exec AddMeetTime '80120004',11,051,'C103';
+exec AddMeetTime '80120004',11,052,'C103';
+exec AddMeetTime '80120004',11,053,'C103';
+exec AddMeetTime '80120004',11,054,'C103';
+exec AddMeetTime '80120004',11,055,'C103';
+
+exec AddMeetTime '80120004',12,061,'C103';
+exec AddMeetTime '80120004',12,062,'C103';
+exec AddMeetTime '80120004',12,063,'C103';
+exec AddMeetTime '80120004',12,064,'C103';
+exec AddMeetTime '80120004',12,065,'C103';
+
+exec AddMeetTime '80120005',13,041,'C209';
+exec AddMeetTime '80120005',13,042,'C209';
+exec AddMeetTime '80120005',13,043,'C209';
+exec AddMeetTime '80120005',13,044,'C209';
+exec AddMeetTime '80120005',13,045,'C209';
+
+exec AddMeetTime '80120005',14,051,'C209';
+exec AddMeetTime '80120005',14,052,'C209';
+exec AddMeetTime '80120005',14,053,'C209';
+exec AddMeetTime '80120005',14,054,'C209';
+exec AddMeetTime '80120005',14,055,'C209';
+
+exec AddMeetTime '80120005',15,061,'C209';
+exec AddMeetTime '80120005',15,062,'C209';
+exec AddMeetTime '80120005',15,063,'C209';
+exec AddMeetTime '80120005',15,064,'C209';
+exec AddMeetTime '80120005',15,065,'C209';
+
+exec AddMeetTime '80120006',16,071,'C209';
+exec AddMeetTime '80120006',16,072,'C209';
+exec AddMeetTime '80120006',16,073,'C209';
+exec AddMeetTime '80120006',16,074,'C209';
+exec AddMeetTime '80120006',16,075,'C209';
+
+exec AddMeetTime '80120006',17,081,'C209';
+exec AddMeetTime '80120006',17,082,'C209';
+exec AddMeetTime '80120006',17,083,'C209';
+exec AddMeetTime '80120006',17,084,'C209';
+exec AddMeetTime '80120006',17,085,'C209';
+
+exec AddMeetTime '80120006',18,091,'C209';
+exec AddMeetTime '80120006',18,092,'C209';
+exec AddMeetTime '80120006',18,093,'C209';
+exec AddMeetTime '80120006',18,094,'C209';
+exec AddMeetTime '80120006',18,095,'C209';
+
+
 
 exec EnrollStudent '80120574', 1 ;
 Go
