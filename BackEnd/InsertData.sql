@@ -19,15 +19,15 @@ Insert into Department (DepartID, DepartNAME)
 Go
 
 
-exec  RegisterStudent '80120574', 'dingy2', 'Mercury', 'Ding','pskeidjnsrkk203','CS', 2 ;
+exec  RegisterStudent '80120574', 'dingy2', 'Mercury', 'Ding','pskeidjnsrkk203','CS', 2018 ;
 Go
-exec  RegisterStudent '80120575', 'whitec', 'Crystal', 'White', 'skenskesdf3203','BE', 2 ;
+exec  RegisterStudent '80120575', 'whitec', 'Crystal', 'White', 'skenskesdf3203','BE', 2018 ;
 Go
-exec  RegisterStudent '80120576', 'katrinap', 'Perry', 'Katrina','pskeidjnsrkk203','CHEM', 2 ;
+exec  RegisterStudent '80120576', 'katrinap', 'Perry', 'Katrina','pskeidjnsrkk203','CHEM', 2018 ;
 Go
-exec  RegisterStudent '80120577', 'zhangq2', 'Fred', 'Zhang','pskeidjnsrkk203','SE', 3 ;
+exec  RegisterStudent '80120577', 'zhangq2', 'Fred', 'Zhang','pskeidjnsrkk203','SE', 2018 ;
 Go
-exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203','CPE', 4 ;
+exec  RegisterStudent '80120573', 'karryc', 'Crystal', 'Karry', 'skenskesdf3203','CPE', 2018 ;
 Go
 
 --- Create Procedure RegisterProfessor
@@ -119,132 +119,132 @@ Insert into Term ([TermID] ,[Start_Date] ,[End_Date])
 	(201530,'03-07-2016','05-27-2016');
 Go
 
-exec CreateSection 201510,1,1,80120001,24;
+exec CreateSection 201510,1,1,'80120001',24;
 Go
-exec CreateSection 201510,1,2,80120001,24;
+exec CreateSection 201510,1,2,'80120001',24;
 Go
-exec CreateSection 201510,1,3,80120001,24;
+exec CreateSection 201510,1,3,'80120001',24;
 Go
-exec CreateSection 201510,2,1,80120002,24;
+exec CreateSection 201510,2,1,'80120002',24;
 Go
-exec CreateSection 201510,2,2,80120002,24;
+exec CreateSection 201510,2,2,'80120002',24;
 Go
-exec CreateSection 201510,2,3,80120002,24;
+exec CreateSection 201510,2,3,'80120002',24;
 Go
-exec CreateSection 201510,3,1,80120003,24;
+exec CreateSection 201510,3,1,'80120003',24;
 Go
-exec CreateSection 201510,3,2,80120003,24;
+exec CreateSection 201510,3,2,'80120003',24;
 Go
-exec CreateSection 201510,3,3,80120003,24;
-Go
-
-exec CreateSection 201510,4,1,80120004,24;
-Go
-exec CreateSection 201510,4,2,80120004,24;
-Go
-exec CreateSection 201510,4,3,80120004,24;
-Go
-exec CreateSection 201510,5,1,80120001,24;
-Go
-exec CreateSection 201510,5,2,80120001,24;
-Go
-exec CreateSection 201510,5,3,80120001,24;
-Go
-exec CreateSection 201510,6,1,80120002,24;
-Go
-exec CreateSection 201510,6,2,80120002,24;
-Go
-exec CreateSection 201510,6,3,80120002,24;
+exec CreateSection 201510,3,3,'80120003',24;
 Go
 
-exec CreateSection 201510,7,1,80120003,24;
+exec CreateSection 201510,4,1,'80120004',24;
 Go
-exec CreateSection 201510,7,2,80120003,24;
+exec CreateSection 201510,4,2,'80120004',24;
 Go
-exec CreateSection 201510,7,3,80120003,24;
+exec CreateSection 201510,4,3,'80120004',24;
 Go
-exec CreateSection 201510,8,1,80120004,24;
+exec CreateSection 201510,5,1,'80120001',24;
 Go
-exec CreateSection 201510,8,2,80120004,24;
+exec CreateSection 201510,5,2,'80120001',24;
 Go
-exec CreateSection 201510,8,3,80120004,24;
+exec CreateSection 201510,5,3,'80120001',24;
 Go
-exec CreateSection 201510,9,1,80120001,24;
+exec CreateSection 201510,6,1,'80120002',24;
 Go
-exec CreateSection 201510,9,2,80120001,24;
+exec CreateSection 201510,6,2,'80120002',24;
 Go
-exec CreateSection 201510,9,3,80120001,24;
-Go
-
-exec CreateSection 201510,10,1,80120002,24;
-Go
-exec CreateSection 201510,10,2,80120002,24;
-Go
-exec CreateSection 201510,10,3,80120002,24;
-Go
-exec CreateSection 201510,11,1,80120003,24;
-Go
-exec CreateSection 201510,11,2,80120003,24;
-Go
-exec CreateSection 201510,11,3,80120003,24;
+exec CreateSection 201510,6,3,'80120002',24;
 Go
 
-
-exec CreateSection 201510,12,1,80120005,24;
+exec CreateSection 201510,7,1,'80120003',24;
 Go
-exec CreateSection 201510,12,2,80120005,24;
+exec CreateSection 201510,7,2,'80120003',24;
 Go
-exec CreateSection 201510,12,3,80120005,24;
+exec CreateSection 201510,7,3,'80120003',24;
 Go
-exec CreateSection 201510,13,1,80120006,24;
+exec CreateSection 201510,8,1,'80120004',24;
 Go
-exec CreateSection 201510,13,2,80120006,24;
+exec CreateSection 201510,8,2,'80120004',24;
 Go
-exec CreateSection 201510,13,3,80120006,24;
+exec CreateSection 201510,8,3,'80120004',24;
 Go
-exec CreateSection 201510,14,1,80120007,24;
+exec CreateSection 201510,9,1,'80120001',24;
 Go
-exec CreateSection 201510,14,2,80120007,24;
+exec CreateSection 201510,9,2,'80120001',24;
 Go
-exec CreateSection 201510,14,3,80120007,24;
-Go
-
-exec CreateSection 201510,15,1,80120008,24;
-Go
-exec CreateSection 201510,15,2,80120008,24;
-Go
-exec CreateSection 201510,15,3,80120008,24;
-Go
-exec CreateSection 201510,16,1,80120005,24;
-Go
-exec CreateSection 201510,16,2,80120005,24;
-Go
-exec CreateSection 201510,16,3,80120005,24;
-Go
-exec CreateSection 201510,17,1,80120006,24;
-Go
-exec CreateSection 201510,17,2,80120006,24;
-Go
-exec CreateSection 201510,17,3,80120006,24;
+exec CreateSection 201510,9,3,'80120001',24;
 Go
 
-exec CreateSection 201510,18,1,80120007,24;
+exec CreateSection 201510,10,1,'80120002',24;
 Go
-exec CreateSection 201510,18,2,80120007,24;
+exec CreateSection 201510,10,2,'80120002',24;
 Go
-exec CreateSection 201510,18,3,80120007,24;
+exec CreateSection 201510,10,3,'80120002',24;
 Go
-exec CreateSection 201510,19,1,80120008,24;
+exec CreateSection 201510,11,1,'80120003',24;
 Go
-exec CreateSection 201510,19,2,80120008,24;
+exec CreateSection 201510,11,2,'80120003',24;
 Go
-exec CreateSection 201510,19,3,80120008,24;
+exec CreateSection 201510,11,3,'80120003',24;
 Go
-exec CreateSection 201510,20,1,80120005,24;
+
+
+exec CreateSection 201510,12,1,'80120005',24;
 Go
-exec CreateSection 201510,20,2,80120005,24;
+exec CreateSection 201510,12,2,'80120005',24;
 Go
-exec CreateSection 201510,20,3,80120005,24;
+exec CreateSection 201510,12,3,'80120005',24;
+Go
+exec CreateSection 201510,13,1,'80120006',24;
+Go
+exec CreateSection 201510,13,2,'80120006',24;
+Go
+exec CreateSection 201510,13,3,'80120006',24;
+Go
+exec CreateSection 201510,14,1,'80120007',24;
+Go
+exec CreateSection 201510,14,2,'80120007',24;
+Go
+exec CreateSection 201510,14,3,'80120007',24;
+Go
+
+exec CreateSection 201510,15,1,'80120008',24;
+Go
+exec CreateSection 201510,15,2,'80120008',24;
+Go
+exec CreateSection 201510,15,3,'80120008',24;
+Go
+exec CreateSection 201510,16,1,'80120005',24;
+Go
+exec CreateSection 201510,16,2,'80120005',24;
+Go
+exec CreateSection 201510,16,3,'80120005',24;
+Go
+exec CreateSection 201510,17,1,'80120006',24;
+Go
+exec CreateSection 201510,17,2,'80120006',24;
+Go
+exec CreateSection 201510,17,3,'80120006',24;
+Go
+
+exec CreateSection 201510,18,1,'80120007',24;
+Go
+exec CreateSection 201510,18,2,'80120007',24;
+Go
+exec CreateSection 201510,18,3,'80120007',24;
+Go
+exec CreateSection 201510,19,1,'80120008',24;
+Go
+exec CreateSection 201510,19,2,'80120008',24;
+Go
+exec CreateSection 201510,19,3,'80120008',24;
+Go
+exec CreateSection 201510,20,1,'80120005',24;
+Go
+exec CreateSection 201510,20,2,'80120005',24;
+Go
+exec CreateSection 201510,20,3,'80120005',24;
 Go
 
 exec EnrollStudent '80120574', 1 ;
