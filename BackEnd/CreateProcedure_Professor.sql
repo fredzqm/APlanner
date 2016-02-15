@@ -105,11 +105,12 @@ Create Procedure AddMeetTime
 	@PUserID varchar(9),
 	@SectID int,
 	@Period tinyint,
+	@Weekday tinyint,
 	@Classroom varchar(7) = 'TBA'
 AS
 	begin
-		insert into STime(SectID, Period, Classroom)
-			values(@SectID, @Period, @Classroom)
+		insert into STime(SectID, Period, Weekday, Classroom)
+			values(@SectID, @Period, @Weekday, @Classroom)
 	end
 go
 
