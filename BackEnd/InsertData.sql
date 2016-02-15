@@ -74,3 +74,15 @@ Insert into Enroll ([SectID], [SUserID], [time], [Rating])
 	values
 	(3295, '801200000', '02-01-2016', 1),
 	(3295, '801200001', '02-01-2016', 1);
+
+AddMeetTime @Student varchar(9), @SectID int, @Period tinyint, @Classroom varchar(7) = 'TBA'
+AddMeetTime @Student varchar(9), @SectID int, @Period tinyint, @Classroom varchar(7) = 'TBA'
+AddMeetTime @Student varchar(9), @SectID int, @Period tinyint, @Classroom varchar(7) = 'TBA'
+
+
+AddSection    (304, 'CSSE','PLC', 4),
+AddSection  111, 'CHEM','General Chemistry', 4),
+AddSection  232, 'CSSE','Computer Architecture', 4),
+AddSection  333, 'CSSE','Database', 4),
+AddSection  112, 'MA','CalculusII', 5),
+AddSection  111, 'MA','CalculusI', 5);

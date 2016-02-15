@@ -12,8 +12,8 @@ USE APlanner
 GO
 
 Create Table People (
-	UserID varchar(9),
-	UserName varchar(12),
+	UserID varchar(9) unique,
+	UserName varchar(12) unique,
 	FName varchar(30) not null,
 	LName varchar(30) not null,
 	type char(1),
@@ -22,6 +22,10 @@ Create Table People (
 	Primary key(UserID),
 	Constraint PeopleType Check ( type = 'S' or type = 'P' )
 )
+Go
+
+CREATE INDEX People_UserName
+    ON People(UserName);
 Go
 
 Create Table Friend (

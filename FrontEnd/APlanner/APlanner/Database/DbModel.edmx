@@ -672,7 +672,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Parameter Name="SectID" Type="int" Mode="In" />
         </Function>
         <Function Name="UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserID" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="char" Mode="In" />
         </Function>
         <EntityContainer Name="APlannerModelStoreContainer">
@@ -1570,7 +1570,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <Parameter Name="SectID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UserLogin">
-            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>

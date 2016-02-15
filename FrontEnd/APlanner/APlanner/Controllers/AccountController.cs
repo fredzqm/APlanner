@@ -74,27 +74,49 @@ namespace APlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            int register;
+            try
             {
-                return View(model);
+                register = db.UserLogin(model.UserName, model.Password);
+            }
+            catch (EntityCommandExecutionException exeception)
+            {
+                string[] errorMessages = GenerateSqlErrorMessage(exeception); ViewBag.errorMessage = errorMessages;
+                return View("Login");
+            }
+            if (register == 0)
+            {
+                Session["LoginUserName"] = model.UserName;
+                ViewData["LoginStatus"] = "Login success";
+                // login successful
+            } else
+            {
+                ViewData["LoginStatus"] = "Login fail, please try again";
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        private ActionResult View(Func<string, ActionResult> login)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static string[] GenerateSqlErrorMessage(EntityCommandExecutionException exeception)
+        {
+            var ex = (SqlException)exeception.InnerException;
+            String[] errorMessages = new string[ex.Errors.Count];
+            for (int i = 0; i < ex.Errors.Count; i++)
+            {
+                errorMessages[i] = "Index #" + i + "\n" +
+                    "Message: " + ex.Errors[i].Message + "\n" +
+                    "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                    "Number: " + ex.Errors[i].Number + "\n" +
+                    "Source: " + ex.Errors[i].Source + "\n" +
+                    "Procedure: " + ex.Errors[i].Procedure + "\n";
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return RedirectToLocal(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-            //    case SignInStatus.Failure:
-            //    default:
-            //        ModelState.AddModelError("", "Invalid login attempt.");
-            return View(model);
-            //}
+            return errorMessages;
         }
 
         //

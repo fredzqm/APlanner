@@ -50,14 +50,10 @@ namespace APlanner.Models
 
     public class LoginViewModel
     {
-        public string UserID { get; set; }
         public string UserName { get; set; }
-        public string FName { get; set; }
-        public string LName { get; set; }
 
         [Display(Name = "Professor?")]
         public string type { get; set; }
-
 
         [Required]
         [DataType(DataType.Password)]

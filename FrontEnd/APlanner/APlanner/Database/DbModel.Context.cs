@@ -14,9 +14,6 @@ namespace APlanner.Database
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    using System.Data.SqlClient;
-    using System.Text;
-    using System.Data.Entity.Core;
 
     public partial class APlannerEntities : DbContext
     {
@@ -103,7 +100,7 @@ namespace APlanner.Database
             var termIDParameter = termID.HasValue ?
                 new ObjectParameter("TermID", termID) :
                 new ObjectParameter("TermID", typeof(byte));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreatePlan", sUserIDParameter, termIDParameter, pID);
         }
 
@@ -298,17 +295,19 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSectNum", scheIDParameter, sectIDParameter);
         }
 
-        public virtual int UserLogin(string userID, string password)
+        public virtual int UserLogin(string userName, string password)
         {
-            var userIDParameter = userID != null ?
-                new ObjectParameter("UserID", userID) :
-                new ObjectParameter("UserID", typeof(string));
+
+
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
 
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
 
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserLogin", userIDParameter, passwordParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserLogin", userNameParameter, passwordParameter);
         }
     }
 }

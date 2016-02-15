@@ -718,7 +718,7 @@
       <Parameter Name="SectID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="UserLogin">
-      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
       <Parameter Name="Password" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>

@@ -53,11 +53,11 @@ IF OBJECT_ID('UserLogin', 'P') IS NOT NULL
     DROP Proc UserLogin;
 GO
 Create Procedure UserLogin
-	@UserID varchar(9),
+	@UserName varchar(9),
     @Password char(20)
 AS
 begin
-	if ( HASHBYTES('SHA1', @Password)  <> (Select Password from People where UserID = @UserID)) begin
+	if ( HASHBYTES('SHA1', @Password)  <> (Select Password from People where UserName = @UserName)) begin
 		return 1; -- fail
 	end
 	return 0; -- success
