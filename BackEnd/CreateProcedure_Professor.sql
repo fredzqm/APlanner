@@ -1,6 +1,25 @@
 Use [APlanner];
 Go
 
+IF OBJECT_ID('AddCourse', 'P') IS NOT NULL
+    DROP Proc AddCourse;
+GO
+Create Procedure AddCourse
+	@CourseDP varchar(5),
+	@CourseName varchar(50),
+	@CourseNum smallint,
+	@Description text,
+	@Credit tinyint
+AS
+	begin
+		if not exists( select * from Course where CourseDP = @CourseDP and CourseNum = @CourseNum) begin
+			insert into Course(CourseDP, CourseName, CourseNum, Description, Credit)
+				values (@CourseDP, @CourseName, @CourseNum, @Description, @Credit)
+			--- 0 SectNum just represents that this course will be offered
+		end
+	end
+go
+
 IF OBJECT_ID('WillOfferCourse', 'P') IS NOT NULL
     DROP Proc WillOfferCourse;
 GO
@@ -72,11 +91,27 @@ Create Procedure AddMeetTime
 	@PUserID varchar(9),
 	@SectID int,
 	@Period tinyint,
-	@Classroom varchar(7) = 'TBA',
-
+	@Classroom varchar(7) = 'TBA'
 AS
 	begin
 		insert into STime(SectID, Period, Classroom)
-			values(@SectID, @Period, @lassroom)
+			values(@SectID, @Period, @Classroom)
+	end
+go
+
+IF OBJECT_ID('AddSection', 'P') IS NOT NULL
+    DROP Proc AddSection;
+GO
+Create Procedure AddSection
+	@TermID int,
+	@CourseID smallint,
+	@SectNum tinyint,
+	@PUserID varchar(9),
+	@EnrollNum tinyint,
+	@Capacity int
+AS
+	begin
+		insert into Section(TermID, CourseID, SectNum, PUserID, EnrollNum, Capacity)
+			values(@TermID, @CourseID, @SectNum, @PUserID, @EnrollNum, @Capacity)
 	end
 go

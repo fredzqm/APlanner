@@ -191,7 +191,7 @@ Create Table Section (
 	SectID int IDENTITY (1,1),
 	TermID int,
 	CourseID smallint not null,
-	SectNum tinyint unique not null,
+	SectNum tinyint not null,
 	PUserID varchar(9) default null,
 	EnrollNum tinyint default 0,
 	Capacity int default 0,
