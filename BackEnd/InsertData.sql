@@ -1,14 +1,30 @@
 use APlanner
 GO
 
-Delete from Section;
-Delete from Student;
-Delete from Course;
-Delete from People;
-Delete from Professor;
-Delete from Department;
-Delete from Term;
+--- DISABLE TRIGGER { [ schema_name . ] trigger_name [ ,...n ] | ALL }
+--- ON { object_name | DATABASE | ALL SERVER };
+Disable trigger UpdateEnrollNumDelete ON  [Enroll];
+Go
 
+Delete from Enroll
+go 
+Delete from Section;
+go
+Delete from Student;
+go
+Delete from Course;
+go
+Delete from People;
+go
+Delete from Professor;
+go
+Delete from Department;
+go
+Delete from Term;
+go
+
+enable trigger UpdateEnrollNumDelete ON  [Enroll];
+Go
 
 Insert into Department (DepartID, DepartNAME)
 	values('CSSE', 'Computer Science and Software Engineering'), 

@@ -95,7 +95,7 @@ Create Procedure SendFriendRequest
     @to char(9)
 AS
 BEGIN
-	IF dbo.friendAlready(@from, @to) = 0 begin
+	IF dbo.isFriend(@from, @to) = 0 begin
 		raiserror( 'Already be friend!' , 3,  2);
 		rollback;
 	end
