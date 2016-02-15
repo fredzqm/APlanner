@@ -230,21 +230,28 @@
         <ScalarProperty Name="CourseID" ColumnName="Requisite" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="AddCourse" FunctionName="APlannerModel.Store.AddCourse" />
     <FunctionImportMapping FunctionImportName="AddCourseToPlan" FunctionName="APlannerModel.Store.AddCourseToPlan" />
+    <FunctionImportMapping FunctionImportName="AddMeetTime" FunctionName="APlannerModel.Store.AddMeetTime" />
+    <FunctionImportMapping FunctionImportName="AddSection" FunctionName="APlannerModel.Store.AddSection" />
     <FunctionImportMapping FunctionImportName="AddToWaitlist" FunctionName="APlannerModel.Store.AddToWaitlist" />
     <FunctionImportMapping FunctionImportName="ChangePassword" FunctionName="APlannerModel.Store.ChangePassword" />
     <FunctionImportMapping FunctionImportName="CreatePlan" FunctionName="APlannerModel.Store.CreatePlan" />
+    <FunctionImportMapping FunctionImportName="CreateSection" FunctionName="APlannerModel.Store.CreateSection" />
     <FunctionImportMapping FunctionImportName="EnrollStudent" FunctionName="APlannerModel.Store.EnrollStudent" />
     <FunctionImportMapping FunctionImportName="ProvideOwnerPermit" FunctionName="APlannerModel.Store.ProvideOwnerPermit" />
     <FunctionImportMapping FunctionImportName="RateSection" FunctionName="APlannerModel.Store.RateSection" />
     <FunctionImportMapping FunctionImportName="RegisterProfessor" FunctionName="APlannerModel.Store.RegisterProfessor" />
     <FunctionImportMapping FunctionImportName="RegisterStudent" FunctionName="APlannerModel.Store.RegisterStudent" />
     <FunctionImportMapping FunctionImportName="RemoveCourseToPlan" FunctionName="APlannerModel.Store.RemoveCourseToPlan" />
+    <FunctionImportMapping FunctionImportName="RemoveSection" FunctionName="APlannerModel.Store.RemoveSection" />
     <FunctionImportMapping FunctionImportName="ResponseFriendRequest" FunctionName="APlannerModel.Store.ResponseFriendRequest" />
     <FunctionImportMapping FunctionImportName="SendFriendRequest" FunctionName="APlannerModel.Store.SendFriendRequest" />
     <FunctionImportMapping FunctionImportName="SendMessage" FunctionName="APlannerModel.Store.SendMessage" />
     <FunctionImportMapping FunctionImportName="UnEnrollStudent" FunctionName="APlannerModel.Store.UnEnrollStudent" />
     <FunctionImportMapping FunctionImportName="UpdateSectNum" FunctionName="APlannerModel.Store.UpdateSectNum" />
     <FunctionImportMapping FunctionImportName="UserLogin" FunctionName="APlannerModel.Store.UserLogin" />
+    <FunctionImportMapping FunctionImportName="WillNotOfferCourse" FunctionName="APlannerModel.Store.WillNotOfferCourse" />
+    <FunctionImportMapping FunctionImportName="WillOfferCourse" FunctionName="APlannerModel.Store.WillOfferCourse" />
   </EntityContainerMapping>
 </Mapping>

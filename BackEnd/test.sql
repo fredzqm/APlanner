@@ -2,17 +2,19 @@ Use APlanner
 Go
 
 exec RegisterStudent
-  	1223523,
-	'afefe',
+  	1224241,
+	'wewe',
 	'Cool',
     'Man',
     'Password',
 	'CS',
-	2015;cv
+	2015;
+go
+
 
 DECLARE @return_status int;
 EXEC @return_status = UserLogin
-	'Cool',
-	'qwerty'
+	'wewe',
+	'Password'
 SELECT 'Return Status' = @return_status;
 GO

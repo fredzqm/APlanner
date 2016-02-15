@@ -23,9 +23,12 @@ namespace APlanner.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private APlannerEntities db = new APlannerEntities();
+        private SqlConnection connection;
         public AccountController()
         {
-
+            string connetionString = null;
+            connetionString = "Data Source=titan.csse.rose-hulman.edu;Initial Catalog=APlanner;User ID=zhangq2;Password=C@psl0ck";
+            connection = new SqlConnection(connetionString);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -74,27 +77,43 @@ namespace APlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            int register;
+            SqlCommand command;
+            string sql = "exec UserLogin " + model.UserName+ " , "+ model.Password + " ;";
+            SqlDataReader dataReader;
+            string[] errorMessage = new string[10];
+            int register = 1;
             try
             {
-                register = db.UserLogin(model.UserName, model.Password);
+                connection.Open();
+                command = new SqlCommand(sql, connection);
+                //register = (int) command.ExecuteScalar();
+                dataReader = command.ExecuteReader();
+                //while (dataReader.Read())
+                //{
+                register = (int) dataReader.GetValue(0) ;
+                //errorMessage[0] = (dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + " - " + dataReader.GetValue(2));
+                //}
+                //dataReader.Close();
+                errorMessage[2] = register.ToString(); ;
+                command.Dispose();
+                connection.Close();
             }
-            catch (EntityCommandExecutionException exeception)
+            catch (Exception ex)
             {
-                string[] errorMessages = GenerateSqlErrorMessage(exeception); ViewBag.errorMessage = errorMessages;
-                return View("Login");
+                errorMessage[0] = "Can not open connection ! ";
             }
             if (register == 0)
             {
                 Session["LoginUserName"] = model.UserName;
                 ViewData["LoginStatus"] = "Login success";
                 // login successful
-            } else
+            }
+            else
             {
                 ViewData["LoginStatus"] = "Login fail, please try again";
-                return View();
+                ViewBag.errorMessage = errorMessage;
             }
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         private ActionResult View(Func<string, ActionResult> login)
