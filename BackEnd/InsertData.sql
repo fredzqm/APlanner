@@ -109,9 +109,6 @@ Go
 
 
 
-
-
-
 Insert into Term ([TermID] ,[Start_Date] ,[End_Date])
 	Values 
 	(201510,'8-28-2015','02-26-2016'),
@@ -355,17 +352,41 @@ exec AddMeetTime '80120006',18,09,3,'C209';
 exec AddMeetTime '80120006',18,09,4,'C209';
 exec AddMeetTime '80120006',18,09,5,'C209';
 
-exec AddMeetTime '80120007',19,09,1,'C209';
-exec AddMeetTime '80120007',19,09,2,'C209';
-exec AddMeetTime '80120007',19,09,3,'C209';
-exec AddMeetTime '80120007',19,09,4,'C209';
-exec AddMeetTime '80120007',19,09,5,'C209';
+exec AddMeetTime '80120007',19,08,1,'E202';
+exec AddMeetTime '80120007',19,08,2,'E202';
+exec AddMeetTime '80120007',19,08,3,'E202';
+exec AddMeetTime '80120007',19,08,4,'E202';
+exec AddMeetTime '80120007',19,08,5,'E202';
 
-exec AddMeetTime '80120007',19,09,1,'C209';
-exec AddMeetTime '80120007',19,09,2,'C209';
-exec AddMeetTime '80120007',19,09,3,'C209';
-exec AddMeetTime '80120007',19,09,4,'C209';
-exec AddMeetTime '80120007',19,09,5,'C209';
+exec AddMeetTime '80120007',20,09,1,'E202';
+exec AddMeetTime '80120007',20,09,2,'E202';
+exec AddMeetTime '80120007',20,09,3,'E202';
+exec AddMeetTime '80120007',20,09,4,'E202';
+exec AddMeetTime '80120007',20,09,5,'E202';
+
+exec AddMeetTime '80120007',21,10,1,'E202';
+exec AddMeetTime '80120007',21,10,2,'E202';
+exec AddMeetTime '80120007',21,10,3,'E202';
+exec AddMeetTime '80120007',21,10,4,'E202';
+exec AddMeetTime '80120007',21,10,5,'E202';
+
+exec AddMeetTime '80120007',19,08,1,'E202';
+exec AddMeetTime '80120007',19,08,2,'E202';
+exec AddMeetTime '80120007',19,08,3,'E202';
+exec AddMeetTime '80120007',19,08,4,'E202';
+exec AddMeetTime '80120007',19,08,5,'E202';
+
+exec AddMeetTime '80120007',20,09,1,'E202';
+exec AddMeetTime '80120007',20,09,2,'E202';
+exec AddMeetTime '80120007',20,09,3,'E202';
+exec AddMeetTime '80120007',20,09,4,'E202';
+exec AddMeetTime '80120007',20,09,5,'E202';
+
+exec AddMeetTime '80120007',21,10,1,'E202';
+exec AddMeetTime '80120007',21,10,2,'E202';
+exec AddMeetTime '80120007',21,10,3,'E202';
+exec AddMeetTime '80120007',21,10,4,'E202';
+exec AddMeetTime '80120007',21,10,5,'E202';
 
 
 exec EnrollStudent '80120574', 1 ;
