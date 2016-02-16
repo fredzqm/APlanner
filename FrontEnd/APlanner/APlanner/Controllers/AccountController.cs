@@ -18,7 +18,7 @@ using System.Data;
 
 namespace APlanner.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -83,28 +83,25 @@ namespace APlanner.Controllers
         {
             string[] errorMessage = new string[10];
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "exec UserLogin @UserName , @Password, @success out";
-            command.Parameters.Add("@UserName", SqlDbType.VarChar, 9).Value = model.UserName;
+            command.CommandText = "exec UserLogin @UserName , @Password, @UserID out";
+            command.Parameters.Add("@UserName", SqlDbType.VarChar, 12).Value = model.UserName;
             command.Parameters.Add("@Password", SqlDbType.Char, 20).Value = model.Password;
-            //command.Parameters.Add("@success", SqlDbType.Bit).Direction = ParameterDirection.ReturnValue;
-            command.Parameters.Add("@success", SqlDbType.Bit).Direction = ParameterDirection.Output;
-            // new SqlCommand(sql, connection);
+            command.Parameters.Add("@UserID", SqlDbType.VarChar, 9).Direction = ParameterDirection.Output;
             connection.Open();
             command.ExecuteNonQuery();
-            var x = command.Parameters["@success"].Value;
-            Boolean register = (Boolean)x;
+            string UserID = (string)command.Parameters["@UserID"].Value ;
             connection.Close();
             command.Dispose();
-            if (register)
+            if (UserID.Length > 0)
             {
-                Session["LoginUserName"] = model.UserName;
-                ViewData["LoginStatus"] = "Login success";
-                // login successful
+                Session["User"] = db.People.Find(UserID);
+
+                ViewData["LoginStatus"] = "Login success: Hi, " + model.UserName;
             }
             else
             {
+                Session["User"] = null;
                 ViewData["LoginStatus"] = "Login fail, please try again";
-                ViewBag.errorMessage = errorMessage;
             }
             return View();
         }
@@ -442,7 +439,8 @@ namespace APlanner.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["User"] = null;
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
