@@ -86,7 +86,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddCourseToPlan", pIDParameter, courseIDParameter);
         }
     
-        public virtual int AddMeetTime(string pUserID, Nullable<int> sectID, Nullable<byte> period, string classroom)
+        public virtual int AddMeetTime(string pUserID, Nullable<int> sectID, Nullable<byte> period, Nullable<byte> weekday, string classroom)
         {
             var pUserIDParameter = pUserID != null ?
                 new ObjectParameter("PUserID", pUserID) :
@@ -100,11 +100,15 @@ namespace APlanner.Database
                 new ObjectParameter("Period", period) :
                 new ObjectParameter("Period", typeof(byte));
     
+            var weekdayParameter = weekday.HasValue ?
+                new ObjectParameter("Weekday", weekday) :
+                new ObjectParameter("Weekday", typeof(byte));
+    
             var classroomParameter = classroom != null ?
                 new ObjectParameter("Classroom", classroom) :
                 new ObjectParameter("Classroom", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddMeetTime", pUserIDParameter, sectIDParameter, periodParameter, classroomParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddMeetTime", pUserIDParameter, sectIDParameter, periodParameter, weekdayParameter, classroomParameter);
         }
     
         public virtual int AddSection(Nullable<int> termID, Nullable<short> courseID, Nullable<byte> sectNum, string pUserID, Nullable<byte> enrollNum, Nullable<int> capacity)
@@ -166,7 +170,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ChangePassword", userIDParameter, oldPasswordParameter, newPasswordParameter, success);
         }
     
-        public virtual int CreatePlan(string sUserID, Nullable<byte> termID, ObjectParameter pID)
+        public virtual int CreatePlan(string sUserID, Nullable<int> termID, ObjectParameter pID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
@@ -174,7 +178,7 @@ namespace APlanner.Database
     
             var termIDParameter = termID.HasValue ?
                 new ObjectParameter("TermID", termID) :
-                new ObjectParameter("TermID", typeof(byte));
+                new ObjectParameter("TermID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreatePlan", sUserIDParameter, termIDParameter, pID);
         }
@@ -208,7 +212,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateSection", termIDParameter, courseDPParameter, courseNumParameter, sectNumParameter, pUserIDParameter, capacityParameter);
         }
     
-        public virtual int EnrollStudent(string sUserID, Nullable<byte> sectID)
+        public virtual int EnrollStudent(string sUserID, Nullable<int> sectID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
@@ -216,7 +220,7 @@ namespace APlanner.Database
     
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
-                new ObjectParameter("SectID", typeof(byte));
+                new ObjectParameter("SectID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EnrollStudent", sUserIDParameter, sectIDParameter);
         }
@@ -230,7 +234,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProvideOwnerPermit", userParameter);
         }
     
-        public virtual int RateSection(string sUserID, Nullable<byte> sectID, Nullable<byte> rating)
+        public virtual int RateSection(string sUserID, Nullable<int> sectID, Nullable<byte> rating)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
@@ -238,7 +242,7 @@ namespace APlanner.Database
     
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
-                new ObjectParameter("SectID", typeof(byte));
+                new ObjectParameter("SectID", typeof(int));
     
             var ratingParameter = rating.HasValue ?
                 new ObjectParameter("Rating", rating) :
@@ -386,7 +390,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SendMessage", senderParameter, recieverParameter, textParameter);
         }
     
-        public virtual int UnEnrollStudent(string sUserID, Nullable<byte> sectID)
+        public virtual int UnEnrollStudent(string sUserID, Nullable<int> sectID)
         {
             var sUserIDParameter = sUserID != null ?
                 new ObjectParameter("SUserID", sUserID) :
@@ -394,7 +398,7 @@ namespace APlanner.Database
     
             var sectIDParameter = sectID.HasValue ?
                 new ObjectParameter("SectID", sectID) :
-                new ObjectParameter("SectID", typeof(byte));
+                new ObjectParameter("SectID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UnEnrollStudent", sUserIDParameter, sectIDParameter);
         }
@@ -412,7 +416,7 @@ namespace APlanner.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSectNum", scheIDParameter, sectIDParameter);
         }
     
-        public virtual int UserLogin(string userName, string password)
+        public virtual int UserLogin(string userName, string password, ObjectParameter userID)
         {
             var userNameParameter = userName != null ?
                 new ObjectParameter("UserName", userName) :
@@ -422,7 +426,7 @@ namespace APlanner.Database
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserLogin", userNameParameter, passwordParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UserLogin", userNameParameter, passwordParameter, userID);
         }
     
         public virtual int WillNotOfferCourse(Nullable<int> termID, Nullable<short> courseID)

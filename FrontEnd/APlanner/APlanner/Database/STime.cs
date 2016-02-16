@@ -17,6 +17,7 @@ namespace APlanner.Database
         public int SectID { get; set; }
         public string Classroom { get; set; }
         public byte Period { get; set; }
+        public byte Weekday { get; set; }
     
         public virtual Section Section { get; set; }
     }

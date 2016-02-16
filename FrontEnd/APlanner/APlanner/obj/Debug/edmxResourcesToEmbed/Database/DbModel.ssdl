@@ -136,10 +136,12 @@
       <PropertyRef Name="SectID" />
       <PropertyRef Name="Classroom" />
       <PropertyRef Name="Period" />
+      <PropertyRef Name="Weekday" />
     </Key>
     <Property Name="SectID" Type="int" Nullable="false" />
     <Property Name="Classroom" Type="varchar" MaxLength="7" Nullable="false" />
     <Property Name="Period" Type="tinyint" Nullable="false" />
+    <Property Name="Weekday" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -592,6 +594,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
     <Parameter Name="PUserID" Type="varchar" Mode="In" />
     <Parameter Name="SectID" Type="int" Mode="In" />
     <Parameter Name="Period" Type="tinyint" Mode="In" />
+    <Parameter Name="Weekday" Type="tinyint" Mode="In" />
     <Parameter Name="Classroom" Type="varchar" Mode="In" />
   </Function>
   <Function Name="AddSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -618,7 +621,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
   </Function>
   <Function Name="CreatePlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="SUserID" Type="varchar" Mode="In" />
-    <Parameter Name="TermID" Type="tinyint" Mode="In" />
+    <Parameter Name="TermID" Type="int" Mode="In" />
     <Parameter Name="PID" Type="int" Mode="InOut" />
   </Function>
   <Function Name="CreateSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -631,7 +634,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
   </Function>
   <Function Name="EnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="SUserID" Type="varchar" Mode="In" />
-    <Parameter Name="SectID" Type="tinyint" Mode="In" />
+    <Parameter Name="SectID" Type="int" Mode="In" />
   </Function>
   <Function Name="hasEnrolled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
     <Parameter Name="sect" Type="int" Mode="In" />
@@ -649,7 +652,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
   </Function>
   <Function Name="RateSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="SUserID" Type="varchar" Mode="In" />
-    <Parameter Name="SectID" Type="tinyint" Mode="In" />
+    <Parameter Name="SectID" Type="int" Mode="In" />
     <Parameter Name="Rating" Type="tinyint" Mode="In" />
   </Function>
   <Function Name="RegisterProfessor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -702,7 +705,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
   </Function>
   <Function Name="UnEnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="SUserID" Type="varchar" Mode="In" />
-    <Parameter Name="SectID" Type="tinyint" Mode="In" />
+    <Parameter Name="SectID" Type="int" Mode="In" />
   </Function>
   <Function Name="UpdateSectNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ScheID" Type="int" Mode="In" />
@@ -711,6 +714,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
   <Function Name="UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserName" Type="varchar" Mode="In" />
     <Parameter Name="Password" Type="char" Mode="In" />
+    <Parameter Name="UserID" Type="varchar" Mode="InOut" />
   </Function>
   <Function Name="UserNameToID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
     <Parameter Name="UserName" Type="varchar" Mode="In" />

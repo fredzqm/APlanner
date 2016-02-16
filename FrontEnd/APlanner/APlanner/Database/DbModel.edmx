@@ -141,10 +141,12 @@
             <PropertyRef Name="SectID" />
             <PropertyRef Name="Classroom" />
             <PropertyRef Name="Period" />
+            <PropertyRef Name="Weekday" />
           </Key>
           <Property Name="SectID" Type="int" Nullable="false" />
           <Property Name="Classroom" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="Period" Type="tinyint" Nullable="false" />
+          <Property Name="Weekday" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -597,6 +599,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <Parameter Name="PUserID" Type="varchar" Mode="In" />
           <Parameter Name="SectID" Type="int" Mode="In" />
           <Parameter Name="Period" Type="tinyint" Mode="In" />
+          <Parameter Name="Weekday" Type="tinyint" Mode="In" />
           <Parameter Name="Classroom" Type="varchar" Mode="In" />
         </Function>
         <Function Name="AddSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -623,7 +626,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
         </Function>
         <Function Name="CreatePlan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SUserID" Type="varchar" Mode="In" />
-          <Parameter Name="TermID" Type="tinyint" Mode="In" />
+          <Parameter Name="TermID" Type="int" Mode="In" />
           <Parameter Name="PID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="CreateSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -636,7 +639,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
         </Function>
         <Function Name="EnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SUserID" Type="varchar" Mode="In" />
-          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+          <Parameter Name="SectID" Type="int" Mode="In" />
         </Function>
         <Function Name="hasEnrolled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bit">
           <Parameter Name="sect" Type="int" Mode="In" />
@@ -654,7 +657,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
         </Function>
         <Function Name="RateSection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SUserID" Type="varchar" Mode="In" />
-          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+          <Parameter Name="SectID" Type="int" Mode="In" />
           <Parameter Name="Rating" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="RegisterProfessor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -707,7 +710,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
         </Function>
         <Function Name="UnEnrollStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SUserID" Type="varchar" Mode="In" />
-          <Parameter Name="SectID" Type="tinyint" Mode="In" />
+          <Parameter Name="SectID" Type="int" Mode="In" />
         </Function>
         <Function Name="UpdateSectNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ScheID" Type="int" Mode="In" />
@@ -716,6 +719,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
         <Function Name="UserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="char" Mode="In" />
+          <Parameter Name="UserID" Type="varchar" Mode="InOut" />
         </Function>
         <Function Name="UserNameToID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
           <Parameter Name="UserName" Type="varchar" Mode="In" />
@@ -1056,10 +1060,12 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <PropertyRef Name="SectID" />
             <PropertyRef Name="Classroom" />
             <PropertyRef Name="Period" />
+            <PropertyRef Name="Weekday" />
           </Key>
           <Property Name="SectID" Type="Int32" Nullable="false" />
           <Property Name="Classroom" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Period" Type="Byte" Nullable="false" />
+          <Property Name="Weekday" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Section" Relationship="Self.FK__STime__SectID__59063A47" FromRole="STime" ToRole="Section" />
         </EntityType>
         <EntityType Name="Student">
@@ -1562,6 +1568,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
             <Parameter Name="PUserID" Mode="In" Type="String" />
             <Parameter Name="SectID" Mode="In" Type="Int32" />
             <Parameter Name="Period" Mode="In" Type="Byte" />
+            <Parameter Name="Weekday" Mode="In" Type="Byte" />
             <Parameter Name="Classroom" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddSection">
@@ -1584,7 +1591,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="CreatePlan">
             <Parameter Name="SUserID" Mode="In" Type="String" />
-            <Parameter Name="TermID" Mode="In" Type="Byte" />
+            <Parameter Name="TermID" Mode="In" Type="Int32" />
             <Parameter Name="PID" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CreateSection">
@@ -1597,14 +1604,14 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="EnrollStudent">
             <Parameter Name="SUserID" Mode="In" Type="String" />
-            <Parameter Name="SectID" Mode="In" Type="Byte" />
+            <Parameter Name="SectID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProvideOwnerPermit">
             <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RateSection">
             <Parameter Name="SUserID" Mode="In" Type="String" />
-            <Parameter Name="SectID" Mode="In" Type="Byte" />
+            <Parameter Name="SectID" Mode="In" Type="Int32" />
             <Parameter Name="Rating" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="RegisterProfessor">
@@ -1649,7 +1656,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="UnEnrollStudent">
             <Parameter Name="SUserID" Mode="In" Type="String" />
-            <Parameter Name="SectID" Mode="In" Type="Byte" />
+            <Parameter Name="SectID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateSectNum">
             <Parameter Name="ScheID" Mode="In" Type="Int32" />
@@ -1658,6 +1665,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
           <FunctionImport Name="UserLogin">
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="WillNotOfferCourse">
             <Parameter Name="TermID" Mode="In" Type="Int32" />
@@ -1795,6 +1803,7 @@ warning 6002: The table/view 'APlanner.dbo.StudentView' does not have a primary 
                 <ScalarProperty Name="SectID" ColumnName="SectID" />
                 <ScalarProperty Name="Classroom" ColumnName="Classroom" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

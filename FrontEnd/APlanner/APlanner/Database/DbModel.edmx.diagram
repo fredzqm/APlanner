@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="128b1c2a55934a7ab94b81234bab1eb3" Name="Diagram1">
-        <EntityTypeShape EntityType="APlannerModel.Course" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Department" Width="1.5" PointX="3.75" PointY="14.625" IsExpanded="true" />
+      <Diagram DiagramId="1419372474dd4814aececdf9785ca9d7" Name="Diagram1">
+        <EntityTypeShape EntityType="APlannerModel.Course" Width="1.5" PointX="7.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Department" Width="1.5" PointX="3.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.Enroll" Width="1.5" PointX="12" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Friend" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Friend" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.FriendRequest" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Message" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Message" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.Person" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Professor" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Schedule" Width="1.5" PointX="7.5" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Section" Width="1.5" PointX="9.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.SPlan" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Professor" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Schedule" Width="1.5" PointX="7.5" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Section" Width="1.5" PointX="9.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.SPlan" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.STime" Width="1.5" PointX="12" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Student" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.Term" Width="1.5" PointX="7.5" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.WaitList" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Student" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.Term" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.WaitList" Width="1.5" PointX="15" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.PlanView" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.ProfessorView" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.ScheduleView" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APlannerModel.SectionView" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="APlannerModel.StudentView" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APlannerModel.StudentView" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="APlannerModel.FK__Course__CourseDP__33D4B598" ManuallyRouted="false" />
         <AssociationConnector Association="APlannerModel.FK__Section__CourseI__45F365D3" ManuallyRouted="false" />
         <AssociationConnector Association="APlannerModel.FK__Professor__Depar__267ABA7A" ManuallyRouted="false" />

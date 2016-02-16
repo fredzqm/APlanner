@@ -151,10 +151,12 @@
       <PropertyRef Name="SectID" />
       <PropertyRef Name="Classroom" />
       <PropertyRef Name="Period" />
+      <PropertyRef Name="Weekday" />
     </Key>
     <Property Name="SectID" Type="Int32" Nullable="false" />
     <Property Name="Classroom" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Period" Type="Byte" Nullable="false" />
+    <Property Name="Weekday" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Section" Relationship="Self.FK__STime__SectID__59063A47" FromRole="STime" ToRole="Section" />
   </EntityType>
   <EntityType Name="Student">
@@ -657,6 +659,7 @@
       <Parameter Name="PUserID" Mode="In" Type="String" />
       <Parameter Name="SectID" Mode="In" Type="Int32" />
       <Parameter Name="Period" Mode="In" Type="Byte" />
+      <Parameter Name="Weekday" Mode="In" Type="Byte" />
       <Parameter Name="Classroom" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="AddSection">
@@ -679,7 +682,7 @@
     </FunctionImport>
     <FunctionImport Name="CreatePlan">
       <Parameter Name="SUserID" Mode="In" Type="String" />
-      <Parameter Name="TermID" Mode="In" Type="Byte" />
+      <Parameter Name="TermID" Mode="In" Type="Int32" />
       <Parameter Name="PID" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="CreateSection">
@@ -692,14 +695,14 @@
     </FunctionImport>
     <FunctionImport Name="EnrollStudent">
       <Parameter Name="SUserID" Mode="In" Type="String" />
-      <Parameter Name="SectID" Mode="In" Type="Byte" />
+      <Parameter Name="SectID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="ProvideOwnerPermit">
       <Parameter Name="user" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="RateSection">
       <Parameter Name="SUserID" Mode="In" Type="String" />
-      <Parameter Name="SectID" Mode="In" Type="Byte" />
+      <Parameter Name="SectID" Mode="In" Type="Int32" />
       <Parameter Name="Rating" Mode="In" Type="Byte" />
     </FunctionImport>
     <FunctionImport Name="RegisterProfessor">
@@ -744,7 +747,7 @@
     </FunctionImport>
     <FunctionImport Name="UnEnrollStudent">
       <Parameter Name="SUserID" Mode="In" Type="String" />
-      <Parameter Name="SectID" Mode="In" Type="Byte" />
+      <Parameter Name="SectID" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="UpdateSectNum">
       <Parameter Name="ScheID" Mode="In" Type="Int32" />
@@ -753,6 +756,7 @@
     <FunctionImport Name="UserLogin">
       <Parameter Name="UserName" Mode="In" Type="String" />
       <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="UserID" Mode="InOut" Type="String" />
     </FunctionImport>
     <FunctionImport Name="WillNotOfferCourse">
       <Parameter Name="TermID" Mode="In" Type="Int32" />

@@ -122,6 +122,7 @@
           <ScalarProperty Name="SectID" ColumnName="SectID" />
           <ScalarProperty Name="Classroom" ColumnName="Classroom" />
           <ScalarProperty Name="Period" ColumnName="Period" />
+          <ScalarProperty Name="Weekday" ColumnName="Weekday" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
