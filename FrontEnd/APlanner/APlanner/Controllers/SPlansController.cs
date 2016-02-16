@@ -17,31 +17,48 @@ namespace APlanner.Controllers
         // GET: SPlans
         public ActionResult Index()
         {
-            var sPlans = db.SPlans.Include(s => s.Student).Include(s => s.Term);
-            return View(sPlans.ToList());
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
+            {
+                var sPlans = db.SPlans.Include(s => s.Student).Include(s => s.Term)
+                    .Where(s => s.SUserID == user.UserID);
+                return View(sPlans.ToList());
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: SPlans/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                SPlan sPlan = db.SPlans.Find(id);
+                if (sPlan == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(sPlan);
             }
-            SPlan sPlan = db.SPlans.Find(id);
-            if (sPlan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sPlan);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: SPlans/Create
         public ActionResult Create()
         {
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major");
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID");
-            return View();
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
+            {
+                //ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major");
+                ViewBag.Course = new SelectList(db.Courses, "Courses", "Display");
+                ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID");
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: SPlans/Create
@@ -53,11 +70,11 @@ namespace APlanner.Controllers
         {
             if (ModelState.IsValid)
             {
+                sPlan.SUserID = (Session["User"] as Person).UserID;
                 db.SPlans.Add(sPlan);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
             ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
             return View(sPlan);
@@ -66,18 +83,23 @@ namespace APlanner.Controllers
         // GET: SPlans/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                SPlan sPlan = db.SPlans.Find(id);
+                if (sPlan == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
+                ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
+                return View(sPlan);
             }
-            SPlan sPlan = db.SPlans.Find(id);
-            if (sPlan == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major", sPlan.SUserID);
-            ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID", sPlan.TermID);
-            return View(sPlan);
+            return RedirectToAction("Index", "Home");            
         }
 
         // POST: SPlans/Edit/5
