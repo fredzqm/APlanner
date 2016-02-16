@@ -30,6 +30,13 @@ namespace APlanner.Database
         public string Description { get; set; }
         public Nullable<byte> Credit { get; set; }
     
+        public string Display
+        {
+            get
+            {
+                return CourseDP + CourseNum;
+            }
+        }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }
