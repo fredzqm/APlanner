@@ -40,6 +40,9 @@ AS
 begin
 	if  LEN(@Password) < 6
 		return 2;  -- password shorter than 7!
+	if (@Office = null) begin
+		Set @Office = "";
+	end
 	INSERT INTO [People] ([UserID], [UserName] ,[FName] ,[LName] ,[type] ,[Password])
 		 VALUES (@UserID, @UserName , @FName,  @LName, 'P', HASHBYTES('SHA1', @Password));
     INSERT INTO [Professor] ( [PUserID], [DepartID] ,[Office])
