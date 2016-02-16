@@ -1,4 +1,5 @@
 ﻿@model APlanner.Database.Section
+@using APlanner.Models
 
 @{
     ViewBag.Title = "Details";
@@ -60,6 +61,10 @@
 
     </dl>
 </div>
+
+
+@Html.Partial("ScheduleDisplay", ViewBag.scheduleDisplay as ScheduleDisplay)
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.SectID }) |
     @Html.ActionLink("Back to List", "Index")

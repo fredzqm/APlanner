@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using APlanner.Database;
+using APlanner.Models;
 
 namespace APlanner.Controllers
 {
@@ -33,6 +34,8 @@ namespace APlanner.Controllers
             {
                 return HttpNotFound();
             }
+            ScheduleDisplay display = new ScheduleDisplay(section.STimes);
+            ViewBag.scheduleDisplay = display;
             return View(section);
         }
 

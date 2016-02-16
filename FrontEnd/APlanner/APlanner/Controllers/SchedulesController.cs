@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using APlanner.Database;
+using APlanner.Models;
 
 namespace APlanner.Controllers
 {
@@ -18,6 +19,7 @@ namespace APlanner.Controllers
         public ActionResult Index()
         {
             var schedules = db.Schedules.Include(s => s.SPlan);
+
             return View(schedules.ToList());
         }
 
