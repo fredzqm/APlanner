@@ -54,13 +54,20 @@ IF OBJECT_ID('UserLogin', 'P') IS NOT NULL
 GO
 Create Procedure UserLogin
 	@UserName varchar(9),
-    @Password char(20)
+    @Password char(20),
+    @success bit output
 AS
 begin
-	if ( HASHBYTES('SHA1', @Password)  <> (Select Password from People where UserName = @UserName)) begin
-		return 1; -- fail
+	if not exists ( Select * from People where UserName = @UserName ) begin
+		set @success = 0;
+		return @success;
 	end
-	return 0; -- success
+	if ( HASHBYTES('SHA1', @Password)  <> (Select Password from People where UserName = @UserName)) begin
+		set @success = 0; -- fail
+	end else begin
+		set @success = 1; -- success
+	end
+	return @success;
 end
 GO
 

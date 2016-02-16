@@ -14,6 +14,7 @@ using APlanner.Database;
 using System.Data.SqlClient;
 using System.Text;
 using System.Data.Entity.Core;
+using System.Data;
 
 namespace APlanner.Controllers
 {
@@ -23,12 +24,15 @@ namespace APlanner.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private APlannerEntities db = new APlannerEntities();
+        // connection
         private SqlConnection connection;
         public AccountController()
         {
+            // connection
             string connetionString = null;
             connetionString = "Data Source=titan.csse.rose-hulman.edu;Initial Catalog=APlanner;User ID=zhangq2;Password=C@psl0ck";
             connection = new SqlConnection(connetionString);
+            // connection
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -77,32 +81,21 @@ namespace APlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            SqlCommand command;
-            string sql = "exec UserLogin " + model.UserName+ " , "+ model.Password + " ;";
-            SqlDataReader dataReader;
             string[] errorMessage = new string[10];
-            int register = 1;
-            try
-            {
-                connection.Open();
-                command = new SqlCommand(sql, connection);
-                //register = (int) command.ExecuteScalar();
-                dataReader = command.ExecuteReader();
-                //while (dataReader.Read())
-                //{
-                register = (int) dataReader.GetValue(0) ;
-                //errorMessage[0] = (dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + " - " + dataReader.GetValue(2));
-                //}
-                //dataReader.Close();
-                errorMessage[2] = register.ToString(); ;
-                command.Dispose();
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                errorMessage[0] = "Can not open connection ! ";
-            }
-            if (register == 0)
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "exec UserLogin @UserName , @Password, @success out";
+            command.Parameters.Add("@UserName", SqlDbType.VarChar, 9).Value = model.UserName;
+            command.Parameters.Add("@Password", SqlDbType.Char, 20).Value = model.Password;
+            //command.Parameters.Add("@success", SqlDbType.Bit).Direction = ParameterDirection.ReturnValue;
+            command.Parameters.Add("@success", SqlDbType.Bit).Direction = ParameterDirection.Output;
+            // new SqlCommand(sql, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            var x = command.Parameters["@success"].Value;
+            Boolean register = (Boolean)x;
+            connection.Close();
+            command.Dispose();
+            if (register)
             {
                 Session["LoginUserName"] = model.UserName;
                 ViewData["LoginStatus"] = "Login success";

@@ -2,8 +2,8 @@ Use APlanner
 Go
 
 exec RegisterStudent
-  	1224241,
-	'wewe',
+  	12121241,
+	'aaaa',
 	'Cool',
     'Man',
     'Password',
@@ -12,9 +12,8 @@ exec RegisterStudent
 go
 
 
-DECLARE @return_status int;
-EXEC @return_status = UserLogin
-	'wewe',
-	'Password'
+DECLARE @return_status bit;
+EXEC UserLogin 'aaasa','Password', @return_status output;
+
 SELECT 'Return Status' = @return_status;
 GO
