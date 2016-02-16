@@ -276,6 +276,7 @@ exec EnrollStudent  @SUserID , @SectID;
 Go
 
 Declare @SectID int;
+Declare @SUserID varchar(9);
 Set @SectID = dbo.TermCourseToSectID(201510, dbo.CourseDpNumToCourseID('ECE', 332), 2) ;
 insert into STime(SectID, Period, Weekday, Classroom)
 	values(@SectID,01,1,'C115'),
@@ -283,6 +284,14 @@ insert into STime(SectID, Period, Weekday, Classroom)
 		(@SectID,01,3,'C115'),
 		(@SectID,01,4,'C115'),
 		(@SectID,01,5,'C115');
+
+Set @SUserID = dbo.UserNameToID('dingy2') ;
+exec EnrollStudent @SUserID, @SectID;
+Set @SUserID = dbo.UserNameToID('zhangq2') ;
+exec EnrollStudent '80120575', 1 ;
+Set @SUserID = dbo.UserNameToID('karryc') ;
+exec EnrollStudent '80120576', 1 ;
+
 
 Set @SectID = dbo.TermCourseToSectID(201510, dbo.CourseDpNumToCourseID('CSSE', 230), 1) ;
 insert into STime(SectID, Period, Weekday, Classroom)
@@ -519,9 +528,4 @@ insert into STime(SectID, Period, Weekday, Classroom)
 		(@SectID,06,5,'M105');
 
 
--- exec EnrollStudent '80120574', 1 ;
--- Go
--- exec EnrollStudent '80120575', 1 ;
--- Go
--- exec EnrollStudent '80120576', 1 ;
--- Go
+-
