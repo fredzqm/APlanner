@@ -14,7 +14,7 @@ namespace APlanner.Models
 
         public ScheduleDisplay()
         {
-            cells = new CellDisplay[5,10];
+            cells = new CellDisplay[5, 10];
         }
 
         public ScheduleDisplay(ICollection<STime> sTimes)
@@ -22,7 +22,7 @@ namespace APlanner.Models
             cells = new CellDisplay[5, 10];
             foreach (var t in sTimes)
             {
-                cells[t.Weekday-1, t.Period-1] = new CellDisplay(t);
+                cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
             }
             this.sTimes = sTimes;
         }
@@ -38,8 +38,15 @@ namespace APlanner.Models
         {
             this.t = t;
             Course c = t.Section.Course;
-            text = ""+ c.Department.DepartID + c.CourseNum+"-"+t.Section.SectNum +" at "+ t.Classroom;
+            text = "" + c.Department.DepartID + c.CourseNum + "-" + t.Section.SectNum + " at " + t.Classroom;
         }
 
+    }
+
+    public class CourseAddedToPlan {
+
+        public Course Course { get; set; }
+
+        public int PID { get; set; }
     }
 }

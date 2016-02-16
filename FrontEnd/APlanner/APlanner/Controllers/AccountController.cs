@@ -95,7 +95,6 @@ namespace APlanner.Controllers
             if (UserID.Length > 0)
             {
                 Session["User"] = db.People.Find(UserID);
-
                 ViewData["LoginStatus"] = "Login success: Hi, " + model.UserName;
             }
             else

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using APlanner.Database;
+using APlanner.Models;
 
 namespace APlanner.Controllers
 {
@@ -42,11 +43,35 @@ namespace APlanner.Controllers
                 {
                     return HttpNotFound();
                 }
+                var courses = sPlan.Courses;
+                ViewBag.Courses = courses;
+                ViewBag.Course = new SelectList(db.Courses, "Courses", "Display");
+                ViewBag.id = id;
                 return View(sPlan);
             }
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details([Bind(Include = "Course,PID")] CourseAddedToPlan c)
+        {
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
+            {
+                SPlan sPlan = db.SPlans.Find(c.PID);
+                if (sPlan == null)
+                {
+                    return HttpNotFound();  
+                }
+                sPlan.Courses.Add(c.Course);
+                var courses = sPlan.Courses;
+                ViewBag.Courses = courses;
+                ViewBag.Course = new SelectList(db.Courses, "CourseID", "Display");
+                return View(sPlan);
+            }
+            return RedirectToAction("Index", "Home");
+        }
         // GET: SPlans/Create
         public ActionResult Create()
         {
@@ -54,7 +79,6 @@ namespace APlanner.Controllers
             if (user != null && user.type == "S")
             {
                 //ViewBag.SUserID = new SelectList(db.Students, "SUserID", "Major");
-                ViewBag.Course = new SelectList(db.Courses, "Courses", "Display");
                 ViewBag.TermID = new SelectList(db.Terms, "TermID", "TermID");
                 return View();
             }
