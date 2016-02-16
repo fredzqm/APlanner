@@ -17,3 +17,11 @@ EXEC UserLogin 'aaasa','Password', @return_status output;
 
 SELECT 'Return Status' = @return_status;
 GO
+
+
+Declare @SUserID varchar(9);
+Set @SUserID = dbo.UserNameToID('dingy2');
+exec EnrollStudent  @SUserID, 1;
+Set @SUserID = dbo.UserNameToID('karryc');
+exec EnrollStudent  @SUserID , 1 ;
+Go

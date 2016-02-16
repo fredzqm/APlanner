@@ -67,23 +67,6 @@ AS
 	end
 go
 
-IF OBJECT_ID('addSectionMeetTime', 'P') IS NOT NULL
-    DROP Proc addSectionMeetTime;
-GO
-Create Procedure addSectionMeetTime
-	@SectID int,
-	@Classroom varchar(7),
-	@Period tinyint,
-
-AS
-	begin
-		insert into [STime]
-           ([SectID], [Classroom], [Period])
-		VALUES
-           ([@SectID], [@Classroom], [@Period])
-	end
-go
-
 
 IF OBJECT_ID('RemoveSection', 'P') IS NOT NULL
     DROP Proc RemoveSection;
@@ -109,6 +92,10 @@ Create Procedure AddMeetTime
 	@Classroom varchar(7) = 'TBA'
 AS
 	begin
+		if (@PUserID <> (select PUserID from Section where SectID = @SectID)) begin
+			print 'You cannot make this modifications';
+			return;
+		end
 		insert into STime(SectID, Period, Weekday, Classroom)
 			values(@SectID, @Period, @Weekday, @Classroom)
 	end

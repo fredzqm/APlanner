@@ -5,8 +5,8 @@ IF OBJECT_ID('EnrollStudent', 'P') IS NOT NULL
     DROP Proc EnrollStudent;
 GO
 Create Procedure EnrollStudent
-	@SUserID varchar(10),
-	@SectID tinyint
+	@SUserID varchar(9),
+	@SectID int
 AS
 	begin
 		Delete From WaitList where SectID=@SectID and SUserID=@SUserID;
@@ -19,8 +19,8 @@ IF OBJECT_ID('UnEnrollStudent', 'P') IS NOT NULL
     DROP Proc UnEnrollStudent;
 GO
 Create Procedure UnEnrollStudent
-	@SUserID varchar(10),
-	@SectID tinyint
+	@SUserID varchar(9),
+	@SectID int
 AS
 	begin
 		Delete From WaitList where SectID=@SectID and SUserID=@SUserID
@@ -50,8 +50,8 @@ IF OBJECT_ID('RateSection', 'P') IS NOT NULL
     DROP Proc RateSection;
 GO
 Create Procedure RateSection
-	@SUserID varchar(10),
-	@SectID tinyint,
+	@SUserID varchar(9),
+	@SectID int,
 	@Rating tinyint
 AS
 	begin
@@ -66,8 +66,8 @@ IF OBJECT_ID('CreatePlan', 'P') IS NOT NULL
     DROP Proc CreatePlan;
 GO
 Create Procedure CreatePlan
-	@SUserID varchar(10),
-	@TermID tinyint,
+	@SUserID varchar(9),
+	@TermID int,
 	@PID int output
 AS
 	insert into SPlan([SUserID],[TermID])
