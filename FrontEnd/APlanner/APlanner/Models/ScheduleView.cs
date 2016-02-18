@@ -34,10 +34,19 @@ namespace APlanner.Models
             //this.schedule = schedule;
             foreach (Section s in schedule.Sections)
             {
-                foreach (STime t in s.STimes)
-                {
-                    cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
-                }
+                addTimes(s.STimes);
+                //foreach (STime t in s.STimes)
+                //{
+                //    cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
+                //}
+            }
+        }
+
+        public void addTimes(ICollection<STime> time)
+        {
+            foreach (STime t in time)
+            {
+                cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
             }
         }
     }
@@ -72,4 +81,10 @@ namespace APlanner.Models
         public int ScheID { get; set; }
     }
 
+    public class SearchView
+    {
+        public int TermID { get; set; }
+
+        public string search { get; set; }
+    }
 }

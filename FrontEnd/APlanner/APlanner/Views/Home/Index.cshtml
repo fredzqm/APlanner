@@ -1,31 +1,102 @@
-﻿@{
+﻿@using APlanner.Database
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>APlanner</h1>
+    <p class="lead">Our new Schedule look-up page</p>
 </div>
 
+
+
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+
+    <div class="form-horizontal">
+
+
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active bar">
+                    <a href="#UserID" class="active" role="tab" data-toggle="tab">Student UserID</a>
+                </li>
+                <li class="bar">
+                    <a href="#CourseName" role="tab" data-toggle="tab">Course ID</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="active tab-pane fade in showTitle active" id="UserID">
+                    @using (Html.BeginForm("ResultStudent", "Home", FormMethod.Post, new { @class = "" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="TermID">Term</label>
+                            <div class="col-md-10">
+                                @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control" })
+                                @*@Html.ValidationMessageFor(model => model.TermID, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="TermID">Student ID</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="search" name="search" type="text" value="">
+                                @*<span class="field-validation-valid text-danger" data-valmsg-for="search" data-valmsg-replace="true"></span>*@
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Search" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="active tab-pane fade showTitle" id="CourseName">
+                    @using (Html.BeginForm( "ResultCourse", "Home", FormMethod.Post, new { @class = "" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="TermID">Term</label>
+                            <div class="col-md-10">
+                                @Html.DropDownList("TermID", null, htmlAttributes: new { @class = "form-control" })
+                                @*@Html.ValidationMessageFor(model => model.TermID, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="TermID">Course ID</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" id="search" name="search" type="text" value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="search" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Search" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+
+    <div id=" = " result">
+        Reuslt div!
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+    <script>
+
+
+        $("#result").load("ajax/test.html");
+
+    </script>

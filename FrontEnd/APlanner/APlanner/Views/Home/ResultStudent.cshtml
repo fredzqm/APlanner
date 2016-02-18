@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ResultStudent";
+}
+
+<h2>ResultStudent</h2>
+
+@model APlanner.Database.Schedule
+@using APlanner.Models
+@{
+    ViewBag.Title = "Details";
+}
+
+@Html.Partial("ScheduleDisplay", ViewBag.scheduleDisplay as ScheduleDisplay)
