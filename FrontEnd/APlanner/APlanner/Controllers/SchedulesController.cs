@@ -26,16 +26,54 @@ namespace APlanner.Controllers
         // GET: Schedules/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Schedule schedule = db.Schedules.Find(id);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                var sections = schedule.Sections;
+                ViewBag.Sections = sections;
+                ViewBag.Section = new SelectList(db.Sections, "SectID", "Display");
+                ViewBag.id = id;
+                //return View(sPlan);
+                ScheduleDisplay display = new ScheduleDisplay(schedule);
+                ViewBag.scheduleDisplay = display;
+                return View(schedule);
             }
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Details([Bind(Include = "Section,ScheID")] SectionAddedToSchedule s)
+        {
+            var user = (Session["User"] as Person);
+            if (user != null && user.type == "S")
             {
-                return HttpNotFound();
+                Schedule schedule = db.Schedules.Find(s.ScheID);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                //Course addedCourse = db.Courses.Where(s => (s.Department.DepartID + s.CourseNum == c.Course)).First() ;
+                Section addedSection = db.Sections.Find(s.Section);
+                schedule.Sections.Add(addedSection);
+                db.SaveChanges();
+                var sections = schedule.Sections;
+                ViewBag.Sections = sections;
+                ViewBag.Section = new SelectList(db.Sections, "SectID", "Display");
+                ViewBag.id = s.ScheID;
+                ScheduleDisplay display = new ScheduleDisplay(schedule);
+                ViewBag.scheduleDisplay = display;
+                return View(schedule);
             }
-            return View(schedule);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Schedules/Create

@@ -45,7 +45,7 @@ namespace APlanner.Controllers
                 }
                 var courses = sPlan.Courses;
                 ViewBag.Courses = courses;
-                ViewBag.Course = new SelectList(db.Courses, "Courses", "Display");
+                ViewBag.Course = new SelectList(db.Courses, "CourseID", "Display");
                 ViewBag.id = id;
                 return View(sPlan);
             }
@@ -53,7 +53,6 @@ namespace APlanner.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Details([Bind(Include = "Course,PID")] CourseAddedToPlan c)
         {
             var user = (Session["User"] as Person);
@@ -64,10 +63,14 @@ namespace APlanner.Controllers
                 {
                     return HttpNotFound();  
                 }
-                sPlan.Courses.Add(c.Course);
+                //Course addedCourse = db.Courses.Where(s => (s.Department.DepartID + s.CourseNum == c.Course)).First() ;
+                Course addedCourse = db.Courses.Find(c.Course);
+                sPlan.Courses.Add(addedCourse);
+                db.SaveChanges();
                 var courses = sPlan.Courses;
                 ViewBag.Courses = courses;
                 ViewBag.Course = new SelectList(db.Courses, "CourseID", "Display");
+                ViewBag.id = c.PID;
                 return View(sPlan);
             }
             return RedirectToAction("Index", "Home");

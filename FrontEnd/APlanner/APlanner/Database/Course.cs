@@ -29,14 +29,6 @@ namespace APlanner.Database
         public Nullable<short> CourseNum { get; set; }
         public string Description { get; set; }
         public Nullable<byte> Credit { get; set; }
-    
-        public string Display
-        {
-            get
-            {
-                return CourseDP + CourseNum;
-            }
-        }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Section> Sections { get; set; }
@@ -46,5 +38,13 @@ namespace APlanner.Database
         public virtual ICollection<Course> Course1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
+
+        public string Display
+        {
+            get
+            {
+                return CourseDP + CourseNum;
+            }
+        }
     }
 }

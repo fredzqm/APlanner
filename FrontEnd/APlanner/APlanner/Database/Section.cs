@@ -30,7 +30,6 @@ namespace APlanner.Database
         public string PUserID { get; set; }
         public Nullable<byte> EnrollNum { get; set; }
         public Nullable<int> Capacity { get; set; }
-    
         public virtual Course Course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enroll> Enrolls { get; set; }
@@ -42,5 +41,14 @@ namespace APlanner.Database
         public virtual ICollection<WaitList> WaitLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+
+        public string Display
+        {
+            get
+            {
+                return Course.CourseDP + Course.CourseNum + "--" + SectNum;
+                //return section CourseDP + CourseNum;
+            }
+        }
     }
 }

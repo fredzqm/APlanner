@@ -9,6 +9,7 @@ namespace APlanner.Models
     public class ScheduleDisplay
     {
         private ICollection<STime> sTimes;
+        private Schedule schedule;
 
         public CellDisplay[,] cells { set; get; }
 
@@ -25,6 +26,19 @@ namespace APlanner.Models
                 cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
             }
             this.sTimes = sTimes;
+        }
+
+        public ScheduleDisplay(Schedule schedule)
+        {
+            cells = new CellDisplay[5, 10];
+            //this.schedule = schedule;
+            foreach (Section s in schedule.Sections)
+            {
+                foreach (STime t in s.STimes)
+                {
+                    cells[t.Weekday - 1, t.Period - 1] = new CellDisplay(t);
+                }
+            }
         }
     }
 
@@ -45,8 +59,17 @@ namespace APlanner.Models
 
     public class CourseAddedToPlan {
 
-        public Course Course { get; set; }
+        public short Course { get; set; }
 
         public int PID { get; set; }
     }
+
+    public class SectionAddedToSchedule
+    {
+
+        public int Section { get; set; }
+
+        public int ScheID { get; set; }
+    }
+
 }

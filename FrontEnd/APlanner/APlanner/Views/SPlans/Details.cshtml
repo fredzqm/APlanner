@@ -42,8 +42,7 @@
             @Html.DisplayFor(model => model.Term.TermID)
         </dd>
     </dl>
-    <form action="/SPlans/Details" method="post">
-        <input name="__RequestVerificationToken" type="hidden" value="zjoSmIJQVPURtfqsfHwHT67qYj3WYQFFG0aM72Kq2qV0-KEPwzOhN8GMH-yoDR392gWYS93s-6d5hPZUmMEsg9qJcB3IjWvYpwC6__u3XME1">
+    <form action="/SPlans/Details/@ViewBag.id" method="post">
         <div class="form-horizontal">
             <input type="hidden" name="PID" value="@ViewBag.id" />
             <div class="form-group">
@@ -51,7 +50,7 @@
                 <div class="col-md-10">
                     @Html.DropDownList("Course", null, htmlAttributes: new { @class = "form-control" })
                     @*@Html.DropDownList("CategoryId", , new { multiple = "multiple" })*@
-                    @Html.ValidationMessageFor(model => model.TermID, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(model => model.Courses, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
@@ -61,7 +60,6 @@
                 </div>
             </div>
         </div>
-
     </form>
 
 
