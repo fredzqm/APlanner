@@ -24,6 +24,7 @@ namespace APlanner.Controllers
         }
 
         // GET: Schedules/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             var user = (Session["User"] as Person);
